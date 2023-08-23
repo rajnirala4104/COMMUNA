@@ -1,32 +1,33 @@
 import React, { Fragment, useCallback, useState } from "react";
+import { useSocket } from "../context/socketProvider";
 
 export const Home = () => {
    const [email, setEmail] = useState("");
    const [room, setRoom] = useState("");
 
+   const socket = useSocket();
+
    const handleSubmitForm = useCallback(
       (e) => {
          e.preventDefault();
-         console.log({
-            email,
-            room,
-         });
+         socket.emit("room:join", { email, room });
       },
-      [email, room]
+      [email, room, socket]
    );
 
    return (
       <Fragment>
-         <div className="container flex justify-center flex-col items-center border border-red-500 h-[100vh] w-full">
+         <div className="container flex mx-auto justify-center flex-col items-center border border-red-500 h-[100vh] w-full">
             <div className="appTitle">
                <h1 className="text-4xl">COMMUNA</h1>
             </div>
             <div className="form my-5">
                <form onSubmit={handleSubmitForm}>
                   <div>
-                     <label>Email:</label>
+                     <label htmlFor="userEmail">Email:</label>
                      <input
                         type="email"
+                        id="userEmail"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="border focus:outline-none text-gray-700 py-2 px-3"
@@ -34,9 +35,10 @@ export const Home = () => {
                      />
                   </div>
                   <div className="my-3">
-                     <label>Room:</label>
+                     <label htmlFor="userRoom">Room:</label>
                      <input
                         type="text"
+                        id="userRoom"
                         value={room}
                         onChange={(e) => setRoom(e.target.value)}
                         className="border focus:outline-none text-gray-700 py-2 px-3"
