@@ -4,10 +4,10 @@ import { getChats } from "../api/servces";
 export const Chats = () => {
    const [apiData, setApiData] = useState([]);
 
-   // console.log(apiData);
+   console.log(apiData);
    const fetchApiData = async () => {
       const data = await getChats();
-      console.log(data);
+      setApiData(data.data);
    };
 
    useEffect(() => {

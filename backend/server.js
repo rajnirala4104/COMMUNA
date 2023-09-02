@@ -5,6 +5,13 @@ const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 8080;
 
+app.use((req, res, next) => {
+   res.setHeader("Access-Control-Allow-Origin", "*");
+   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+   next();
+});
+
 app.get("/", (req, res) => {
    res.send(
       "if you want to see something, click here :  <a href='/api/chat'> /api/chat </a>"
