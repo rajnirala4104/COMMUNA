@@ -20,4 +20,4 @@ app.get("/api/chat/:id", (req, res) => {
    res.send(singleChatData);
 });
 
-app.listen(PORT, console.log("server has started at 8080"));
+app.listen(PORT, console.log(`server has started at ${PORT}`));

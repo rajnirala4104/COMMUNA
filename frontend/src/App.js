@@ -1,8 +1,14 @@
+import { Fragment, Suspense } from "react";
+import { RouterProvider } from "react-router-dom";
+import { _ROUTER } from "./router";
+
 function App() {
    return (
-      <div className="App">
-         <h1 className="text-4xl mx-auto">Hello world</h1>
-      </div>
+      <Fragment>
+         <Suspense fallback="loading...">
+            <RouterProvider router={_ROUTER} />
+         </Suspense>
+      </Fragment>
    );
 }
 
