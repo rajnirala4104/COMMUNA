@@ -3,12 +3,12 @@ const chats = [
       isGroupChat: false,
       users: [
          {
-            name: "John Doe",
-            email: "john@example.com",
-         },
-         {
             name: "Piyush",
             email: "piyush@example.com",
+         },
+         {
+            name: "Raj Nirala",
+            email: "rajniralakamail@example.com",
          },
       ],
       _id: "617a077e18c25468bc7c4dd4",
@@ -18,12 +18,12 @@ const chats = [
       isGroupChat: false,
       users: [
          {
-            name: "Guest User",
-            email: "guest@example.com",
+            name: "Pulkit",
+            email: "pulkit@example.com",
          },
          {
-            name: "Piyush",
-            email: "piyush@example.com",
+            name: "Raj Nirala",
+            email: "rajniralakamail@example.com",
          },
       ],
       _id: "617a077e18c25468b27c4dd4",
@@ -33,12 +33,12 @@ const chats = [
       isGroupChat: false,
       users: [
          {
-            name: "Anthony",
+            name: "Diksha",
             email: "anthony@example.com",
          },
          {
-            name: "Piyush",
-            email: "piyush@example.com",
+            name: "Raj Nirala",
+            email: "rajniralakamail@example.com",
          },
       ],
       _id: "617a077e18c2d468bc7c4dd4",
@@ -48,12 +48,12 @@ const chats = [
       isGroupChat: true,
       users: [
          {
-            name: "John Doe",
-            email: "jon@example.com",
+            name: "Neha",
+            email: "neha@example.com",
          },
          {
-            name: "Piyush",
-            email: "piyush@example.com",
+            name: "Raj Nirala",
+            email: "rajniralakamail@example.com",
          },
          {
             name: "Guest User",
@@ -75,8 +75,8 @@ const chats = [
             email: "jane@example.com",
          },
          {
-            name: "Piyush",
-            email: "piyush@example.com",
+            name: "Raj Nirala",
+            email: "rajniralakamail@example.com",
          },
       ],
       _id: "617a077e18c25468bc7cfdd4",
@@ -90,8 +90,8 @@ const chats = [
             email: "jon@example.com",
          },
          {
-            name: "Piyush",
-            email: "piyush@example.com",
+            name: "Raj Nirala",
+            email: "rajniralakamail@example.com",
          },
          {
             name: "Guest User",
