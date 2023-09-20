@@ -57,6 +57,18 @@ export const LoginNdSignup = () => {
                               Password
                            </label>
                         </div>
+                        <div
+                           className="-mt-4 mb-5 cursor-pointer"
+                           onClick={() =>
+                              alert(
+                                 "Sorry!!.. we haven't created this functionality"
+                              )
+                           }
+                        >
+                           <span className="text-sm text-blue-600">
+                              Forgote Password
+                           </span>
+                        </div>
                         <div className="submit w-full flex justify-center items-center">
                            <button
                               class="middle none center rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
