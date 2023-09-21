@@ -1,8 +1,12 @@
 const express = require("express");
 const { chats } = require("./data/data");
 const dotenv = require("dotenv");
-const app = express();
+const connectDatabase = require("./configs/database");
+
 dotenv.config();
+connectDatabase();
+
+const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.use((req, res, next) => {
@@ -27,4 +31,4 @@ app.get("/api/chat/:id", (req, res) => {
    res.send(singleChatData);
 });
 
-app.listen(PORT, console.log(`server has started at ${PORT}`));
+app.listen(PORT, console.log(`server has started at ${PORT}`.yellow.bold));
