@@ -7,11 +7,9 @@ const connectDatabase = async () => {
          useNewUrlParser: true,
          useUnifiedTopology: true,
       });
-      console.log(
-         `mongo has connected - ${connection.connection.host}`.blue.underline
-      );
+      console.log(`mongo has connected - ${connection.connection.host}`.blue);
    } catch (e) {
-      console.log(`Oops!! something went wron - ${e.message}`.red.underline);
+      console.log(`Oops!! something went wron - ${e.message}`.red.bold);
       process.exit();
    }
 };
