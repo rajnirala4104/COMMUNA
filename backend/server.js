@@ -1,8 +1,8 @@
 const express = require("express");
-const { chats } = require("./data/data");
 const dotenv = require("dotenv");
 const connectDatabase = require("./configs/database");
 const userRouters = require("./Routes/userRoutes");
+const { notFoundErr, erroHandler } = require("./middleware/errors");
 
 dotenv.config();
 connectDatabase();
@@ -20,5 +20,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/user", userRouters);
+app.use(notFoundErr);
+app.use(erroHandler);
 
 app.listen(PORT, console.log(`server has started at ${PORT}`.yellow.bold));

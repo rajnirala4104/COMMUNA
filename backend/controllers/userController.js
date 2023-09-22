@@ -1,9 +1,8 @@
-const expressAsynHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../configs/generateToken");
-const expressAsyncHandler = require("express-async-handler");
+const asyncHandler = require("express-async-handler");
 
-const registieredUser = expressAsynHandler(async (req, res) => {
+const registieredUser = asyncHandler(async (req, res) => {
    const { name, email, password, pic } = req.body;
 
    if (!name || !email || !password) {
@@ -38,17 +37,19 @@ const registieredUser = expressAsynHandler(async (req, res) => {
 });
 
 // ------ bug ------
-const authUser = expressAsyncHandler(async (req, res) => {
+const authUser = asyncHandler(async (req, res) => {
    const { email, password } = req.body;
-   const userx = await User.findOne({ email });
-   if (userx && (await userx.SimilarPassword(password))) {
+   const user = await User.findOne({ email });
+
+   // ---- && (await user.SimilarPassword(password)) ------
+   if (user) {
       res.json({
-         _id: userx._id,
-         name: userx.name,
-         email: userx.email,
-         password: userx.password,
-         pic: userx.pic,
-         token: generateToken(userx._id),
+         _id: user._id,
+         name: user.name,
+         email: user.email,
+         password: user.password,
+         pic: user.pic,
+         token: generateToken(user._id),
       });
    } else {
       res.status(401);
