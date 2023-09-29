@@ -4,4 +4,5 @@ export const TIMEOUT = 3000;
 export const ENDPOINTS = {
    chats: "/api/chat",
    user: "/api/user",
+   login: "api/user/login",
 };

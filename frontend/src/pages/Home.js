@@ -3,7 +3,7 @@ import { LoginNdSignup } from "../Components";
 
 export const Home = () => {
    const localData = JSON.parse(localStorage.getItem("userInfo"));
-   console.log(localData);
+   // console.log(localData);
 
    return (
       <Fragment>

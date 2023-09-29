@@ -19,7 +19,7 @@ UserModel.methods.SimilarPassword = async (enteredPassword) => {
    return await bcrypt.compare(enteredPassword, this.password);
 };
 
-UserModel.pre("save", async function (next) {
+UserModel.pre("save", async (next) => {
    if (!this.isModified) {
       next();
    }
