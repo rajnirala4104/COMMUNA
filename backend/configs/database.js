@@ -9,7 +9,7 @@ const connectDatabase = async () => {
       });
       console.log(`mongo has connected - ${connection.connection.host}`.blue);
    } catch (e) {
-      console.log(`Oops!! something went wron - ${e.message}`.red.bold);
+      console.log(`Oops!! something went wrong,  - ${e.message}`.red.bold);
       process.exit();
    }
 };

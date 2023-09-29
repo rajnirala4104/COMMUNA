@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { Fragment, Suspense, useState } from "react";
 import { addeTheData } from "../api/servces";
 
