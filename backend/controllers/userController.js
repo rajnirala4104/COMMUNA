@@ -36,11 +36,11 @@ const registieredUser = asyncHandler(async (req, res) => {
    }
 });
 
-// ------ bug ------
 const authUser = asyncHandler(async (req, res) => {
    const { email, password } = req.body;
    const user = await User.findOne({ email });
 
+   // ------ bug ------
    // ---- && (await user.SimilarPassword(password)) ------
    if (user) {
       res.json({
@@ -57,4 +57,19 @@ const authUser = asyncHandler(async (req, res) => {
    }
 });
 
-module.exports = { registieredUser, authUser };
+// ------- /api/user?search=pulkit
+const allUsers = asyncHandler(async (req, res) => {
+   const keyword = req.query.search
+      ? {
+           $or: [
+              { name: { $regex: req.query.search, $options: "i" } },
+              { email: { $regex: req.query.search, $options: "i" } },
+           ],
+        }
+      : {};
+
+   const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+   res.send(users);
+});
+
+module.exports = { registieredUser, authUser, allUsers };
