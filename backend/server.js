@@ -20,6 +20,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/user", userRouters);
+// app.use("/api/chat", chatRoutes);
 app.use(notFoundErr);
 app.use(erroHandler);
 
