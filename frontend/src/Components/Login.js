@@ -66,7 +66,7 @@ export const Login = () => {
                <div
                   className="-mt-4 mb-5 cursor-pointer"
                   onClick={() =>
-                     alert("Sorry!!.. we haven't created this functionality")
+                     alert("Sorry!!.. we haven't made this functionality")
                   }
                >
                   <span className="text-sm text-blue-600">
