@@ -1,14 +1,22 @@
-import React, { Fragment, Suspense } from "react";
+import React, { Fragment, Suspense, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { LoginNdSignup } from "../Components";
 
 export const Home = () => {
-   const localData = JSON.parse(localStorage.getItem("userInfo"));
-   // console.log(localData);
+   const navigator = useNavigate();
+
+   useEffect(() => {
+      const user = JSON.parse(localStorage.getItem("userInfo"));
+      if (user) {
+         console.log(user);
+         navigator("/chats");
+      }
+   }, []);
 
    return (
       <Fragment>
          <Suspense fallback={"loading"}>
-            {localData ? <h1>Hello {localData.name}</h1> : <LoginNdSignup />}
+            <LoginNdSignup />
          </Suspense>
       </Fragment>
    );

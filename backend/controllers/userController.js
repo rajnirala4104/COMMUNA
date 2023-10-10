@@ -13,7 +13,7 @@ const registieredUser = asyncHandler(async (req, res) => {
    const userExists = await User.findOne({ email });
    if (userExists) {
       res.status(400);
-      throw new Error("Please Enter all the Feilds");
+      throw new Error("User is alredy exists");
    }
 
    const user = await User.create({
