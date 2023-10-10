@@ -6,11 +6,11 @@ export const ChatProvider = ({ children }) => {
    const [users, setUsers] = useState();
    useEffect(() => {
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-      setUsers(userInfo);
       if (!userInfo) {
          // navigator();
          console.log("userInfo is empty");
       }
+      setUsers(userInfo);
    }, []);
 
    return (

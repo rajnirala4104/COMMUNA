@@ -11,7 +11,7 @@ export const Home = () => {
          console.log(user);
          navigator("/chats");
       }
-   }, []);
+   }, [navigator]);
 
    return (
       <Fragment>
