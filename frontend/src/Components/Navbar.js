@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export const Navbar = () => {
    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+   console.log(userInfo);
    return (
       <Fragment>
          <nav className="sticky inset-0 z-10 flex justify-between items-center h-max w-full max-w-full rounded-none bg-orange-500 bg-opacity-80 py-2 px-4 text-white shadow-md backdrop-blur-2xl backdrop-saturate-200 lg:px-8 lg:py-4 ">
@@ -23,7 +24,7 @@ export const Navbar = () => {
                <div className="userPic">
                   <img
                      className="w-[3rem] rounded-full cursor-pointer"
-                     src="https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+                     src={userInfo.pic}
                      alt="communa"
                   />
                </div>

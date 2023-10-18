@@ -7,7 +7,7 @@ export const LoginNdSignup = () => {
 
    return (
       <Fragment>
-         <section className="w-full h-[99vh] flex justify-center bg-orange-300">
+         <section className="w-full h-[100vh] overflow-hidden flex justify-center bg-orange-300">
             <div className="container w-full flex justify-center items-start mt-20">
                <div className="card w-96 flex justify-between items-center flex-col rounded-md bg-white">
                   <div className="btns flex justify-between items-center w-[99.9%]">

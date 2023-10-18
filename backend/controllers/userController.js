@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const generateToken = require("../configs/generateToken");
 const asyncHandler = require("express-async-handler");
+const { use } = require("../Routes/userRoutes");
 
 const registieredUser = asyncHandler(async (req, res) => {
    const { name, email, password, pic } = req.body;
@@ -27,6 +28,7 @@ const registieredUser = asyncHandler(async (req, res) => {
          _id: user._id,
          name: user.name,
          email: user.email,
+         // password: use.password,
          pic: user.pic,
          token: generateToken(user._id),
       });
