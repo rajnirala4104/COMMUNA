@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Navbar } from "../Components";
+import { ChatingSection, Navbar, UsersChatWith } from "../Components";
 
 export const Chats = () => {
    const navigator = useNavigate();
@@ -16,7 +16,17 @@ export const Chats = () => {
    return (
       <Fragment>
          <Suspense fallback="loading...">
-            <div className="">{user ? <Navbar /> : ""}</div>
+            {user ? (
+               <Fragment>
+                  <Navbar />
+                  <div className="flex justify-between w-full h-[88vh]">
+                     <UsersChatWith />
+                     <ChatingSection />
+                  </div>
+               </Fragment>
+            ) : (
+               ""
+            )}
          </Suspense>
       </Fragment>
    );

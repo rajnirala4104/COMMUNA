@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const Navbar = () => {
    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-   console.log(userInfo);
+   // console.log(userInfo);
    return (
       <Fragment>
          <nav className="sticky inset-0 z-10 flex justify-between items-center h-max w-full max-w-full rounded-none bg-orange-500 bg-opacity-80 py-2 px-4 text-white shadow-md backdrop-blur-2xl backdrop-saturate-200 lg:px-8 lg:py-4 ">
@@ -17,6 +17,7 @@ export const Navbar = () => {
                   className="outline-none bg-orange-200 placeholder-gray-600 text-slate-800 shadow-md px-3 py-1 rounded-md w-[55vh]"
                   type="text"
                   placeholder="Search..."
+                  onClick={() => alert("wow..")}
                />
             </div>
             <div className="logedUserInfo flex justify-between items-center">

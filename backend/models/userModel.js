@@ -4,7 +4,11 @@ const mongoose = require("mongoose");
 const UserModel = mongoose.Schema(
    {
       name: { type: String, required: true },
-      email: { type: String, required: true, unique: true },
+      email: {
+         type: String,
+         required: [true, "Please Fill all the Fields."],
+         unique: true,
+      },
       password: { type: String, required: true },
       pic: {
          type: String,
@@ -15,7 +19,7 @@ const UserModel = mongoose.Schema(
    { timestamps: true }
 );
 
-UserModel.methods.SimilarPassword = async (enteredPassword) => {
+UserModel.methods.matchPassword = async function async(enteredPassword) {
    return await bcrypt.compare(enteredPassword, this.password);
 };
 
