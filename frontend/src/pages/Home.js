@@ -16,7 +16,9 @@ export const Home = () => {
    return (
       <Fragment>
          <Suspense fallback={"loading"}>
-            <LoginNdSignup />
+            <div className="h-[100vh]">
+               <LoginNdSignup />
+            </div>
          </Suspense>
       </Fragment>
    );
