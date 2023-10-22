@@ -19,7 +19,7 @@ export const Chats = () => {
             {user ? (
                <Fragment>
                   <Navbar />
-                  <div className="flex justify-between w-full h-[88vh]">
+                  <div className="flex justify-between w-full h-[87vh]">
                      <UsersChatWith />
                      <ChatingSection />
                   </div>
