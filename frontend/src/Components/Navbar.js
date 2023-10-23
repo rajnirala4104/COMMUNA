@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../App";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
+import { SearchPopupContext } from "../context/SearchPopupContext";
 import { ThemeColorsO } from "./ThemeColorsO";
 
 export const Navbar = () => {
@@ -9,7 +10,7 @@ export const Navbar = () => {
    // console.log(userInfo);
 
    const { themeColor } = useContext(ThemeContext);
-
+   const { isPopupOn, setIsPopupOn } = useContext(SearchPopupContext);
    return (
       <Fragment>
          <nav
@@ -41,7 +42,7 @@ export const Navbar = () => {
                   } placeholder-gray-600 text-slate-800 shadow-md px-3 py-1 rounded-md w-[55vh]`}
                   type="text"
                   placeholder="Search..."
-                  onClick={() => alert("wow..")}
+                  onClick={() => setIsPopupOn(!isPopupOn)}
                />
                <ThemeColorsO />
             </div>
