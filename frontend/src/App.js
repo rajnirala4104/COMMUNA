@@ -4,7 +4,8 @@ import { ThemeContext } from "./context";
 import { _ROUTER } from "./router";
 
 function App() {
-   const [themeColor, setThemeColor] = useState("purple");
+   const [themeColor, setThemeColor] = useState("orange");
+
    return (
       <Fragment>
          <Suspense fallback="loading...">
