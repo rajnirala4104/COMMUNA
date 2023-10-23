@@ -2,7 +2,7 @@ import React, { Fragment, useContext } from "react";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ThemeContext } from "../context";
 
-export const UserBox = () => {
+export const UserBox = (props) => {
    const { themeColor } = useContext(ThemeContext);
    return (
       <Fragment>
@@ -24,14 +24,10 @@ export const UserBox = () => {
                } rounded-md`}
          >
             <div className="pic">
-               <img
-                  className="w-10 rounded-full"
-                  src="https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-                  alt=""
-               />
+               <img className="w-10 rounded-full" src={props.pic} alt="" />
             </div>
             <div className="flex flex-col ml-1">
-               <span>User Name</span>
+               <span>{props.name}</span>
                <span className="text-[13px]">
                   <i>last message</i>
                </span>

@@ -3,16 +3,16 @@ const { createContext, useState, useContext, useEffect } = require("react");
 const chatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
-   const [users, setUsers] = useState();
+   const [allUsers, setAllUsers] = useState();
    useEffect(() => {
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
       if (!userInfo) {
       }
-      setUsers(userInfo);
+      setAllUsers(userInfo);
    }, []);
 
    return (
-      <chatContext.Provider value={{ users, setUsers }}>
+      <chatContext.Provider value={{ allUsers, setAllUsers }}>
          {children}
       </chatContext.Provider>
    );

@@ -93,7 +93,7 @@ export const ChatingSection = () => {
                ${themeColor === "orange" ? allThemeColors.orange.bg300 : ""}
                ${
                   themeColor === "black" ? allThemeColors.black.bg300 : ""
-               }px-5 mx-1 py-2 rounded-md 
+               } px-5 mx-1 py-2 rounded-md 
                 ${themeColor === "green" ? "hover:bg-green-400" : ""}
                ${themeColor === "blue" ? "hover:bg-blue-400" : ""}
                ${themeColor === "purple" ? "hover:bg-purple-400" : ""}

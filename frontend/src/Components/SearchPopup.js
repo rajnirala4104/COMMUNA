@@ -1,12 +1,36 @@
-import React, { Fragment, Suspense, useContext } from "react";
+import axios from "axios";
+import React, { Fragment, Suspense, useContext, useState } from "react";
 import { UserBox } from "../Components";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ThemeContext } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
 
 export const SearchPopup = () => {
+   const [searchText, setSearchText] = useState();
+   const [searchResult, setSearchResult] = useState();
    const { themeColor } = useContext(ThemeContext);
    const { setIsPopupOn } = useContext(SearchPopupContext);
+
+   const user = JSON.parse(localStorage.getItem("userInfo"));
+   const searchHandler = async () => {
+      if (!searchText) {
+         alert("Abye Kuchh likhega tabhi to kuchh milega..");
+      }
+
+      try {
+         const config = {
+            headers: {
+               Authorization: `Bearer ${user.token}`,
+            },
+         };
+         const { data } = await axios.get(
+            `/api/user?search=${searchText}`,
+            config
+         );
+
+         setSearchResult(data);
+      } catch (e) {}
+   };
 
    return (
       <Fragment>
@@ -29,10 +53,11 @@ export const SearchPopup = () => {
                         }}
                         className="absolute -top-7 left-[98%] my-3 cursor-pointer"
                      >
-                        <i class="fa-solid fa-x text-gray-600 text-[20px]"></i>
+                        <i className="fa-solid fa-x text-gray-600 text-[15px]"></i>
                      </span>
                      <input
-                        className={`outline-none mx-1 ${
+                        onChange={(e) => setSearchText(e.target.value)}
+                        className={`outline-none mx-1 py-2  ${
                            themeColor === "green"
                               ? allThemeColors.green.bg200
                               : ""
@@ -46,7 +71,8 @@ export const SearchPopup = () => {
                         type="text"
                         placeholder="Search..."
                      />
-                     <buttons
+                     <span
+                        onClick={() => searchHandler()}
                         className={`middle none center rounded-lg   ${
                            themeColor === "blue"
                               ? allThemeColors.blue.bg500
@@ -91,13 +117,16 @@ export const SearchPopup = () => {
                         data-ripple-light="true"
                      >
                         Search
-                     </buttons>
+                     </span>
                   </div>
-                  <div className="searchedUser">
-                     <UserBox />
-                     <UserBox />
-                     <UserBox />
-                     <UserBox />
+                  <div className="searchedUser overflow-y-auto h-[20rem]">
+                     {searchResult
+                        ? searchResult.map((singleObject, i) => (
+                             <Fragment key={i}>
+                                <UserBox {...singleObject} />
+                             </Fragment>
+                          ))
+                        : "Nothing.."}
                   </div>
                </div>
             </section>

@@ -16,13 +16,7 @@ export const UsersChatWith = () => {
                ${themeColor === "purple" ? allThemeColors.purple.bg100 : ""}
                ${themeColor === "orange" ? allThemeColors.orange.bg100 : ""}
                ${themeColor === "black" ? allThemeColors.black.bg100 : ""}`}
-         >
-            <UserBox />
-            <UserBox />
-            <UserBox />
-            <UserBox />
-            <UserBox />
-         </section>
+         ></section>
       </Fragment>
    );
 };
