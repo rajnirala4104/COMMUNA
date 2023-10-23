@@ -71,16 +71,11 @@ export const Signup = () => {
                               ? "placeholder-shown:border-gray-200"
                               : ""
                         }
-                        
-                        
-                        
-                        
-                        
-                        ${
-                           themeColor === "blue"
-                              ? "placeholder-shown:border-t-blue-200"
-                              : ""
-                        } ${
+                         ${
+                            themeColor === "blue"
+                               ? "placeholder-shown:border-t-blue-200"
+                               : ""
+                         } ${
                            themeColor === "green"
                               ? "placeholder-shown:border-t-green-200"
                               : ""
@@ -222,11 +217,6 @@ export const Signup = () => {
                               ? "placeholder-shown:border-gray-200"
                               : ""
                         }
-                        
-                        
-                        
-                        
-                        
                         ${
                            themeColor === "blue"
                               ? "placeholder-shown:border-t-blue-200"
@@ -248,7 +238,6 @@ export const Signup = () => {
                               ? "placeholder-shown:border-t-gray-200"
                               : ""
                         }
-                        
                         
                         focus:border-2 ${
                            themeColor === "blue" ? "focus:border-blue-500" : ""
