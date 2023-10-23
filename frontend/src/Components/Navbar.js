@@ -1,7 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
-import { ThemeContext } from "../App";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
+import { ThemeContext } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
 import { ThemeColorsO } from "./ThemeColorsO";
 

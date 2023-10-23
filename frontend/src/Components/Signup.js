@@ -1,8 +1,8 @@
 import React, { Fragment, Suspense, useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { ThemeContext } from "../App";
 import { addeTheData } from "../api/servces";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
+import { ThemeContext } from "../context";
 
 export const Signup = () => {
    const [name, setName] = useState();

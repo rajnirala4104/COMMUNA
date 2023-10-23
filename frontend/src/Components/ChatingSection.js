@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense, useContext } from "react";
-import { ThemeContext } from "../App";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
+import { ThemeContext } from "../context";
 
 export const ChatingSection = () => {
    const { themeColor } = useContext(ThemeContext);
@@ -8,7 +8,7 @@ export const ChatingSection = () => {
    return (
       <Fragment>
          <Suspense fallback="loading..">
-            <section className="w-full h-full border-l border-orange-900">
+            <section className="w-full h-full border-l border-gray-500">
                <div className="chatingArea w-full h-full flex justify-between flex-col mb-1">
                   <div
                      className={`upperPart flex items-center  h-[4rem] px-2

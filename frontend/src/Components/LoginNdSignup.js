@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useState } from "react";
-import { ThemeContext } from "../App";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
+import { ThemeContext } from "../context";
 import { Login } from "./Login";
 import { Signup } from "./Signup";
 import { ThemeColorsO } from "./ThemeColorsO";

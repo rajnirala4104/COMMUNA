@@ -1,12 +1,12 @@
 import React, { Fragment, Suspense, useContext } from "react";
-import { ThemeContext } from "../App";
 import { UserBox } from "../Components";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
+import { ThemeContext } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
 
 export const SearchPopup = () => {
    const { themeColor } = useContext(ThemeContext);
-   const { isPopupOn, setIsPopupOn } = useContext(SearchPopupContext);
+   const { setIsPopupOn } = useContext(SearchPopupContext);
 
    return (
       <Fragment>

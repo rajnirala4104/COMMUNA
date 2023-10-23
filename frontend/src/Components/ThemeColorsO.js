@@ -1,5 +1,5 @@
 import React, { Fragment, Suspense, useContext } from "react";
-import { ThemeContext } from "../App";
+import { ThemeContext } from "../context";
 
 export const ThemeColorsO = () => {
    const { setThemeColor } = useContext(ThemeContext);

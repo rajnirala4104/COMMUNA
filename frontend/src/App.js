@@ -1,8 +1,8 @@
-import { Fragment, Suspense, createContext, useState } from "react";
+import { Fragment, Suspense, useState } from "react";
 import { RouterProvider } from "react-router-dom";
+import { ThemeContext } from "./context";
 import { _ROUTER } from "./router";
 
-export const ThemeContext = createContext();
 function App() {
    const [themeColor, setThemeColor] = useState("purple");
    return (
