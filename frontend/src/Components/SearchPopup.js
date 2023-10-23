@@ -73,7 +73,7 @@ export const SearchPopup = () => {
                      />
                      <span
                         onClick={() => searchHandler()}
-                        className={`middle none center rounded-lg   ${
+                        className={`middle none center rounded-lg cursor-pointer  ${
                            themeColor === "blue"
                               ? allThemeColors.blue.bg500
                               : ""
@@ -120,13 +120,19 @@ export const SearchPopup = () => {
                      </span>
                   </div>
                   <div className="searchedUser overflow-y-auto h-[20rem]">
-                     {searchResult
-                        ? searchResult.map((singleObject, i) => (
-                             <Fragment key={i}>
-                                <UserBox {...singleObject} />
-                             </Fragment>
-                          ))
-                        : "Nothing.."}
+                     {searchResult ? (
+                        searchResult.map((singleObject, i) => (
+                           <Fragment key={i}>
+                              <UserBox {...singleObject} />
+                           </Fragment>
+                        ))
+                     ) : (
+                        <div className="flex justify-center items-center my-2">
+                           <span className="text-red-400">
+                              Nothing To Show Here..
+                           </span>
+                        </div>
+                     )}
                   </div>
                </div>
             </section>

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const UserModel = mongoose.Schema(
    {
-      name: { type: String, required: true },
+      name: { type: String, required: true, lowercase: true },
       email: {
          type: String,
          required: [true, "Please Fill all the Fields."],
