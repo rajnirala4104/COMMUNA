@@ -1,12 +1,27 @@
-import React, { Fragment, Suspense } from "react";
+import React, { Fragment, Suspense, useContext } from "react";
+import { ThemeContext } from "../App";
+import { allThemeColors } from "../constants/ThemeColorsConstants";
 
 export const ChatingSection = () => {
+   const { themeColor } = useContext(ThemeContext);
+
    return (
       <Fragment>
          <Suspense fallback="loading..">
             <section className="w-full h-full border-l border-orange-900">
                <div className="chatingArea w-full h-full flex justify-between flex-col mb-1">
-                  <div className="upperPart flex items-center bg-orange-400 h-[4rem] px-2">
+                  <div
+                     className={`upperPart flex items-center  h-[4rem] px-2
+                  
+                   
+               ${themeColor === "green" ? allThemeColors.green.bg300 : ""}
+               ${themeColor === "blue" ? allThemeColors.blue.bg300 : ""}
+               ${themeColor === "purple" ? allThemeColors.purple.bg300 : ""}
+               ${themeColor === "orange" ? allThemeColors.orange.bg300 : ""}
+               ${themeColor === "black" ? allThemeColors.black.bg300 : ""}
+                  
+                  `}
+                  >
                      <div className="chatPic">
                         <img
                            className="w-10 rounded-full"
@@ -18,14 +33,73 @@ export const ChatingSection = () => {
                         <span>User Name</span>
                      </div>
                   </div>
-                  <div className="chatingMainSection w-full h-full  bg-orange-100"></div>
-                  <div className="lowerPart flex items-center  h-16 bg-orange-400 px-2">
+                  <div
+                     className={`chatingMainSection w-full h-full  ${
+                        themeColor === "green" ? allThemeColors.green.bg100 : ""
+                     }
+               ${themeColor === "blue" ? allThemeColors.blue.bg100 : ""}
+               ${themeColor === "purple" ? allThemeColors.purple.bg100 : ""}
+               ${themeColor === "orange" ? allThemeColors.orange.bg100 : ""}
+               ${themeColor === "black" ? allThemeColors.black.bg100 : ""}`}
+                  ></div>
+                  <div
+                     className={`lowerPart flex items-center  h-16  ${
+                        themeColor === "green" ? allThemeColors.green.bg300 : ""
+                     }
+               ${themeColor === "blue" ? allThemeColors.blue.bg300 : ""}
+               ${themeColor === "purple" ? allThemeColors.purple.bg300 : ""}
+               ${themeColor === "orange" ? allThemeColors.orange.bg300 : ""}
+               ${
+                  themeColor === "black" ? allThemeColors.black.bg300 : ""
+               } px-2`}
+                  >
                      <input
                         type="text"
-                        className="w-full h-10 bg-orange-200 placeholder:text-gray-700 outline-none px-2 rounded-md"
+                        className={`w-full h-10  ${
+                           themeColor === "green"
+                              ? allThemeColors.green.bg200
+                              : ""
+                        }
+                        ${
+                           themeColor === "blue"
+                              ? allThemeColors.blue.bg200
+                              : ""
+                        }
+                        ${
+                           themeColor === "purple"
+                              ? allThemeColors.purple.bg200
+                              : ""
+                        }
+                        ${
+                           themeColor === "orange"
+                              ? allThemeColors.orange.bg200
+                              : ""
+                        }
+                        ${
+                           themeColor === "black"
+                              ? allThemeColors.black.bg200
+                              : ""
+                        } placeholder:text-gray-700 outline-none px-2 rounded-md`}
                         placeholder="Message.."
                      />
-                     <button className="bg-orange-400 px-5 mx-1 py-2 rounded-md hover:bg-orange-300">
+                     <button
+                        className={` ${
+                           themeColor === "green"
+                              ? allThemeColors.green.bg300
+                              : ""
+                        }
+               ${themeColor === "blue" ? allThemeColors.blue.bg300 : ""}
+               ${themeColor === "purple" ? allThemeColors.purple.bg300 : ""}
+               ${themeColor === "orange" ? allThemeColors.orange.bg300 : ""}
+               ${
+                  themeColor === "black" ? allThemeColors.black.bg300 : ""
+               }px-5 mx-1 py-2 rounded-md 
+                ${themeColor === "green" ? "hover:bg-green-400" : ""}
+               ${themeColor === "blue" ? "hover:bg-blue-400" : ""}
+               ${themeColor === "purple" ? "hover:bg-purple-400" : ""}
+               ${themeColor === "orange" ? "hover:bg-orange-400" : ""}
+               ${themeColor === "black" ? "hover:bg-gray-400" : ""}`}
+                     >
                         <i className="fa-solid fa-paper-plane"></i>
                      </button>
                   </div>

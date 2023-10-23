@@ -1,10 +1,22 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
+import { ThemeContext } from "../App";
+import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { UserBox } from "./UserBox";
 
 export const UsersChatWith = () => {
+   const { themeColor } = useContext(ThemeContext);
+
    return (
       <Fragment>
-         <section className="w-[30%] h-full bg-orange-100">
+         <section
+            className={`w-[30%] h-full ${
+               themeColor === "green" ? allThemeColors.green.bg100 : ""
+            }
+               ${themeColor === "blue" ? allThemeColors.blue.bg100 : ""}
+               ${themeColor === "purple" ? allThemeColors.purple.bg100 : ""}
+               ${themeColor === "orange" ? allThemeColors.orange.bg100 : ""}
+               ${themeColor === "black" ? allThemeColors.black.bg100 : ""}`}
+         >
             <UserBox />
             <UserBox />
             <UserBox />
