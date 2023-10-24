@@ -1,16 +1,19 @@
 import React, { Fragment, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
-import { ThemeContext } from "../context";
+import { ProfilPicProvider, ThemeContext } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
+import { ProfilePopup } from "./ProfilePopup";
 import { ThemeColorsO } from "./ThemeColorsO";
 
 export const Navbar = () => {
    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
    const { themeColor } = useContext(ThemeContext);
    const { isPopupOn, setIsPopupOn } = useContext(SearchPopupContext);
+   const { profilePopupOn, setProfilePopupOn } = useContext(ProfilPicProvider);
    return (
       <Fragment>
+         {profilePopupOn ? <ProfilePopup /> : ""}
          <nav
             className={`sticky inset-0 z-10 flex justify-between items-center h-max w-full max-w-full rounded-none 
             ${themeColor === "green" ? allThemeColors.green.bg500 : ""}
@@ -42,7 +45,10 @@ export const Navbar = () => {
             </div>
             <div className="logedUserInfo flex justify-between items-center">
                <span className="text-slate-900 px-2">{userInfo.name}</span>
-               <div className="userPic">
+               <div
+                  className="userPic"
+                  onClick={() => setProfilePopupOn(!profilePopupOn)}
+               >
                   <img
                      className="w-[3rem] rounded-full cursor-pointer"
                      src={userInfo.pic}
