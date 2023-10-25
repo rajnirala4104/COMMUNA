@@ -35,7 +35,10 @@ export const SearchPopup = () => {
    return (
       <Fragment>
          <Suspense>
-            <section className="z-20 w-full h-full bg-[rgba(128,126,126,0.3)] backdrop-blur-md absolute top-0 flex justify-center items-center">
+            <section
+               onKeyDown={(e) => (e.key === "Enter" ? searchHandler() : "")}
+               className="z-20 w-full h-full bg-[rgba(128,126,126,0.3)] backdrop-blur-md absolute top-0 flex justify-center items-center"
+            >
                <div
                   className={`w-[50%] rounded-md flex flex-col bg p-4 
                

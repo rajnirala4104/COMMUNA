@@ -1,10 +1,11 @@
 import React, { Fragment, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { ProfilPicProvider } from "../context";
 
 export const ProfilePopup = () => {
    const user = JSON.parse(localStorage.getItem("userInfo"));
    const { setProfilePopupOn } = useContext(ProfilPicProvider);
-
+   const navigator = useNavigate();
    return (
       <Fragment>
          <section
@@ -36,7 +37,7 @@ export const ProfilePopup = () => {
                <span
                   onClick={() => {
                      localStorage.removeItem("userInfo");
-                     window.location.reload();
+                     navigator("/");
                   }}
                   className="px-3 cursor-pointer py-2 text-xl rounded-md bg-green-400"
                >
