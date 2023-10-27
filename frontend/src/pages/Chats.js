@@ -6,7 +6,6 @@ import {
    SearchPopup,
    UsersChatWith,
 } from "../Components";
-import { ChatState } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
 
 export const Chats = () => {
@@ -23,9 +22,6 @@ export const Chats = () => {
 
    const [isPopupOn, setIsPopupOn] = useState(false);
 
-   // const { allUsers } = ChatState();
-
-   // console.log(allUsers);
    return (
       <Fragment>
          <Suspense fallback="loading...">

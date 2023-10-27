@@ -2,7 +2,7 @@ const { createContext, useState, useContext, useEffect } = require("react");
 
 const chatContext = createContext();
 
-export const ChatProvider = ({ children }) => {
+const ChatProvider = ({ children }) => {
    const [allUsers, setAllUsers] = useState();
    useEffect(() => {
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -21,3 +21,5 @@ export const ChatProvider = ({ children }) => {
 export const ChatState = () => {
    return useContext(ChatProvider);
 };
+
+export default ChatProvider;

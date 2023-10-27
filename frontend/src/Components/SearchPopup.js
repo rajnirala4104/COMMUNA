@@ -10,8 +10,8 @@ export const SearchPopup = () => {
    const [searchResult, setSearchResult] = useState();
    const { themeColor } = useContext(ThemeContext);
    const { setIsPopupOn } = useContext(SearchPopupContext);
-
    const user = JSON.parse(localStorage.getItem("userInfo"));
+
    const searchHandler = async () => {
       if (!searchText) {
          alert("Abye Kuchh likhega tabhi to kuchh milega..");
