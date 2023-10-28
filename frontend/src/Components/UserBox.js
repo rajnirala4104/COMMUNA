@@ -1,12 +1,15 @@
 import React, { Fragment, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ThemeContext } from "../context";
 
 export const UserBox = (props) => {
    const { themeColor } = useContext(ThemeContext);
+   const navigator = useNavigate();
    return (
       <Fragment>
          <div
+            onClick={() => navigator(`/chats/${props._id}`)}
             className={`${themeColor === "green" ? "hover:bg-green-400" : ""}
                ${themeColor === "blue" ? "hover:bg-blue-400" : ""}
                ${themeColor === "purple" ? "hover:bg-purple-400" : ""}

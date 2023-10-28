@@ -14,6 +14,10 @@ export const _ROUTER = createBrowserRouter([
             path: "/chats",
             element: <Chats />,
          },
+         {
+            path: "/chats/:userId",
+            element: <Chats />,
+         },
       ],
    },
 ]);

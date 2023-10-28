@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { Fragment, Suspense, useContext, useState } from "react";
 import { UserBox } from "../Components";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
-import { ThemeContext } from "../context";
+import { ChatState, ThemeContext } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
 
 export const SearchPopup = () => {
@@ -10,17 +10,18 @@ export const SearchPopup = () => {
    const [searchResult, setSearchResult] = useState();
    const { themeColor } = useContext(ThemeContext);
    const { setIsPopupOn } = useContext(SearchPopupContext);
-   const user = JSON.parse(localStorage.getItem("userInfo"));
+   // const user = JSON.parse(localStorage.getItem("userInfo"));
 
+   const { allUsers } = ChatState();
    const searchHandler = async () => {
       if (!searchText) {
-         alert("Abye Kuchh likhega tabhi to kuchh milega..");
+         alert("You've to Write something..");
       }
 
       try {
          const config = {
             headers: {
-               Authorization: `Bearer ${user.token}`,
+               Authorization: `Bearer ${allUsers.token}`,
             },
          };
          const { data } = await axios.get(

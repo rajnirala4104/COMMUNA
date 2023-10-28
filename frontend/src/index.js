@@ -7,11 +7,9 @@ import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-   <ChakraProvider>
-      <ChatProvider>
-         <Suspense fallback="loading...">
-            <App />
-         </Suspense>
-      </ChatProvider>
-   </ChakraProvider>
+   <ChatProvider>
+      <ChakraProvider>
+         <App />
+      </ChakraProvider>
+   </ChatProvider>
 );
