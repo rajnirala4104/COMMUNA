@@ -9,7 +9,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
    <ChatProvider>
       <ChakraProvider>
-         <App />
+         <Suspense>
+            <App />
+         </Suspense>
       </ChakraProvider>
    </ChatProvider>
 );

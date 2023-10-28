@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { Fragment, Suspense, useContext, useState } from "react";
-import { UserBox } from "../Components";
+import { Loading, UserBox } from "../Components";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
 
 export const SearchPopup = () => {
    const [searchText, setSearchText] = useState();
+   const [loading, setLoading] = useState(false);
    const [searchResult, setSearchResult] = useState();
    const { themeColor } = useContext(ThemeContext);
    const { setIsPopupOn } = useContext(SearchPopupContext);
@@ -17,8 +18,8 @@ export const SearchPopup = () => {
       if (!searchText) {
          alert("You've to Write something..");
       }
-
       try {
+         setLoading(true);
          const config = {
             headers: {
                Authorization: `Bearer ${allUsers.token}`,
@@ -29,6 +30,7 @@ export const SearchPopup = () => {
             config
          );
 
+         setLoading(false);
          setSearchResult(data);
       } catch (e) {}
    };
@@ -124,18 +126,24 @@ export const SearchPopup = () => {
                      </span>
                   </div>
                   <div className="searchedUser overflow-y-auto h-[20rem]">
-                     {searchResult ? (
-                        searchResult.map((singleObject, i) => (
-                           <Fragment key={i}>
-                              <UserBox {...singleObject} />
-                           </Fragment>
-                        ))
+                     {loading ? (
+                        <Loading />
                      ) : (
-                        <div className="flex justify-center items-center my-2">
-                           <span className="text-red-400">
-                              Nothing To Show Here..
-                           </span>
-                        </div>
+                        <Fragment>
+                           {searchResult ? (
+                              searchResult.map((singleObject, i) => (
+                                 <Fragment key={i}>
+                                    <UserBox {...singleObject} />{" "}
+                                 </Fragment>
+                              ))
+                           ) : (
+                              <div className="flex justify-center items-center my-2">
+                                 <span className="text-red-400">
+                                    Nothing To Show Here..
+                                 </span>
+                              </div>
+                           )}
+                        </Fragment>
                      )}
                   </div>
                </div>

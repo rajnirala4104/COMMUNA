@@ -1,15 +1,19 @@
 import React, { Fragment, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
-import { ThemeContext } from "../context";
+import { SearchPopupContext, ThemeContext } from "../context";
 
 export const UserBox = (props) => {
    const { themeColor } = useContext(ThemeContext);
    const navigator = useNavigate();
+   const { setIsPopupOn } = useContext(SearchPopupContext);
    return (
       <Fragment>
          <div
-            onClick={() => navigator(`/chats/${props._id}`)}
+            onClick={() => {
+               navigator(`/chats/${props._id}`);
+               setIsPopupOn(false);
+            }}
             className={`${themeColor === "green" ? "hover:bg-green-400" : ""}
                ${themeColor === "blue" ? "hover:bg-blue-400" : ""}
                ${themeColor === "purple" ? "hover:bg-purple-400" : ""}
