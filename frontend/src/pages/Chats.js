@@ -6,29 +6,29 @@ import {
    SearchPopup,
    UsersChatWith,
 } from "../Components";
+import { ChatState } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
 
 export const Chats = () => {
    const navigator = useNavigate();
    const [isUser, setIsUser] = useState(false);
+   const { _user } = ChatState();
 
    useEffect(() => {
-      const user = JSON.parse(localStorage.getItem("userInfo"));
-      if (user === null) {
+      if (_user === null) {
          navigator("/");
       }
       setIsUser(true);
    }, [navigator]);
 
    const [isPopupOn, setIsPopupOn] = useState(false);
-
    return (
       <Fragment>
          <Suspense fallback="loading...">
             <SearchPopupContext.Provider value={{ isPopupOn, setIsPopupOn }}>
                {isUser ? (
                   <Fragment>
-                     {isPopupOn ? <SearchPopup /> : ""}
+                     {isPopupOn ? <SearchPopup /> : <></>}
                      <Navbar />
                      <div className="flex justify-between w-full h-[87vh]">
                         <UsersChatWith />

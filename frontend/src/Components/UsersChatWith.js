@@ -1,7 +1,6 @@
 import React, { Fragment, useContext } from "react";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
-import { ThemeContext } from "../context/ThemeProvider";
-import { UserBox } from "./UserBox";
+import { ThemeContext } from "../context";
 
 export const UsersChatWith = () => {
    const { themeColor } = useContext(ThemeContext);

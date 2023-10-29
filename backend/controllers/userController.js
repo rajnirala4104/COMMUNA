@@ -60,7 +60,7 @@ const authUser = asyncHandler(async (req, res) => {
 });
 
 // ------- /api/user?search=pulkit
-const allUsers = asyncHandler(async (req, res) => {
+const _user = asyncHandler(async (req, res) => {
    const keyword = req.query.search
       ? {
            $or: [
@@ -74,4 +74,4 @@ const allUsers = asyncHandler(async (req, res) => {
    res.send(users);
 });
 
-module.exports = { registieredUser, authUser, allUsers };
+module.exports = { registieredUser, authUser, _user };

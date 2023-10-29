@@ -8,7 +8,7 @@ export const Home = () => {
    useEffect(() => {
       const user = JSON.parse(localStorage.getItem("userInfo"));
       if (user) {
-         console.log(user);
+         // console.log(user);
          navigator("/chats");
       }
    }, [navigator]);

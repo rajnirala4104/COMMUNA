@@ -1,13 +1,13 @@
 import React, { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
-import { ProfilPicProvider, ThemeContext } from "../context";
+import { ChatState, ProfilPicProvider, ThemeContext } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
 import { ProfilePopup } from "./ProfilePopup";
 import { ThemeColorsO } from "./ThemeColorsO";
 
 export const Navbar = () => {
-   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+   const { _user } = ChatState();
    const { themeColor } = useContext(ThemeContext);
    const { isPopupOn, setIsPopupOn } = useContext(SearchPopupContext);
    const { profilePopupOn, setProfilePopupOn } = useContext(ProfilPicProvider);
@@ -44,14 +44,14 @@ export const Navbar = () => {
                <ThemeColorsO />
             </div>
             <div className="logedUserInfo flex justify-between items-center">
-               <span className="text-slate-900 px-2">{userInfo.name}</span>
+               <span className="text-slate-900 px-2">{_user.name}</span>
                <div
                   className="userPic"
                   onClick={() => setProfilePopupOn(!profilePopupOn)}
                >
                   <img
                      className="w-[3rem] rounded-full cursor-pointer"
-                     src={userInfo.pic}
+                     src={_user.pic}
                      alt="communa"
                   />
                </div>

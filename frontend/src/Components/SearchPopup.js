@@ -1,19 +1,28 @@
 import axios from "axios";
-import React, { Fragment, Suspense, useContext, useState } from "react";
+import React, {
+   Fragment,
+   Suspense,
+   useContext,
+   useEffect,
+   useState,
+} from "react";
 import { Loading, UserBox } from "../Components";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
 
 export const SearchPopup = () => {
-   const [searchText, setSearchText] = useState();
+   const [searchText, setSearchText] = useState("");
    const [loading, setLoading] = useState(false);
-   const [searchResult, setSearchResult] = useState();
+   const [searchResult, setSearchResult] = useState([]);
+
    const { themeColor } = useContext(ThemeContext);
    const { setIsPopupOn } = useContext(SearchPopupContext);
-   // const user = JSON.parse(localStorage.getItem("userInfo"));
 
-   const { allUsers } = ChatState();
+   const { _user, set_user, chat, setChat, selectedChat, setSelectedChat } =
+      ChatState();
+
+   const [loggedUser, setLoggedUser] = useState();
    const searchHandler = async () => {
       if (!searchText) {
          alert("You've to Write something..");
@@ -22,7 +31,7 @@ export const SearchPopup = () => {
          setLoading(true);
          const config = {
             headers: {
-               Authorization: `Bearer ${allUsers.token}`,
+               Authorization: `Bearer ${_user.token}`,
             },
          };
          const { data } = await axios.get(
@@ -33,6 +42,44 @@ export const SearchPopup = () => {
          setLoading(false);
          setSearchResult(data);
       } catch (e) {}
+   };
+
+   const fetchChats = async () => {
+      try {
+         const config = {
+            headers: {
+               Authorization: `Bearer ${_user.token}`,
+            },
+         };
+
+         const { data } = await axios.get("/api/chat", config);
+         setChat(data);
+      } catch (e) {
+         alert("Oops!! something went wron fetchChats function");
+      }
+   };
+
+   useEffect(() => {
+      setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+      fetchChats();
+   }, []);
+
+   const accessChat = async (userId) => {
+      console.log("Its running");
+      try {
+         const config = {
+            "Content-type": "application/json",
+            headers: {
+               Authorization: `Bearer ${_user.token}`,
+            },
+         };
+
+         const { data } = await axios.post("/api/chat", { userId }, config);
+         console.log(data);
+         setSelectedChat(data);
+      } catch (e) {
+         console.log("Oops!! something went wrong in access chat");
+      }
    };
 
    return (
@@ -125,26 +172,31 @@ export const SearchPopup = () => {
                         Search
                      </span>
                   </div>
-                  <div className="searchedUser overflow-y-auto h-[20rem]">
-                     {loading ? (
-                        <Loading />
-                     ) : (
-                        <Fragment>
-                           {searchResult ? (
-                              searchResult.map((singleObject, i) => (
+                  <div className="searchedUser overflow-y-auto h-[20rem] w-full">
+                     {searchResult.length !== 0 ? (
+                        loading ? (
+                           <Loading />
+                        ) : (
+                           searchResult.map((singleObject, i) => {
+                              return (
                                  <Fragment key={i}>
-                                    <UserBox {...singleObject} />{" "}
+                                    <UserBox
+                                       {...singleObject}
+                                       handleChat={() =>
+                                          accessChat(singleObject._id)
+                                       }
+                                    />
                                  </Fragment>
-                              ))
-                           ) : (
-                              <div className="flex justify-center items-center my-2">
-                                 <span className="text-red-400">
-                                    Nothing To Show Here..
-                                 </span>
-                              </div>
-                           )}
-                        </Fragment>
-                     )}
+                              );
+                           })
+                        )
+                     ) : (
+                        <div className="flex justify-center items-center my-2">
+                           <span className="text-red-400">
+                              Nothing To Show Here..
+                           </span>
+                        </div>
+                     )}{" "}
                   </div>
                </div>
             </section>

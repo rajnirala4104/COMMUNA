@@ -1,9 +1,10 @@
 import React, { Fragment, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { ProfilPicProvider } from "../context";
+import { ChatState, ProfilPicProvider } from "../context";
 
 export const ProfilePopup = () => {
-   const user = JSON.parse(localStorage.getItem("userInfo"));
+   // const user = JSON.parse(localStorage.getItem("userInfo"));
+   const { _user } = ChatState();
    const { setProfilePopupOn } = useContext(ProfilPicProvider);
    const navigator = useNavigate();
    return (
@@ -20,7 +21,7 @@ export const ProfilePopup = () => {
                   <i class="fa-solid fa-x text-white text-[20px]"></i>
                </span>
                <img
-                  src={user.pic}
+                  src={_user.pic}
                   className="bg-white w-[70%] rounded-full saturate-100"
                   alt="Raj Nirala"
                />

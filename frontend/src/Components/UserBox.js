@@ -11,7 +11,8 @@ export const UserBox = (props) => {
       <Fragment>
          <div
             onClick={() => {
-               navigator(`/chats/${props._id}`);
+               // navigator(`/chats/${props._id}`);
+               props.handleChat();
                setIsPopupOn(false);
             }}
             className={`${themeColor === "green" ? "hover:bg-green-400" : ""}
