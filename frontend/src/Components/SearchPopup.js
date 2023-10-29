@@ -19,10 +19,8 @@ export const SearchPopup = () => {
    const { themeColor } = useContext(ThemeContext);
    const { setIsPopupOn } = useContext(SearchPopupContext);
 
-   const { _user, set_user, chat, setChat, selectedChat, setSelectedChat } =
-      ChatState();
+   const { _user, setSelectedChat, chat, setChat } = ChatState();
 
-   const [loggedUser, setLoggedUser] = useState();
    const searchHandler = async () => {
       if (!searchText) {
          alert("You've to Write something..");
@@ -39,30 +37,12 @@ export const SearchPopup = () => {
             config
          );
 
+         if (!chat.find((c) => c._id === data._id)) setChat([data, ...chat]);
+
          setLoading(false);
          setSearchResult(data);
       } catch (e) {}
    };
-
-   const fetchChats = async () => {
-      try {
-         const config = {
-            headers: {
-               Authorization: `Bearer ${_user.token}`,
-            },
-         };
-
-         const { data } = await axios.get("/api/chat", config);
-         setChat(data);
-      } catch (e) {
-         alert("Oops!! something went wron fetchChats function");
-      }
-   };
-
-   useEffect(() => {
-      setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
-      fetchChats();
-   }, []);
 
    const accessChat = async (userId) => {
       console.log("Its running");
@@ -75,7 +55,7 @@ export const SearchPopup = () => {
          };
 
          const { data } = await axios.post("/api/chat", { userId }, config);
-         console.log(data);
+         // console.log(data);
          setSelectedChat(data);
       } catch (e) {
          console.log("Oops!! something went wrong in access chat");

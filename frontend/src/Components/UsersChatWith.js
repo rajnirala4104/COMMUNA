@@ -1,21 +1,56 @@
-import React, { Fragment, useContext } from "react";
+import axios from "axios";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
-import { ThemeContext } from "../context";
+import { ChatState, ThemeContext } from "../context";
+import { UserBox } from "./UserBox";
 
 export const UsersChatWith = () => {
    const { themeColor } = useContext(ThemeContext);
+   const [loaggedUser, setLoaggedUser] = useState();
+
+   const { _user, set_user, chat, setChat, selectedChat, setSelectedChat } =
+      ChatState();
+
+   const fetchChats = async () => {
+      try {
+         const config = {
+            headers: {
+               Authorization: `Bearer ${_user.token}`,
+            },
+         };
+
+         const { data } = await axios.get("/api/chat", config);
+         console.log(data);
+         setChat(data);
+      } catch (e) {
+         alert("Oops!! something went wron fetchChats function");
+      }
+   };
+
+   useEffect(() => {
+      setLoaggedUser(JSON.parse(localStorage.getItem("userInfo")));
+      fetchChats();
+   }, []);
 
    return (
       <Fragment>
          <section
-            className={`w-[30%] h-full ${
+            className={`w-[30%] overflow-y-auto h-full ${
                themeColor === "green" ? allThemeColors.green.bg100 : ""
             }
                ${themeColor === "blue" ? allThemeColors.blue.bg100 : ""}
                ${themeColor === "purple" ? allThemeColors.purple.bg100 : ""}
                ${themeColor === "orange" ? allThemeColors.orange.bg100 : ""}
                ${themeColor === "black" ? allThemeColors.black.bg100 : ""}`}
-         ></section>
+         >
+            <div className="chatContainer">
+               {chat.map((singleDataObject, key) => (
+                  <Fragment key={key}>
+                     <UserBox {...singleDataObject.users[1]} />
+                  </Fragment>
+               ))}
+            </div>
+         </section>
       </Fragment>
    );
 };
