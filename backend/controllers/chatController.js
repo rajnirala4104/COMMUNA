@@ -10,7 +10,7 @@ const accessChat = expressAsyncHandler(async (req, res) => {
    }
 
    let isChat = await Chat.find({
-      isGroupChat: false,
+      isGroup: false,
       $and: [
          { users: { $elemMatch: { $eq: req.user._id } } },
          { users: { $elemMatch: { $eq: userId } } },
@@ -25,8 +25,8 @@ const accessChat = expressAsyncHandler(async (req, res) => {
    });
 
    if (isChat.length > 0) {
-      console.log("sendind... isChat's first element");
-      res.send(isChat[0]);
+      console.log("THIS CHAT IS ALREADY EXIST IN OUR DATABASE", isChat);
+      // res.send(isChat[0]);
    } else {
       let chatData = {
          chatName: "sender",
