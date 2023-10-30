@@ -6,7 +6,7 @@ import React, {
    useEffect,
    useState,
 } from "react";
-import { Loading, UserBox } from "../Components";
+import { Loading, SearchUserBox, UserBox } from "../Components";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
@@ -37,8 +37,6 @@ export const SearchPopup = () => {
             config
          );
 
-         if (!chat.find((c) => c._id === data._id)) setChat([data, ...chat]);
-
          setLoading(false);
          setSearchResult(data);
       } catch (e) {}
@@ -55,6 +53,9 @@ export const SearchPopup = () => {
          };
 
          const { data } = await axios.post("/api/chat", { userId }, config);
+         if (!chat.find((c) => c._id === data._id)) {
+            setChat([data, ...chat]);
+         }
          // console.log(data);
          setSelectedChat(data);
       } catch (e) {
@@ -160,7 +161,7 @@ export const SearchPopup = () => {
                            searchResult.map((singleObject, i) => {
                               return (
                                  <Fragment key={i}>
-                                    <UserBox
+                                    <SearchUserBox
                                        {...singleObject}
                                        handleChat={() =>
                                           accessChat(singleObject._id)

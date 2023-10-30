@@ -20,7 +20,7 @@ export const UsersChatWith = () => {
          };
 
          const { data } = await axios.get("/api/chat", config);
-         console.log(data);
+         // console.log(data);
          setChat(data);
       } catch (e) {
          alert("Oops!! something went wron fetchChats function");
@@ -32,6 +32,7 @@ export const UsersChatWith = () => {
       fetchChats();
    }, []);
 
+   console.log(selectedChat);
    return (
       <Fragment>
          <section
@@ -46,7 +47,20 @@ export const UsersChatWith = () => {
             <div className="chatContainer">
                {chat.map((singleDataObject, key) => (
                   <Fragment key={key}>
-                     <UserBox {...singleDataObject.users[1]} />
+                     <div
+                        onClick={() => setSelectedChat(singleDataObject)}
+                        className={`
+                           ${
+                              selectedChat === singleDataObject
+                                 ? "bg-red-500"
+                                 : "black"
+                           } cursor-pointer
+                        `}
+                     >
+                        {singleDataObject.isGroup
+                           ? singleDataObject.chatName
+                           : "sender Name function"}
+                     </div>
                   </Fragment>
                ))}
             </div>

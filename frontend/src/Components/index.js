@@ -4,6 +4,7 @@ export * from "./Navbar";
 export * from "./ProfilePopup";
 export * from "./SearchLoading";
 export * from "./SearchPopup";
+export * from "./SearchUserBox";
 export * from "./ThemeColorsO";
 export * from "./UserBox";
 export * from "./UsersChatWith";

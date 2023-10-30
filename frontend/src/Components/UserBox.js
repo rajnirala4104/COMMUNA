@@ -6,7 +6,7 @@ import { ThemeContext } from "../context";
 export const UserBox = (props) => {
    const { themeColor } = useContext(ThemeContext);
    const navigator = useNavigate();
-   console.log(props);
+   // console.log(props);
    return (
       <Fragment>
          <div
