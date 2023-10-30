@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Fragment, useContext, useEffect, useState } from "react";
+import { getSenderName } from "../Config/ChatNameLogics";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext } from "../context";
 import { UserBox } from "./UserBox";
@@ -32,7 +33,7 @@ export const UsersChatWith = () => {
       fetchChats();
    }, []);
 
-   console.log(selectedChat);
+   // console.log(selectedChat);
    return (
       <Fragment>
          <section
@@ -59,7 +60,7 @@ export const UsersChatWith = () => {
                      >
                         {singleDataObject.isGroup
                            ? singleDataObject.chatName
-                           : "sender Name function"}
+                           : getSenderName(_user, singleDataObject.users)}
                      </div>
                   </Fragment>
                ))}
