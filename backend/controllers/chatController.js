@@ -30,7 +30,7 @@ const accessChat = expressAsyncHandler(async (req, res) => {
    } else {
       let chatData = {
          chatName: "sender",
-         isGroupChat: false,
+         isGroup: false,
          users: [req.user._id, userId],
       };
       try {

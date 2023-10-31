@@ -1,6 +1,10 @@
 import axios from "axios";
 import React, { Fragment, useContext, useEffect, useState } from "react";
-import { getSenderName } from "../Config/ChatNameLogics";
+import {
+   capitalize,
+   getSenderName,
+   getUserImage,
+} from "../Config/ChatNameLogics";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext } from "../context";
 import { UserBox } from "./UserBox";
@@ -24,7 +28,7 @@ export const UsersChatWith = () => {
          // console.log(data);
          setChat(data);
       } catch (e) {
-         alert("Oops!! something went wron fetchChats function");
+         console.log("Oops!! something went wron fetchChats function");
       }
    };
 
@@ -33,7 +37,7 @@ export const UsersChatWith = () => {
       fetchChats();
    }, []);
 
-   // console.log(selectedChat);
+   // console.log(chat);
    return (
       <Fragment>
          <section
@@ -50,17 +54,96 @@ export const UsersChatWith = () => {
                   <Fragment key={key}>
                      <div
                         onClick={() => setSelectedChat(singleDataObject)}
-                        className={`
+                        className={`${
+                           themeColor === "green"
+                              ? allThemeColors.green.bg200
+                              : ""
+                        }
+                     ${themeColor === "blue" ? allThemeColors.blue.bg200 : ""}
+                     ${
+                        themeColor === "purple"
+                           ? allThemeColors.purple.bg200
+                           : ""
+                     }
+                     ${
+                        themeColor === "orange"
+                           ? allThemeColors.orange.bg200
+                           : ""
+                     }
+                     ${
+                        themeColor === "black" ? allThemeColors.black.bg200 : ""
+                     } flex items-center ${
+                           themeColor === "green" ? "border-green-300" : ""
+                        }
+                     ${themeColor === "blue" ? "border-blue-300" : ""}
+                     ${themeColor === "purple" ? "border-purple-300" : ""}
+                     ${themeColor === "orange" ? "border-orange-300" : ""}
+                     ${themeColor === "black" ? "border-gray-300" : ""} p-2
                            ${
                               selectedChat === singleDataObject
-                                 ? "bg-red-500"
-                                 : "black"
-                           } cursor-pointer
+                                 ? `${
+                                      themeColor === "green"
+                                         ? allThemeColors.green.bg400
+                                         : ""
+                                   }
+                              ${
+                                 themeColor === "blue"
+                                    ? allThemeColors.blue.bg400
+                                    : ""
+                              }
+                              ${
+                                 themeColor === "purple"
+                                    ? allThemeColors.purple.bg400
+                                    : ""
+                              }
+                              ${
+                                 themeColor === "orange"
+                                    ? allThemeColors.orange.bg400
+                                    : ""
+                              }
+                              ${
+                                 themeColor === "black"
+                                    ? allThemeColors.black.bg400
+                                    : ""
+                              }`
+                                 : ""
+                           } cursor-pointer border-b ${
+                           themeColor === "green" ? "hover:bg-green-300" : ""
+                        }
+                           ${themeColor === "blue" ? "hover:bg-blue-300" : ""}
+                           ${
+                              themeColor === "purple"
+                                 ? "hover:bg-purple-300"
+                                 : ""
+                           }
+                           ${
+                              themeColor === "orange"
+                                 ? "hover:bg-orange-300"
+                                 : ""
+                           }
+                           ${themeColor === "black" ? "hover:bg-gray-300" : ""}
                         `}
                      >
-                        {singleDataObject.isGroup
-                           ? singleDataObject.chatName
-                           : getSenderName(_user, singleDataObject.users)}
+                        <img
+                           src={getUserImage(singleDataObject, _user)}
+                           alt="Communa"
+                           className="rounded-full w-12"
+                        />
+                        <div className="content flex flex-col mx-2">
+                           <span className="">
+                              {singleDataObject.isGroup
+                                 ? singleDataObject.chatName
+                                 : capitalize(
+                                      getSenderName(
+                                         _user,
+                                         singleDataObject.users
+                                      )
+                                   )}
+                           </span>
+                           <span className="text-[12px]">
+                              <i>Latest Message...</i>
+                           </span>
+                        </div>
                      </div>
                   </Fragment>
                ))}

@@ -1,5 +1,6 @@
 import React, { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
+import { capitalize } from "../Config/ChatNameLogics";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ProfilPicProvider, ThemeContext } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
@@ -44,7 +45,9 @@ export const Navbar = () => {
                <ThemeColorsO />
             </div>
             <div className="logedUserInfo flex justify-between items-center">
-               <span className="text-slate-900 px-2">{_user.name}</span>
+               <span className="text-slate-900 px-2">
+                  {capitalize(_user.name)}
+               </span>
                <div
                   className="userPic"
                   onClick={() => setProfilePopupOn(!profilePopupOn)}
