@@ -18,7 +18,7 @@ export const ProfilePopup = () => {
                   onClick={() => setProfilePopupOn(false)}
                   className="absolute top-0 left-[90%] my-3 cursor-pointer"
                >
-                  <i class="fa-solid fa-x text-white text-[20px]"></i>
+                  <i className="fa-solid fa-x text-white text-[20px]"></i>
                </span>
                <img
                   src={_user.pic}

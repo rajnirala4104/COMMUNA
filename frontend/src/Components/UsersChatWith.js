@@ -6,7 +6,7 @@ import {
    getUserImage,
 } from "../Config/ChatNameLogics";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
-import { ChatState, ThemeContext } from "../context";
+import { ChatState, SearchPopupContext, ThemeContext } from "../context";
 import { UserBox } from "./UserBox";
 
 export const UsersChatWith = () => {
@@ -37,11 +37,12 @@ export const UsersChatWith = () => {
       fetchChats();
    }, []);
 
-   // console.log(chat);
+   console.log(chat);
+   const { setIsPopupOn } = useContext(SearchPopupContext);
    return (
       <Fragment>
          <section
-            className={`w-[30%] overflow-y-auto h-full ${
+            className={`w-[30%] relative overflow-y-auto h-full overflow-x-hidden ${
                themeColor === "green" ? allThemeColors.green.bg100 : ""
             }
                ${themeColor === "blue" ? allThemeColors.blue.bg100 : ""}
@@ -50,15 +51,16 @@ export const UsersChatWith = () => {
                ${themeColor === "black" ? allThemeColors.black.bg100 : ""}`}
          >
             <div className="chatContainer">
-               {chat.map((singleDataObject, key) => (
-                  <Fragment key={key}>
-                     <div
-                        onClick={() => setSelectedChat(singleDataObject)}
-                        className={`${
-                           themeColor === "green"
-                              ? allThemeColors.green.bg200
-                              : ""
-                        }
+               {chat
+                  ? chat.map((singleDataObject, key) => (
+                       <Fragment key={key}>
+                          <div
+                             onClick={() => setSelectedChat(singleDataObject)}
+                             className={`${
+                                themeColor === "green"
+                                   ? allThemeColors.green.bg200
+                                   : ""
+                             }
                      ${themeColor === "blue" ? allThemeColors.blue.bg200 : ""}
                      ${
                         themeColor === "purple"
@@ -73,8 +75,8 @@ export const UsersChatWith = () => {
                      ${
                         themeColor === "black" ? allThemeColors.black.bg200 : ""
                      } flex items-center ${
-                           themeColor === "green" ? "border-green-300" : ""
-                        }
+                                themeColor === "green" ? "border-green-300" : ""
+                             }
                      ${themeColor === "blue" ? "border-blue-300" : ""}
                      ${themeColor === "purple" ? "border-purple-300" : ""}
                      ${themeColor === "orange" ? "border-orange-300" : ""}
@@ -108,8 +110,10 @@ export const UsersChatWith = () => {
                               }`
                                  : ""
                            } cursor-pointer border-b ${
-                           themeColor === "green" ? "hover:bg-green-300" : ""
-                        }
+                                themeColor === "green"
+                                   ? "hover:bg-green-300"
+                                   : ""
+                             }
                            ${themeColor === "blue" ? "hover:bg-blue-300" : ""}
                            ${
                               themeColor === "purple"
@@ -123,30 +127,39 @@ export const UsersChatWith = () => {
                            }
                            ${themeColor === "black" ? "hover:bg-gray-300" : ""}
                         `}
-                     >
-                        <img
-                           src={getUserImage(singleDataObject, _user)}
-                           alt="Communa"
-                           className="rounded-full w-12"
-                        />
-                        <div className="content flex flex-col mx-2">
-                           <span className="">
-                              {singleDataObject.isGroup
-                                 ? singleDataObject.chatName
-                                 : capitalize(
-                                      getSenderName(
-                                         _user,
-                                         singleDataObject.users
-                                      )
-                                   )}
-                           </span>
-                           <span className="text-[12px]">
-                              <i>Latest Message...</i>
-                           </span>
-                        </div>
-                     </div>
-                  </Fragment>
-               ))}
+                          >
+                             <img
+                                src={getUserImage(singleDataObject, _user)}
+                                alt="Communa"
+                                className="rounded-full w-12"
+                             />
+                             <div className="content flex flex-col mx-2">
+                                <span className="">
+                                   {singleDataObject.isGroup
+                                      ? singleDataObject.chatName
+                                      : capitalize(
+                                           getSenderName(
+                                              _user,
+                                              singleDataObject.users
+                                           )
+                                        )}
+                                </span>
+                                <span className="text-[12px]">
+                                   <i>Latest Message...</i>
+                                </span>
+                             </div>
+                          </div>
+                       </Fragment>
+                    ))
+                  : "Nothing to show here.."}
+            </div>
+            <div
+               onClick={() => setIsPopupOn(true)}
+               className="addButton absolute top-[32rem] left-[78%]"
+            >
+               <button className="py-2 px-3 bg-orange-300 rounded-md hover:bg-orange-400">
+                  Chat
+               </button>
             </div>
          </section>
       </Fragment>
