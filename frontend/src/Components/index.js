@@ -1,4 +1,5 @@
 export * from "./ChatingSection";
+export * from "./CreateGroupPopup";
 export * from "./LoginNdSignup";
 export * from "./Navbar";
 export * from "./ProfilePopup";

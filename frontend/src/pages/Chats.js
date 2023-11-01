@@ -8,6 +8,7 @@ import React, {
 import { useNavigate } from "react-router-dom";
 import {
    ChatingSection,
+   CreateGroupPopup,
    Navbar,
    SearchPopup,
    UsersChatWith,
@@ -36,6 +37,7 @@ export const Chats = () => {
                {isUser ? (
                   <Fragment>
                      {isPopupOn ? <SearchPopup /> : <></>}
+                     {groupChatPopup ? <CreateGroupPopup /> : ""}
                      <Navbar />
                      <div className="flex justify-between w-full h-[87vh]">
                         <UsersChatWith />
