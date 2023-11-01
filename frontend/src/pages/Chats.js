@@ -12,8 +12,13 @@ import {
    Navbar,
    SearchPopup,
    UsersChatWith,
+   UsersProfilePopup,
 } from "../Components";
-import { ChatState, GroupChatPopup } from "../context";
+import {
+   ChatState,
+   GroupChatPopup,
+   UsersProfilePopupProvider,
+} from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
 
 export const Chats = () => {
@@ -29,7 +34,8 @@ export const Chats = () => {
    }, [navigator]);
 
    const [isPopupOn, setIsPopupOn] = useState(false);
-   const { groupChatPopup, setGroupChatPopup } = useContext(GroupChatPopup);
+   const { groupChatPopup } = useContext(GroupChatPopup);
+   const { userProfilePopupOn } = useContext(UsersProfilePopupProvider);
    return (
       <Fragment>
          <Suspense fallback="loading...">
@@ -38,6 +44,7 @@ export const Chats = () => {
                   <Fragment>
                      {isPopupOn ? <SearchPopup /> : <></>}
                      {groupChatPopup ? <CreateGroupPopup /> : ""}
+                     {userProfilePopupOn && <UsersProfilePopup />}
                      <Navbar />
                      <div className="flex justify-between w-full h-[87vh]">
                         <UsersChatWith />

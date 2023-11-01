@@ -2,6 +2,10 @@ export const getSenderName = (loggedUser, userArr) => {
    return userArr[0]._id === loggedUser._id ? userArr[1].name : userArr[0].name;
 };
 
+export const getUserWholeObject = (loggedUser, userArr) => {
+   return userArr[0]._id === loggedUser._id ? userArr[1] : userArr[0];
+};
+
 export const getUserImage = (singleUserObject, loaggedUser) => {
    const usersArray = singleUserObject.isGroup
       ? [

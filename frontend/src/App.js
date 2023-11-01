@@ -1,6 +1,11 @@
 import { Fragment, Suspense, useState } from "react";
 import { RouterProvider } from "react-router-dom";
-import { GroupChatPopup, ProfilPicProvider, ThemeContext } from "./context";
+import {
+   GroupChatPopup,
+   ProfilPicProvider,
+   ThemeContext,
+   UsersProfilePopupProvider,
+} from "./context";
 import { _ROUTER } from "./router";
 
 function App() {
@@ -8,7 +13,7 @@ function App() {
    const [profilePopupOn, setProfilePopupOn] = useState(false);
 
    const [groupChatPopup, setGroupChatPopup] = useState(false);
-
+   const [userProfilePopupOn, setUsersProfilePopupOn] = useState(false);
    return (
       <Fragment>
          <Suspense fallback="loading...">
@@ -19,7 +24,11 @@ function App() {
                   <GroupChatPopup.Provider
                      value={{ groupChatPopup, setGroupChatPopup }}
                   >
-                     <RouterProvider router={_ROUTER} />
+                     <UsersProfilePopupProvider.Provider
+                        value={{ userProfilePopupOn, setUsersProfilePopupOn }}
+                     >
+                        <RouterProvider router={_ROUTER} />
+                     </UsersProfilePopupProvider.Provider>
                   </GroupChatPopup.Provider>
                </ProfilPicProvider.Provider>
             </ThemeContext.Provider>

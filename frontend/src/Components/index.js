@@ -9,3 +9,4 @@ export * from "./SearchUserBox";
 export * from "./ThemeColorsO";
 export * from "./UserBox";
 export * from "./UsersChatWith";
+export * from "./UsersProfilePopup";
