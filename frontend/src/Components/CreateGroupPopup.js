@@ -45,9 +45,57 @@ export const CreateGroupPopup = () => {
                      themeColor === "black" ? allThemeColors.black.bg200 : ""
                   } placeholder-gray-600 text-slate-800 shadow-md px-3 py-1 rounded-md w-[55vh]`}
                         type="text"
-                        placeholder="Search..."
+                        placeholder="Group Name"
                      />
                   </div>
+
+                  <div className="SelectedMembersContainer mx-auto my-3 flex justify-evenly">
+                     <div className="selectedUserBox mx-1 flex justify-between relative border border-orange-600 hover:bg-orange-300 rounded-md px-4 py-2">
+                        <span className="">user name</span>
+                        <div className="px-2">
+                           <span
+                              onClick={() => {}}
+                              className="absolute cursor-pointer my-auto left-[90%]"
+                           >
+                              <i className="fa-solid fa-x text-gray-800 text-[12px] -mx-2"></i>
+                           </span>
+                        </div>
+                     </div>
+                     <div className="selectedUserBox mx-1 flex justify-between relative border border-orange-600 hover:bg-orange-300 rounded-md px-4 py-2">
+                        <span className="">user name</span>
+                        <div className="px-2">
+                           <span
+                              onClick={() => {}}
+                              className="absolute cursor-pointer my-auto left-[90%]"
+                           >
+                              <i className="fa-solid fa-x text-gray-800 text-[12px] -mx-2"></i>
+                           </span>
+                        </div>
+                     </div>
+                     <div className="selectedUserBox mx-1 flex justify-between relative border border-orange-600 hover:bg-orange-300 rounded-md px-4 py-2">
+                        <span className="">user name</span>
+                        <div className="px-2">
+                           <span
+                              onClick={() => {}}
+                              className="absolute cursor-pointer my-auto left-[90%]"
+                           >
+                              <i className="fa-solid fa-x text-gray-800 text-[12px] -mx-2"></i>
+                           </span>
+                        </div>
+                     </div>
+                     <div className="selectedUserBox mx-1 flex justify-between relative border border-orange-600 hover:bg-orange-300 rounded-md px-4 py-2">
+                        <span className="">user name</span>
+                        <div className="px-2">
+                           <span
+                              onClick={() => {}}
+                              className="absolute cursor-pointer my-auto left-[90%]"
+                           >
+                              <i className="fa-solid fa-x text-gray-800 text-[12px] -mx-2"></i>
+                           </span>
+                        </div>
+                     </div>
+                  </div>
+
                   <div className="flex justify-center items-center my-3 relative">
                      <input
                         onChange={(e) => {}}
@@ -63,10 +111,10 @@ export const CreateGroupPopup = () => {
                      themeColor === "black" ? allThemeColors.black.bg200 : ""
                   } placeholder-gray-600 text-slate-800 shadow-md px-3 py-1 rounded-md w-[55vh]`}
                         type="text"
-                        placeholder="Search..."
+                        placeholder="Add Members"
                      />
                   </div>
-                  <div>
+                  <div className="mx-auto my-2">
                      <span
                         onClick={() => {}}
                         className={`middle none center rounded-lg cursor-pointer  ${

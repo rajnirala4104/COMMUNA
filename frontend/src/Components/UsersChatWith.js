@@ -156,22 +156,62 @@ export const UsersChatWith = () => {
                        </Fragment>
                     ))
                   : "Nothing to show here.."}
-            </div>
-            <div className="addButton flex absolute top-[32rem] left-[40%]">
-               <button
-                  onClick={() => setIsPopupOn(true)}
-                  className="py-2 px-3 bg-orange-300 rounded-md hover:bg-orange-400"
-               >
-                  Chat
-               </button>
-               <button
-                  onClick={() => {
-                     setGroupChatPopup(true);
-                  }}
-                  className="py-2 px-3 mx-1 bg-orange-300 rounded-md hover:bg-orange-400"
-               >
-                  Create Group
-               </button>
+               <div className=" flex absolute top-[32rem] left-[36%]">
+                  <button
+                     onClick={() => setIsPopupOn(true)}
+                     className={`py-2 px-3 ${
+                        themeColor === "blue" ? allThemeColors.blue.bg500 : ""
+                     } ${
+                        themeColor === "orange"
+                           ? allThemeColors.orange.bg500
+                           : ""
+                     } ${
+                        themeColor === "green" ? allThemeColors.green.bg500 : ""
+                     } ${
+                        themeColor === "purple"
+                           ? allThemeColors.purple.bg500
+                           : ""
+                     }${
+                        themeColor === "black" ? allThemeColors.black.bg500 : ""
+                     } rounded-md ${
+                        themeColor === "blue" ? "hover:bg-blue-400" : ""
+                     } ${
+                        themeColor === "orange" ? "hover:bg-orange-400" : ""
+                     } ${themeColor === "green" ? "hover:bg-green-400" : ""} ${
+                        themeColor === "purple" ? "hover:bg-purple-400" : ""
+                     }${themeColor === "black" ? "hover:bg-gray-400" : ""}`}
+                  >
+                     Chat
+                  </button>
+                  <button
+                     onClick={() => {
+                        setGroupChatPopup(true);
+                     }}
+                     className={`py-2 px-3 mx-1 ${
+                        themeColor === "blue" ? allThemeColors.blue.bg500 : ""
+                     } ${
+                        themeColor === "orange"
+                           ? allThemeColors.orange.bg500
+                           : ""
+                     } ${
+                        themeColor === "green" ? allThemeColors.green.bg500 : ""
+                     } ${
+                        themeColor === "purple"
+                           ? allThemeColors.purple.bg500
+                           : ""
+                     }${
+                        themeColor === "black" ? allThemeColors.black.bg500 : ""
+                     } rounded-md ${
+                        themeColor === "blue" ? "hover:bg-blue-400" : ""
+                     } ${
+                        themeColor === "orange" ? "hover:bg-orange-400" : ""
+                     } ${themeColor === "green" ? "hover:bg-green-400" : ""} ${
+                        themeColor === "purple" ? "hover:bg-purple-400" : ""
+                     }${themeColor === "black" ? "hover:bg-gray-400" : ""}`}
+                  >
+                     Create Group
+                  </button>
+               </div>
             </div>
          </section>
       </Fragment>
