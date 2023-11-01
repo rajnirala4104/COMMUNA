@@ -6,15 +6,18 @@ import {
    getUserImage,
 } from "../Config/ChatNameLogics";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
-import { ChatState, SearchPopupContext, ThemeContext } from "../context";
-import { UserBox } from "./UserBox";
+import {
+   ChatState,
+   GroupChatPopup,
+   SearchPopupContext,
+   ThemeContext,
+} from "../context";
 
 export const UsersChatWith = () => {
    const { themeColor } = useContext(ThemeContext);
    const [loaggedUser, setLoaggedUser] = useState();
 
-   const { _user, set_user, chat, setChat, selectedChat, setSelectedChat } =
-      ChatState();
+   const { _user, chat, setChat, selectedChat, setSelectedChat } = ChatState();
 
    const fetchChats = async () => {
       try {
@@ -37,8 +40,9 @@ export const UsersChatWith = () => {
       fetchChats();
    }, []);
 
-   console.log(chat);
+   // console.log(chat);
    const { setIsPopupOn } = useContext(SearchPopupContext);
+   const { groupChatPopup, setGroupChatPopup } = useContext(GroupChatPopup);
    return (
       <Fragment>
          <section
@@ -153,12 +157,20 @@ export const UsersChatWith = () => {
                     ))
                   : "Nothing to show here.."}
             </div>
-            <div
-               onClick={() => setIsPopupOn(true)}
-               className="addButton absolute top-[32rem] left-[78%]"
-            >
-               <button className="py-2 px-3 bg-orange-300 rounded-md hover:bg-orange-400">
+            <div className="addButton flex absolute top-[32rem] left-[40%]">
+               <button
+                  onClick={() => setIsPopupOn(true)}
+                  className="py-2 px-3 bg-orange-300 rounded-md hover:bg-orange-400"
+               >
                   Chat
+               </button>
+               <button
+                  onClick={() => {
+                     setGroupChatPopup(true);
+                  }}
+                  className="py-2 px-3 mx-1 bg-orange-300 rounded-md hover:bg-orange-400"
+               >
+                  Create Group
                </button>
             </div>
          </section>

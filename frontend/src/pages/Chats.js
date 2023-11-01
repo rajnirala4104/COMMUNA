@@ -1,4 +1,10 @@
-import React, { Fragment, Suspense, useEffect, useState } from "react";
+import React, {
+   Fragment,
+   Suspense,
+   useContext,
+   useEffect,
+   useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import {
    ChatingSection,
@@ -6,7 +12,7 @@ import {
    SearchPopup,
    UsersChatWith,
 } from "../Components";
-import { ChatState } from "../context";
+import { ChatState, GroupChatPopup } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
 
 export const Chats = () => {
@@ -22,6 +28,7 @@ export const Chats = () => {
    }, [navigator]);
 
    const [isPopupOn, setIsPopupOn] = useState(false);
+   const { groupChatPopup, setGroupChatPopup } = useContext(GroupChatPopup);
    return (
       <Fragment>
          <Suspense fallback="loading...">
