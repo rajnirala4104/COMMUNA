@@ -180,6 +180,7 @@ export const UsersChatWith = () => {
                >
                   Chat
                </button>
+
                <button
                   onClick={() => {
                      setGroupChatPopup(true);

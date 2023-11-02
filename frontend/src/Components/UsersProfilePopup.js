@@ -19,6 +19,8 @@ export const UsersProfilePopup = () => {
             {selectedChat.isGroup ? (
                <span className="text-4xl text-white">
                   {capitalize(selectedChat.chatName)}
+                  <br />
+                  <a href="/">close</a>
                </span>
             ) : (
                <div className="content p-4 relative flex flex-col justify-center items-center">

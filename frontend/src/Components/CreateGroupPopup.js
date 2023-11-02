@@ -1,10 +1,47 @@
-import React, { Fragment, Suspense, useContext } from "react";
+import axios from "axios";
+import React, { Fragment, Suspense, useContext, useState } from "react";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
-import { GroupChatPopup, ThemeContext } from "../context";
+import { ChatState, GroupChatPopup, ThemeContext } from "../context";
+import { SearchUserBox } from "./SearchUserBox";
 
 export const CreateGroupPopup = () => {
+   // All Context
    const { themeColor } = useContext(ThemeContext);
    const { groupChatPopup, setGroupChatPopup } = useContext(GroupChatPopup);
+
+   // All States
+   const { _user, chat, setChat } = ChatState();
+   const [groupChatName, setGroupChatName] = useState();
+   const [selectedUsers, setSelectedUsers] = useState([]);
+   const [searchResults, setSearchResults] = useState([]);
+   const [searchText, setSearchText] = useState("");
+   const [loading, setLoading] = useState(false);
+
+   const handleSearch = async (query) => {
+      setSearchText(query);
+      if (!query) {
+         return;
+      }
+      try {
+         setLoading(true);
+         const config = {
+            headers: {
+               Authorization: `Bearer ${_user.token}`,
+            },
+         };
+
+         const { data } = await axios.get(
+            `/api/user?search=${searchText}`,
+            config
+         );
+         setSearchResults(data);
+         setLoading(false);
+      } catch (error) {
+         console.log("error : ", error);
+      }
+   };
+
+   const handlerSubmit = () => {};
    return (
       <Fragment>
          <Suspense fallback="loading..">
@@ -32,7 +69,9 @@ export const CreateGroupPopup = () => {
                         <i className="fa-solid fa-x text-gray-600 text-[15px]"></i>
                      </span>
                      <input
-                        onChange={(e) => {}}
+                        onChange={(e) => {
+                           setGroupChatName(e.target.value);
+                        }}
                         className={`outline-none mx-1 py-2  ${
                            themeColor === "green"
                               ? allThemeColors.green.bg200
@@ -61,6 +100,7 @@ export const CreateGroupPopup = () => {
                            </span>
                         </div>
                      </div>
+
                      <div className="selectedUserBox mx-1 flex justify-between relative border border-orange-600 hover:bg-orange-300 rounded-md px-4 py-2">
                         <span className="">user name</span>
                         <div className="px-2">
@@ -72,6 +112,7 @@ export const CreateGroupPopup = () => {
                            </span>
                         </div>
                      </div>
+
                      <div className="selectedUserBox mx-1 flex justify-between relative border border-orange-600 hover:bg-orange-300 rounded-md px-4 py-2">
                         <span className="">user name</span>
                         <div className="px-2">
@@ -83,6 +124,7 @@ export const CreateGroupPopup = () => {
                            </span>
                         </div>
                      </div>
+
                      <div className="selectedUserBox mx-1 flex justify-between relative border border-orange-600 hover:bg-orange-300 rounded-md px-4 py-2">
                         <span className="">user name</span>
                         <div className="px-2">
@@ -98,7 +140,7 @@ export const CreateGroupPopup = () => {
 
                   <div className="flex justify-center items-center my-3 relative">
                      <input
-                        onChange={(e) => {}}
+                        onChange={(e) => handleSearch(e.target.value)}
                         className={`outline-none mx-1 py-2  ${
                            themeColor === "green"
                               ? allThemeColors.green.bg200
@@ -114,9 +156,29 @@ export const CreateGroupPopup = () => {
                         placeholder="Add Members"
                      />
                   </div>
+
+                  <div className="searchResults flex flex-col">
+                     {loading ? (
+                        <span className="mx-auto my-3">Loading..</span>
+                     ) : (
+                        searchResults
+                           ?.slice(0, 4)
+                           .map((singleUserObject, key) => (
+                              <Fragment key={key}>
+                                 <SearchUserBox
+                                    {...singleUserObject}
+                                    handleChat={() =>
+                                       alert("wow its working..")
+                                    }
+                                 />
+                              </Fragment>
+                           ))
+                     )}
+                  </div>
+
                   <div className="mx-auto my-2">
                      <span
-                        onClick={() => {}}
+                        onClick={() => handlerSubmit()}
                         className={`middle none center rounded-lg cursor-pointer  ${
                            themeColor === "blue"
                               ? allThemeColors.blue.bg500
