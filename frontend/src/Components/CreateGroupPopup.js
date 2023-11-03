@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Fragment, Suspense, useContext, useState } from "react";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, GroupChatPopup, ThemeContext } from "../context";
+import { GroupSelectedUserBox } from "./GroupSelectedUserBox";
 import { SearchUserBox } from "./SearchUserBox";
 
 export const CreateGroupPopup = () => {
@@ -41,7 +42,7 @@ export const CreateGroupPopup = () => {
       }
    };
 
-   console.log(selectedUsers);
+   // console.log(selectedUsers);
 
    const handlerSubmit = () => {};
    return (
@@ -91,19 +92,15 @@ export const CreateGroupPopup = () => {
                   </div>
 
                   <div className="SelectedMembersContainer mx-auto my-3 flex justify-evenly">
-                     {selectedUsers.map((userObject, userId) => (
-                        <Fragment key={userId}>
-                           <div className="selectedUserBox mx-1 flex justify-between relative border border-orange-600 hover:bg-orange-300 rounded-md px-4 py-2">
-                              <span className="">{userObject.name}</span>
-                              <div className="px-2">
-                                 <span
-                                    onClick={() => {}}
-                                    className="absolute cursor-pointer my-auto left-[90%]"
-                                 >
-                                    <i className="fa-solid fa-x text-gray-800 text-[12px] -mx-2"></i>
-                                 </span>
-                              </div>
-                           </div>
+                     {selectedUsers.map((userObject) => (
+                        <Fragment key={userObject._id}>
+                           <GroupSelectedUserBox
+                              userObject={userObject}
+                              userId={userObject._id}
+                              closeHandlerFucntion={() =>
+                                 console.log("close ho jayega don't warry")
+                              }
+                           />
                         </Fragment>
                      ))}
                   </div>
