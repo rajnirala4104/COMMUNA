@@ -41,6 +41,8 @@ export const CreateGroupPopup = () => {
       }
    };
 
+   console.log(selectedUsers);
+
    const handlerSubmit = () => {};
    return (
       <Fragment>
@@ -89,53 +91,21 @@ export const CreateGroupPopup = () => {
                   </div>
 
                   <div className="SelectedMembersContainer mx-auto my-3 flex justify-evenly">
-                     <div className="selectedUserBox mx-1 flex justify-between relative border border-orange-600 hover:bg-orange-300 rounded-md px-4 py-2">
-                        <span className="">user name</span>
-                        <div className="px-2">
-                           <span
-                              onClick={() => {}}
-                              className="absolute cursor-pointer my-auto left-[90%]"
-                           >
-                              <i className="fa-solid fa-x text-gray-800 text-[12px] -mx-2"></i>
-                           </span>
-                        </div>
-                     </div>
-
-                     <div className="selectedUserBox mx-1 flex justify-between relative border border-orange-600 hover:bg-orange-300 rounded-md px-4 py-2">
-                        <span className="">user name</span>
-                        <div className="px-2">
-                           <span
-                              onClick={() => {}}
-                              className="absolute cursor-pointer my-auto left-[90%]"
-                           >
-                              <i className="fa-solid fa-x text-gray-800 text-[12px] -mx-2"></i>
-                           </span>
-                        </div>
-                     </div>
-
-                     <div className="selectedUserBox mx-1 flex justify-between relative border border-orange-600 hover:bg-orange-300 rounded-md px-4 py-2">
-                        <span className="">user name</span>
-                        <div className="px-2">
-                           <span
-                              onClick={() => {}}
-                              className="absolute cursor-pointer my-auto left-[90%]"
-                           >
-                              <i className="fa-solid fa-x text-gray-800 text-[12px] -mx-2"></i>
-                           </span>
-                        </div>
-                     </div>
-
-                     <div className="selectedUserBox mx-1 flex justify-between relative border border-orange-600 hover:bg-orange-300 rounded-md px-4 py-2">
-                        <span className="">user name</span>
-                        <div className="px-2">
-                           <span
-                              onClick={() => {}}
-                              className="absolute cursor-pointer my-auto left-[90%]"
-                           >
-                              <i className="fa-solid fa-x text-gray-800 text-[12px] -mx-2"></i>
-                           </span>
-                        </div>
-                     </div>
+                     {selectedUsers.map((userObject, userId) => (
+                        <Fragment key={userId}>
+                           <div className="selectedUserBox mx-1 flex justify-between relative border border-orange-600 hover:bg-orange-300 rounded-md px-4 py-2">
+                              <span className="">{userObject.name}</span>
+                              <div className="px-2">
+                                 <span
+                                    onClick={() => {}}
+                                    className="absolute cursor-pointer my-auto left-[90%]"
+                                 >
+                                    <i className="fa-solid fa-x text-gray-800 text-[12px] -mx-2"></i>
+                                 </span>
+                              </div>
+                           </div>
+                        </Fragment>
+                     ))}
                   </div>
 
                   <div className="flex justify-center items-center my-3 relative">
@@ -168,7 +138,14 @@ export const CreateGroupPopup = () => {
                                  <SearchUserBox
                                     {...singleUserObject}
                                     handleChat={() =>
-                                       alert("wow its working..")
+                                       selectedUsers.includes(singleUserObject)
+                                          ? console.log(
+                                               "user already added in group"
+                                            )
+                                          : setSelectedUsers([
+                                               ...selectedUsers,
+                                               singleUserObject,
+                                            ])
                                     }
                                  />
                               </Fragment>
