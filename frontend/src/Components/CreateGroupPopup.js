@@ -44,7 +44,9 @@ export const CreateGroupPopup = () => {
 
    // console.log(selectedUsers);
 
-   const handlerSubmit = () => {};
+   const handlerSubmit = () => {
+      alert("we have'nt created this functionality");
+   };
    return (
       <Fragment>
          <Suspense fallback="loading..">
@@ -98,7 +100,11 @@ export const CreateGroupPopup = () => {
                               userObject={userObject}
                               userId={userObject._id}
                               closeHandlerFucntion={() =>
-                                 console.log("close ho jayega don't warry")
+                                 setSelectedUsers(
+                                    selectedUsers.filter(
+                                       (obj) => obj._id !== userObject._id
+                                    )
+                                 )
                               }
                            />
                         </Fragment>

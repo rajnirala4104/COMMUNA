@@ -37,16 +37,15 @@ export const UsersProfilePopup = () => {
                      className="bg-white w-[70%] rounded-full saturate-100"
                      alt="Raj Nirala"
                   />
-                  <div className="flex my-2 flex-col justify-center items-center bg-orange-200 px-4 py-2 rounded-md">
+                  <div
+                     className={`flex my-2 flex-col justify-center items-center bg-orange-200 px-4 py-2 rounded-md`}
+                  >
                      <span className=" text-2xl">
                         {capitalize(getSenderName(_user, selectedChat.users))}
                      </span>
                      <span className=" text-sm">
                         <i>
-                           {capitalize(
-                              getUserWholeObject(_user, selectedChat.users)
-                                 .email
-                           )}
+                           {getUserWholeObject(_user, selectedChat.users).email}
                         </i>
                      </span>
                   </div>
