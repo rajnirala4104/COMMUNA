@@ -10,7 +10,6 @@ export const SearchUserBox = (props) => {
       <Fragment>
          <div
             onClick={() => {
-               // navigator(`/chats/${props._id}`);
                props.handleChat();
                setIsPopupOn(false);
             }}

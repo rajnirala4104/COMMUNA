@@ -8,7 +8,7 @@ import { SearchUserBox } from "./SearchUserBox";
 export const CreateGroupPopup = () => {
    // All Context
    const { themeColor } = useContext(ThemeContext);
-   const { groupChatPopup, setGroupChatPopup } = useContext(GroupChatPopup);
+   const { setGroupChatPopup } = useContext(GroupChatPopup);
 
    // All States
    const { _user, chat, setChat } = ChatState();
@@ -44,8 +44,32 @@ export const CreateGroupPopup = () => {
 
    // console.log(selectedUsers);
 
-   const handlerSubmit = () => {
-      alert("we have'nt created this functionality");
+   const handlerSubmit = async () => {
+      if (!groupChatName || !selectedUsers) {
+         alert("Please all the fields");
+         return;
+      }
+
+      try {
+         const config = {
+            headers: {
+               Authorization: `Bearer ${_user.token}`,
+            },
+         };
+
+         const { data } = await axios.post(
+            `/api/chat/group`,
+            {
+               name: groupChatName,
+               users: JSON.stringify(selectedUsers.map((u) => u._id)),
+            },
+            config
+         );
+
+         setChat([...data, chat]);
+      } catch (error) {
+         alert("Oops!! something went wrong in 'create group chat handler'");
+      }
    };
    return (
       <Fragment>
