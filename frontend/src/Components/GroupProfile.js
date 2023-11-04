@@ -3,13 +3,18 @@ import React, { Fragment, Suspense, useContext, useState } from "react";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext, UsersProfilePopupProvider } from "../context";
 import { GroupSelectedUserBox } from "./GroupSelectedUserBox";
+import { SearchUserBox } from "./SearchUserBox";
 
 export const GroupProfile = () => {
    const { _user, chat, setChat, selectedChat } = ChatState();
    const [newName, setNewName] = useState();
+   const [selectedUsers, setSelectedUsers] = useState([]);
    const { themeColor } = useContext(ThemeContext);
    const { setUsersProfilePopupOn } = useContext(UsersProfilePopupProvider);
 
+   const [searchResults, setSearchResults] = useState([]);
+   const [searchText, setSearchText] = useState("");
+   const [loading, setLoading] = useState(false);
    const updateGroupNameHandler = async () => {
       if (!newName) {
          alert("You've to Write something..");
@@ -48,6 +53,30 @@ export const GroupProfile = () => {
          setUsersProfilePopupOn(false);
       } catch (e) {
          console.log("something went worng in removFromGroup function");
+      }
+   };
+
+   const handleSearch = async (query) => {
+      setSearchText(query);
+      if (!query) {
+         return;
+      }
+      try {
+         setLoading(true);
+         const config = {
+            headers: {
+               Authorization: `Bearer ${_user.token}`,
+            },
+         };
+
+         const { data } = await axios.get(
+            `/api/user?search=${searchText}`,
+            config
+         );
+         setSearchResults(data);
+         setLoading(false);
+      } catch (error) {
+         console.log("error : ", error);
       }
    };
 
@@ -158,6 +187,60 @@ export const GroupProfile = () => {
                              />
                           </Fragment>
                        ))}
+               </div>
+               <div className="search">
+                  {selectedChat.groupAdmin._id === _user._id ? (
+                     <Fragment>
+                        <div className="flex justify-center items-center my-3 relative">
+                           <input
+                              onChange={(e) => handleSearch(e.target.value)}
+                              className={`outline-none mx-1 py-2  ${
+                                 themeColor === "green"
+                                    ? allThemeColors.green.bg200
+                                    : ""
+                              }
+                  ${themeColor === "blue" ? allThemeColors.blue.bg200 : ""}
+                  ${themeColor === "purple" ? allThemeColors.purple.bg200 : ""}
+                  ${themeColor === "orange" ? allThemeColors.orange.bg200 : ""}
+                  ${
+                     themeColor === "black" ? allThemeColors.black.bg200 : ""
+                  } placeholder-gray-600 text-slate-800 shadow-md px-3 py-1 rounded-md w-[55vh]`}
+                              type="text"
+                              placeholder="Add Members"
+                           />
+                        </div>
+
+                        <div className="searchResults flex flex-col">
+                           {loading ? (
+                              <span className="mx-auto my-3">Loading..</span>
+                           ) : (
+                              searchResults
+                                 ?.slice(0, 4)
+                                 .map((singleUserObject, key) => (
+                                    <Fragment key={key}>
+                                       <SearchUserBox
+                                          {...singleUserObject}
+                                          handleChat={() =>
+                                             selectedUsers.includes(
+                                                singleUserObject
+                                             )
+                                                ? console.log(
+                                                     "user already added in group"
+                                                  )
+                                                : setSelectedUsers([
+                                                     ...selectedUsers,
+                                                     singleUserObject,
+                                                  ])
+                                          }
+                                       />
+                                    </Fragment>
+                                 ))
+                           )}
+                        </div>
+                     </Fragment>
+                  ) : (
+                     ""
+                  )}
                </div>
             </div>
          </Suspense>

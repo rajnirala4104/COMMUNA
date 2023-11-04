@@ -1,11 +1,5 @@
 import axios from "axios";
-import React, {
-   Fragment,
-   Suspense,
-   useContext,
-   useEffect,
-   useState,
-} from "react";
+import React, { Fragment, Suspense, useContext, useState } from "react";
 import { Loading, SearchUserBox, UserBox } from "../Components";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext } from "../context";

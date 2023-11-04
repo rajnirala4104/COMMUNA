@@ -1,13 +1,9 @@
 import React, { Fragment, Suspense, useContext } from "react";
-import { DotSvg, allImages } from "../assets/images";
 import { ChatState, ThemeContext } from "../context";
 
 export const GroupSelectedUserBox = (props) => {
    const { themeColor } = useContext(ThemeContext);
    const { selectedChat, _user } = ChatState();
-
-   console.log(selectedChat.groupAdmin.email);
-   console.log(props.userObject.email);
 
    return (
       <Fragment>
