@@ -39,7 +39,9 @@ export const SearchPopup = () => {
 
          setLoading(false);
          setSearchResult(data);
-      } catch (e) {}
+      } catch (e) {
+         console.log("something went wrong in search handler function");
+      }
    };
 
    const accessChat = async (userId) => {

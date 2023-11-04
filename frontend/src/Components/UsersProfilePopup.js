@@ -5,6 +5,7 @@ import {
    getUserWholeObject,
 } from "../Config/ChatNameLogics";
 import { ChatState, UsersProfilePopupProvider } from "../context";
+import { GroupProfile } from "./GroupProfile";
 
 export const UsersProfilePopup = () => {
    const { selectedChat, _user } = ChatState();
@@ -17,11 +18,7 @@ export const UsersProfilePopup = () => {
             style={{ background: "rgba(0,0,0,0.5)", zIndex: 30 }}
          >
             {selectedChat.isGroup ? (
-               <span className="text-4xl text-white">
-                  {capitalize(selectedChat.chatName)}
-                  <br />
-                  <a href="/">close</a>
-               </span>
+               <GroupProfile />
             ) : (
                <div className="content p-4 relative flex flex-col justify-center items-center">
                   <span

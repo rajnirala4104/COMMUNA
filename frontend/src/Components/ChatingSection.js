@@ -11,6 +11,7 @@ export const ChatingSection = () => {
 
    const { setUsersProfilePopupOn } = useContext(UsersProfilePopupProvider);
    // console.log(selectedChat);
+
    return (
       <Fragment>
          <Suspense fallback="loading..">
@@ -44,9 +45,14 @@ export const ChatingSection = () => {
                            </div>
                            <div className="userName mx-2">
                               <span>
-                                 {capitalize(
-                                    getSenderName(_user, selectedChat.users)
-                                 )}
+                                 {selectedChat.isGroup
+                                    ? selectedChat.chatName
+                                    : capitalize(
+                                         getSenderName(
+                                            _user,
+                                            selectedChat.users
+                                         )
+                                      )}
                               </span>
                            </div>
                         </div>
