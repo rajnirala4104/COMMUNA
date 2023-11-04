@@ -45,7 +45,6 @@ export const SearchPopup = () => {
    };
 
    const accessChat = async (userId) => {
-      console.log("Its running");
       try {
          const config = {
             "Content-type": "application/json",

@@ -10,8 +10,6 @@ export const GroupProfile = () => {
    const { themeColor } = useContext(ThemeContext);
    const { setUsersProfilePopupOn } = useContext(UsersProfilePopupProvider);
 
-   console.log(selectedChat);
-
    const updateGroupNameHandler = async () => {
       if (!newName) {
          alert("You've to Write something..");
@@ -34,6 +32,25 @@ export const GroupProfile = () => {
          );
       }
    };
+
+   const removeFromGroup = async (UserId) => {
+      try {
+         const config = {
+            headers: {
+               Authorization: `Bearer ${_user.token}`,
+            },
+         };
+         const { data } = axios.put(
+            `/api/chat/groupremove`,
+            { chatId: selectedChat._id, userId: UserId },
+            config
+         );
+         setUsersProfilePopupOn(false);
+      } catch (e) {
+         console.log("something went worng in removFromGroup function");
+      }
+   };
+
    return (
       <Fragment>
          <Suspense fallback={"loading.."}>
@@ -112,9 +129,13 @@ export const GroupProfile = () => {
                              <GroupSelectedUserBox
                                 userObject={userObj}
                                 closeHandlerFucntion={() =>
-                                   console.log("remove this user: ", {
-                                      userObj,
-                                   })
+                                   userObj.email === _user.email
+                                      ? window.confirm(
+                                           `do you realy want to exit ${selectedChat.chatName}`
+                                        )
+                                         ? removeFromGroup(userObj._id)
+                                         : ""
+                                      : removeFromGroup(userObj._id)
                                 }
                              />
                           </Fragment>
@@ -124,9 +145,15 @@ export const GroupProfile = () => {
                              <GroupSelectedUserBox
                                 userObject={userObj}
                                 closeHandlerFucntion={() =>
-                                   console.log(
-                                      "You can't remove this user because you are not admin"
-                                   )
+                                   userObj.email === _user.email
+                                      ? window.confirm(
+                                           `do you realy want to exit ${selectedChat.chatName}`
+                                        )
+                                         ? removeFromGroup(userObj._id)
+                                         : ""
+                                      : alert(
+                                           "You can't remove this user because you are not admin"
+                                        )
                                 }
                              />
                           </Fragment>

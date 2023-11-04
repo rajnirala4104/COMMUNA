@@ -10,7 +10,6 @@ export const ChatingSection = () => {
    const { selectedChat, _user } = ChatState();
 
    const { setUsersProfilePopupOn } = useContext(UsersProfilePopupProvider);
-   // console.log(selectedChat);
 
    return (
       <Fragment>

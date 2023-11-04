@@ -4,13 +4,14 @@ import {
    getSenderName,
    getUserWholeObject,
 } from "../Config/ChatNameLogics";
-import { ChatState, UsersProfilePopupProvider } from "../context";
+import { allThemeColors } from "../constants/ThemeColorsConstants";
+import { ChatState, ThemeContext, UsersProfilePopupProvider } from "../context";
 import { GroupProfile } from "./GroupProfile";
 
 export const UsersProfilePopup = () => {
    const { selectedChat, _user } = ChatState();
    const { setUsersProfilePopupOn } = useContext(UsersProfilePopupProvider);
-
+   const { themeColor } = useContext(ThemeContext);
    return (
       <Fragment>
          <section
@@ -35,7 +36,23 @@ export const UsersProfilePopup = () => {
                      alt="Raj Nirala"
                   />
                   <div
-                     className={`flex my-2 flex-col justify-center items-center bg-orange-200 px-4 py-2 rounded-md`}
+                     className={`flex my-2 flex-col justify-center items-center ${
+                        themeColor === "blue" ? allThemeColors.blue.bg200 : ""
+                     }
+                     ${
+                        themeColor === "purple"
+                           ? allThemeColors.purple.bg200
+                           : ""
+                     }
+                     ${
+                        themeColor === "orange"
+                           ? allThemeColors.orange.bg200
+                           : ""
+                     }
+                     ${themeColor === "black" ? allThemeColors.black.bg200 : ""}
+                     ${
+                        themeColor === "green" ? allThemeColors.green.bg200 : ""
+                     } px-4 py-2 rounded-md`}
                   >
                      <span className=" text-2xl">
                         {capitalize(getSenderName(_user, selectedChat.users))}

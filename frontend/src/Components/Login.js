@@ -8,20 +8,16 @@ export const Login = () => {
    const [userLoginEmail, setUserLoginEmail] = useState(null);
    const [userLoginPassword, setUserLoginPassword] = useState(null);
    const [showPassword, setShowPassword] = useState(false);
-   const [loading, setLoading] = useState(false);
    const naviator = useNavigate();
 
    const submitHandler = async () => {
       if (!userLoginEmail || !userLoginPassword) {
-         setLoading(true);
-         alert("Oops!! you have to fill these all");
-         setLoading(false);
+         alert("invailid email and password");
          return;
       }
       try {
          const { data } = await loginHelp(userLoginEmail, userLoginPassword);
          localStorage.setItem("userInfo", JSON.stringify(data));
-         setLoading(false);
          naviator("/chats");
       } catch (e) {
          alert("Oops!! something went wrong..");
@@ -356,7 +352,7 @@ export const Login = () => {
                      }
                       focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none`}
                      data-ripple-light="true"
-                     onClick={submitHandler}
+                     onClick={() => submitHandler}
                   >
                      Login
                   </button>
