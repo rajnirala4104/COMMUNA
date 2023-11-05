@@ -54,6 +54,17 @@ export const UsersChatWith = () => {
                ${themeColor === "orange" ? allThemeColors.orange.bg100 : ""}
                ${themeColor === "black" ? allThemeColors.black.bg100 : ""}`}
          >
+            <div
+               className={`sticky top-[0%] h-12 flex justify-center items-center ${
+                  themeColor === "blue" ? allThemeColors.blue.bg500 : ""
+               } ${
+                  themeColor === "orange" ? allThemeColors.orange.bg500 : ""
+               } ${themeColor === "green" ? allThemeColors.green.bg500 : ""} ${
+                  themeColor === "purple" ? allThemeColors.purple.bg500 : ""
+               }${themeColor === "black" ? allThemeColors.black.bg500 : ""}`}
+            >
+               <span className="text-2xl">All Chats</span>
+            </div>
             <div className="chatContainer">
                {chat
                   ? chat.map((singleDataObject, key) => (
@@ -157,7 +168,7 @@ export const UsersChatWith = () => {
                     ))
                   : "Nothing to show here.."}
             </div>
-            <div className=" flex absolute top-[31rem] left-[36%]">
+            <div className=" flex fixed top-[37rem] left-[7%]">
                <button
                   onClick={() => setIsPopupOn(true)}
                   className={`py-2 px-3 ${

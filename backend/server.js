@@ -1,25 +1,20 @@
 const express = require("express");
 const dotenv = require("dotenv");
+dotenv.config();
 const connectDatabase = require("./configs/database");
 const userRouters = require("./Routes/userRoutes");
 const chatRoutes = require("./Routes/chatRoutes");
 const { notFoundErr, erroHandler } = require("./middleware/errors");
 
-dotenv.config();
+const cors = require("cors");
+
 connectDatabase();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
-
-app.use((req, res, next) => {
-   res.setHeader("Access-Control-Allow-Origin", "*");
-   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
-   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-   res.setHeader("Access-Control-Allow-Headers", "Authorization");
-   next();
-});
+app.use(cors());
 
 app.use("/api/user", userRouters);
 app.use("/api/chat", chatRoutes);

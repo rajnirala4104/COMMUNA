@@ -20,6 +20,7 @@ export const Login = () => {
          localStorage.setItem("userInfo", JSON.stringify(data));
          naviator("/chats");
       } catch (e) {
+         console.log(userLoginEmail, userLoginPassword);
          alert("Oops!! something went wrong..");
       }
    };

@@ -27,7 +27,7 @@ export const Chats = () => {
    const { _user } = ChatState();
 
    useEffect(() => {
-      if (_user === null) {
+      if (!_user) {
          navigator("/");
       }
       setIsUser(true);
