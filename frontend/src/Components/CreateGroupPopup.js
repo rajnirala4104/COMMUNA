@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { Fragment, Suspense, useContext, useState } from "react";
+// import { createGroup } from "../api/servces/groupCalls";
+import { searchU } from "../api/servces/users";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, GroupChatPopup, ThemeContext } from "../context";
 import { GroupSelectedUserBox } from "./GroupSelectedUserBox";
@@ -25,16 +27,7 @@ export const CreateGroupPopup = () => {
       }
       try {
          setLoading(true);
-         const config = {
-            headers: {
-               Authorization: `Bearer ${_user.token}`,
-            },
-         };
-
-         const { data } = await axios.get(
-            `/api/user?search=${searchText}`,
-            config
-         );
+         const { data } = await searchU(_user.token, query);
          setSearchResults(data);
          setLoading(false);
       } catch (error) {
@@ -52,21 +45,22 @@ export const CreateGroupPopup = () => {
 
       try {
          const config = {
+            "Content-type": "application/json",
             headers: {
                Authorization: `Bearer ${_user.token}`,
             },
          };
 
          const { data } = await axios.post(
-            `/api/chat/group`,
+            "/api/chat/group",
             {
                name: groupChatName,
                users: JSON.stringify(selectedUsers.map((u) => u._id)),
             },
             config
          );
-
          setChat([...data, chat]);
+         return;
       } catch (error) {
          alert("Oops!! something went wrong in 'create group chat handler'");
       }

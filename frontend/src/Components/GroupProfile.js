@@ -15,6 +15,7 @@ export const GroupProfile = () => {
    const [searchResults, setSearchResults] = useState([]);
    const [searchText, setSearchText] = useState("");
    const [loading, setLoading] = useState(false);
+
    const updateGroupNameHandler = async () => {
       if (!newName) {
          alert("You've to Write something..");

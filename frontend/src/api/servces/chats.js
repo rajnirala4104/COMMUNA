@@ -5,6 +5,13 @@ export const getChats = () => {
    return http.get(ENDPOINTS.chats);
 };
 
-export const getSingleChatUseingID = (id) => {
-   return http.get(`${ENDPOINTS.chats}/id`);
+export const accessChatApiCall = (userToken, userId) => {
+   const config = {
+      "Content-type": "application/json",
+      headers: {
+         Authorization: `Bearer ${userToken}`,
+      },
+   };
+
+   return http.post(ENDPOINTS.chats, userId, config);
 };

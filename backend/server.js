@@ -17,12 +17,13 @@ app.use((req, res, next) => {
    res.setHeader("Access-Control-Allow-Origin", "*");
    res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+   res.setHeader("Access-Control-Allow-Headers", "Authorization");
    next();
 });
 
 app.use("/api/user", userRouters);
 app.use("/api/chat", chatRoutes);
 app.use(notFoundErr);
-// app.use(erroHandler);
+app.use(erroHandler);
 
 app.listen(PORT, console.log(`server has started at ${PORT}`.yellow.bold));

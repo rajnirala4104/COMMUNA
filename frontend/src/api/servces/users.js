@@ -1,13 +1,12 @@
 import { ENDPOINTS } from "../constants";
 import { http } from "../http";
 
-export const createGroup = async (userToken, info) => {
+export const searchU = (userToken, query) => {
    const config = {
-      "Content-type": "application/json",
       headers: {
          Authorization: `Bearer ${userToken}`,
       },
    };
 
-   return http.post(ENDPOINTS.createGroup, info, config);
+   return http.get(`${ENDPOINTS.searchUser}=${query}`, config);
 };

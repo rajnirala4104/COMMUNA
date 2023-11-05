@@ -1,6 +1,7 @@
-import axios from "axios";
 import React, { Fragment, Suspense, useContext, useState } from "react";
-import { Loading, SearchUserBox, UserBox } from "../Components";
+import { Loading, SearchUserBox } from "../Components";
+import { accessChatApiCall } from "../api/servces";
+import { searchU } from "../api/servces/users";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";
@@ -21,15 +22,8 @@ export const SearchPopup = () => {
       }
       try {
          setLoading(true);
-         const config = {
-            headers: {
-               Authorization: `Bearer ${_user.token}`,
-            },
-         };
-         const { data } = await axios.get(
-            `/api/user?search=${searchText}`,
-            config
-         );
+
+         const { data } = await searchU(_user.token, searchText);
 
          setLoading(false);
          setSearchResult(data);
@@ -40,14 +34,7 @@ export const SearchPopup = () => {
 
    const accessChat = async (userId) => {
       try {
-         const config = {
-            "Content-type": "application/json",
-            headers: {
-               Authorization: `Bearer ${_user.token}`,
-            },
-         };
-
-         const { data } = await axios.post("/api/chat", { userId }, config);
+         const { data } = await accessChatApiCall(_user.token, { userId });
          if (!chat.find((c) => c._id === data._id)) {
             setChat([data, ...chat]);
          }

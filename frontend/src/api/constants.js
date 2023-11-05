@@ -9,4 +9,5 @@ export const ENDPOINTS = {
    renameGroup: "/api/chat/rename",
    addToGroup: "/api/chat/groupadd",
    removeFromGroup: "/api/chat/groupremove",
+   searchUser: "/api/user?search",
 };
