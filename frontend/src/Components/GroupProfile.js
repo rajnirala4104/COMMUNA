@@ -39,21 +39,29 @@ export const GroupProfile = () => {
       }
    };
 
-   const removeFromGroup = async (UserId) => {
-      try {
-         const config = {
-            headers: {
-               Authorization: `Bearer ${_user.token}`,
-            },
-         };
-         const { data } = axios.put(
-            `/api/chat/groupremove`,
-            { chatId: selectedChat._id, userId: UserId },
-            config
-         );
-         setUsersProfilePopupOn(false);
-      } catch (e) {
-         console.log("something went worng in removFromGroup function");
+   const removeFromGroup = async (UserId, userObj) => {
+      let wantDelete;
+      if (userObj.email === _user.email) {
+         wantDelete = window.confirm("Do you want to Leave this Group");
+      } else {
+         wantDelete = window.confirm(`do you want to remove ${userObj.name} `);
+      }
+      if (wantDelete) {
+         try {
+            const config = {
+               headers: {
+                  Authorization: `Bearer ${_user.token}`,
+               },
+            };
+            const { data } = axios.put(
+               `/api/chat/groupremove`,
+               { chatId: selectedChat._id, userId: UserId },
+               config
+            );
+            setUsersProfilePopupOn(false);
+         } catch (e) {
+            console.log("something went worng in removFromGroup function");
+         }
       }
    };
 
@@ -94,6 +102,20 @@ export const GroupProfile = () => {
                   ${themeColor === "green" ? allThemeColors.green.bg100 : ""}
                `}
             >
+               <div className="groupTitle my-3 mb-5">
+                  <h1
+                     className={`text-4xl  ${
+                        themeColor === "blue" ? "text-blue-900" : ""
+                     }
+                  ${themeColor === "purple" ? "text-purple-800" : ""}
+                  ${themeColor === "orange" ? "text-orange-800" : ""}
+                  ${themeColor === "black" ? "text-gray-800" : ""}
+                  ${themeColor === "green" ? "text-green-800" : ""}`}
+                  >
+                     {selectedChat.chatName}
+                  </h1>
+               </div>
+
                <div className="px-2">
                   <span
                      onClick={() => {
@@ -110,7 +132,6 @@ export const GroupProfile = () => {
                      className="px-2 py-1 rounded-md focus:outline-none"
                      type="text"
                      placeholder="Change - Group Name"
-                     defaultValue={selectedChat.chatName}
                   />
                   <span
                      onClick={() => updateGroupNameHandler()}
@@ -159,13 +180,7 @@ export const GroupProfile = () => {
                              <GroupSelectedUserBox
                                 userObject={userObj}
                                 closeHandlerFucntion={() =>
-                                   userObj.email === _user.email
-                                      ? window.confirm(
-                                           `do you realy want to exit ${selectedChat.chatName}`
-                                        )
-                                         ? removeFromGroup(userObj._id)
-                                         : ""
-                                      : removeFromGroup(userObj._id)
+                                   removeFromGroup(userObj._id, userObj)
                                 }
                              />
                           </Fragment>
@@ -176,11 +191,7 @@ export const GroupProfile = () => {
                                 userObject={userObj}
                                 closeHandlerFucntion={() =>
                                    userObj.email === _user.email
-                                      ? window.confirm(
-                                           `do you realy want to exit ${selectedChat.chatName}`
-                                        )
-                                         ? removeFromGroup(userObj._id)
-                                         : ""
+                                      ? removeFromGroup(userObj._id, userObj)
                                       : alert(
                                            "You can't remove this user because you are not admin"
                                         )
@@ -240,7 +251,52 @@ export const GroupProfile = () => {
                         </div>
                      </Fragment>
                   ) : (
-                     ""
+                     <div className="my-5">
+                        <span
+                           onClick={() => removeFromGroup(_user._id, _user)}
+                           className={`py-2 middle none center rounded-lg cursor-pointer  ${
+                              themeColor === "blue"
+                                 ? allThemeColors.blue.bg500
+                                 : ""
+                           } ${
+                              themeColor === "orange"
+                                 ? allThemeColors.orange.bg500
+                                 : ""
+                           } ${
+                              themeColor === "green"
+                                 ? allThemeColors.green.bg500
+                                 : ""
+                           } ${
+                              themeColor === "purple"
+                                 ? allThemeColors.purple.bg500
+                                 : ""
+                           }${
+                              themeColor === "black"
+                                 ? allThemeColors.black.bg500
+                                 : ""
+                           }
+             py-2 px-6 mx-2 font-sans text-xs font-bold 
+             uppercase text-white transition-all hover:shadow-lg   ${
+                themeColor === "blue" ? "hover:shadow-blue-500/40" : ""
+             } ${themeColor === "green" ? "hover:shadow-green-500/40" : ""} ${
+                              themeColor === "orange"
+                                 ? "hover:shadow-orange-500/40"
+                                 : ""
+                           } ${
+                              themeColor === "purple"
+                                 ? "hover:shadow-purple-500/40"
+                                 : ""
+                           }${
+                              themeColor === "black"
+                                 ? "hover:shadow-gray-500/40"
+                                 : ""
+                           }
+             focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none`}
+                           data-ripple-light="true"
+                        >
+                           Leave Group
+                        </span>
+                     </div>
                   )}
                </div>
             </div>

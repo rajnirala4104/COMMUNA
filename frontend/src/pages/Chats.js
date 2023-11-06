@@ -36,6 +36,8 @@ export const Chats = () => {
    const [isPopupOn, setIsPopupOn] = useState(false);
    const { groupChatPopup } = useContext(GroupChatPopup);
    const { userProfilePopupOn } = useContext(UsersProfilePopupProvider);
+
+   const [fetchAgan, setFetchAgan] = useState(false);
    return (
       <Fragment>
          <Suspense fallback="loading...">
@@ -47,8 +49,14 @@ export const Chats = () => {
                      {userProfilePopupOn && <UsersProfilePopup />}
                      <Navbar />
                      <div className="flex justify-between w-full h-[87vh]">
-                        <UsersChatWith />
-                        <ChatingSection />
+                        <UsersChatWith
+                           fetchAgan={fetchAgan}
+                           setFetchAgan={setFetchAgan}
+                        />
+                        <ChatingSection
+                           fetchAgan={fetchAgan}
+                           setFetchAgan={setFetchAgan}
+                        />
                      </div>
                   </Fragment>
                ) : (
