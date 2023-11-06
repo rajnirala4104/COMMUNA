@@ -6,8 +6,15 @@ import { GroupSelectedUserBox } from "./GroupSelectedUserBox";
 import { SearchUserBox } from "./SearchUserBox";
 
 export const GroupProfile = () => {
-   const { _user, chat, setChat, selectedChat, fetchAgain, setFetchAgain } =
-      ChatState();
+   const {
+      _user,
+      chat,
+      setChat,
+      selectedChat,
+      setSelectedChat,
+      fetchAgain,
+      setFetchAgain,
+   } = ChatState();
    const [newName, setNewName] = useState();
    const [selectedUsers, setSelectedUsers] = useState([]);
    const { themeColor } = useContext(ThemeContext);
@@ -33,6 +40,7 @@ export const GroupProfile = () => {
             config
          );
          setFetchAgain(!fetchAgain);
+         setSelectedChat(data);
          setUsersProfilePopupOn(false);
       } catch (e) {
          console.log(
@@ -43,7 +51,7 @@ export const GroupProfile = () => {
 
    const removeFromGroup = async (UserId, userObj) => {
       let wantDelete;
-      if (userObj.email === _user.email) {
+      if (userObj._id === _user._id) {
          wantDelete = window.confirm("Do you want to Leave this Group");
       } else {
          wantDelete = window.confirm(`do you want to remove ${userObj.name} `);
@@ -60,8 +68,13 @@ export const GroupProfile = () => {
                { chatId: selectedChat._id, userId: UserId },
                config
             );
-            setFetchAgain(!fetchAgain);
+
+            userObj._id === _user._id
+               ? setSelectedChat()
+               : setSelectedChat(data);
+
             setUsersProfilePopupOn(false);
+            setFetchAgain(!fetchAgain);
          } catch (e) {
             console.log("something went worng in removFromGroup function");
          }
@@ -92,7 +105,36 @@ export const GroupProfile = () => {
       }
    };
 
-   const addToGroup = () => {};
+   const addToGroup = async (userObj) => {
+      if (selectedChat.users.find((u) => u._id === userObj._id)) {
+         alert("user is alredy in group");
+         return;
+      }
+
+      try {
+         setLoading(true);
+         const config = {
+            headers: {
+               Authorization: `Bearer ${_user.token}`,
+            },
+         };
+
+         const { data } = await axios.put(
+            "/api/chat/groupadd",
+            {
+               chatId: selectedChat._id,
+               userId: userObj._id,
+            },
+            config
+         );
+
+         setSelectedChat(data);
+         setFetchAgain(!fetchAgain);
+         setLoading(false);
+      } catch (e) {
+         alert("something went wrong in add to group function");
+      }
+   };
 
    return (
       <Fragment>
@@ -180,8 +222,8 @@ export const GroupProfile = () => {
                </div>
                <div className="flex ">
                   {_user.email === selectedChat.groupAdmin.email
-                     ? selectedChat.users.map((userObj) => (
-                          <Fragment key={userObj._id}>
+                     ? selectedChat.users.map((userObj, i) => (
+                          <Fragment key={i}>
                              <GroupSelectedUserBox
                                 userObject={userObj}
                                 closeHandlerFucntion={() =>
@@ -190,8 +232,8 @@ export const GroupProfile = () => {
                              />
                           </Fragment>
                        ))
-                     : selectedChat.users.map((userObj) => (
-                          <Fragment key={userObj._id}>
+                     : selectedChat.users.map((userObj, i) => (
+                          <Fragment key={i}>
                              <GroupSelectedUserBox
                                 userObject={userObj}
                                 closeHandlerFucntion={() =>
@@ -237,7 +279,9 @@ export const GroupProfile = () => {
                                     <Fragment key={key}>
                                        <SearchUserBox
                                           {...singleUserObject}
-                                          handleChat={() => addToGroup()}
+                                          handleChat={() =>
+                                             addToGroup(singleUserObject)
+                                          }
                                        />
                                     </Fragment>
                                  ))

@@ -156,7 +156,7 @@ export const ChatingSection = () => {
                   ${themeColor === "black" ? "text-gray-800" : ""}
                   ${themeColor === "green" ? "text-green-800" : ""}`}
                      >
-                        Nothing..
+                        Click on user to start chatting..
                      </span>
                   </div>
                )}

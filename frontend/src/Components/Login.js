@@ -2,13 +2,14 @@ import React, { Fragment, Suspense, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginHelp } from "../api/servces";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
-import { ThemeContext } from "../context";
+import { ChatState, ThemeContext } from "../context";
 
 export const Login = () => {
    const [userLoginEmail, setUserLoginEmail] = useState(null);
    const [userLoginPassword, setUserLoginPassword] = useState(null);
    const [showPassword, setShowPassword] = useState(false);
    const naviator = useNavigate();
+   const { fetchAgain, setFetchAgain } = ChatState();
 
    const submitHandler = async () => {
       if (!userLoginEmail || !userLoginPassword) {
@@ -19,6 +20,8 @@ export const Login = () => {
          const { data } = await loginHelp(userLoginEmail, userLoginPassword);
          localStorage.setItem("userInfo", JSON.stringify(data));
          naviator("/chats");
+         setFetchAgain(!fetchAgain);
+         window.location.reload();
       } catch (e) {
          console.log(userLoginEmail, userLoginPassword);
          alert("Oops!! something went wrong..");
