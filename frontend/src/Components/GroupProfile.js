@@ -73,8 +73,8 @@ export const GroupProfile = () => {
                ? setSelectedChat()
                : setSelectedChat(data);
 
-            setUsersProfilePopupOn(false);
             setFetchAgain(!fetchAgain);
+            setUsersProfilePopupOn(false);
          } catch (e) {
             console.log("something went worng in removFromGroup function");
          }

@@ -4,6 +4,7 @@ dotenv.config();
 const connectDatabase = require("./configs/database");
 const userRouters = require("./Routes/userRoutes");
 const chatRoutes = require("./Routes/chatRoutes");
+const messageRoutes = require("./Routes/messageRoute");
 const { notFoundErr, erroHandler } = require("./middleware/errors");
 
 const cors = require("cors");
@@ -18,6 +19,8 @@ app.use(cors());
 
 app.use("/api/user", userRouters);
 app.use("/api/chat", chatRoutes);
+app.use("/api/message", messageRoutes);
+
 app.use(notFoundErr);
 app.use(erroHandler);
 
