@@ -1,12 +1,10 @@
 import React, { Fragment, Suspense, useContext } from "react";
 import { capitalize, getSenderName } from "../Config/ChatNameLogics";
-import { allImages } from "../assets/images";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext, UsersProfilePopupProvider } from "../context";
 
 export const ChatingSection = () => {
    const { themeColor } = useContext(ThemeContext);
-
    const { selectedChat, _user } = ChatState();
 
    const { setUsersProfilePopupOn } = useContext(UsersProfilePopupProvider);
@@ -55,6 +53,7 @@ export const ChatingSection = () => {
                               </span>
                            </div>
                         </div>
+
                         <div
                            className={`chatingMainSection w-full h-full  ${
                               themeColor === "green"
@@ -66,6 +65,7 @@ export const ChatingSection = () => {
                ${themeColor === "orange" ? allThemeColors.orange.bg100 : ""}
                ${themeColor === "black" ? allThemeColors.black.bg100 : ""}`}
                         ></div>
+
                         <div
                            className={`lowerPart flex items-center  h-16  ${
                               themeColor === "green"
@@ -124,7 +124,11 @@ export const ChatingSection = () => {
                ${themeColor === "blue" ? "hover:bg-blue-400" : ""}
                ${themeColor === "purple" ? "hover:bg-purple-400" : ""}
                ${themeColor === "orange" ? "hover:bg-orange-400" : ""}
-               ${themeColor === "black" ? "hover:bg-gray-400" : ""}`}
+                              ${
+                                 themeColor === "black"
+                                    ? "hover:bg-gray-400"
+                                    : ""
+                              }`}
                            >
                               <i className="fa-solid fa-paper-plane"></i>
                            </button>
@@ -133,11 +137,28 @@ export const ChatingSection = () => {
                   </section>
                ) : (
                   <div
-                     className="w-full h-full"
-                     style={{
-                        background: `url(${allImages.defaultChatSectionBg})`,
-                     }}
-                  ></div>
+                     className={`chatingMainSection w-full h-full flex justify-center items-center ${
+                        themeColor === "green" ? allThemeColors.green.bg200 : ""
+                     }
+      ${themeColor === "blue" ? allThemeColors.blue.bg200 : ""}
+      ${themeColor === "purple" ? allThemeColors.purple.bg200 : ""}
+      ${themeColor === "orange" ? allThemeColors.orange.bg200 : ""}
+                     ${
+                        themeColor === "black" ? allThemeColors.black.bg200 : ""
+                     }`}
+                  >
+                     <span
+                        className={`text-4xl  ${
+                           themeColor === "blue" ? "text-blue-900" : ""
+                        }
+                  ${themeColor === "purple" ? "text-purple-800" : ""}
+                  ${themeColor === "orange" ? "text-orange-800" : ""}
+                  ${themeColor === "black" ? "text-gray-800" : ""}
+                  ${themeColor === "green" ? "text-green-800" : ""}`}
+                     >
+                        Nothing..
+                     </span>
+                  </div>
                )}
             </Fragment>
          </Suspense>

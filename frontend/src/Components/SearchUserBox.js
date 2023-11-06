@@ -13,7 +13,9 @@ export const SearchUserBox = (props) => {
                props.handleChat();
                setIsPopupOn(false);
             }}
-            className={`${themeColor === "green" ? "hover:bg-green-400" : ""}
+            className={`cursor-pointer ${
+               themeColor === "green" ? "hover:bg-green-400" : ""
+            }
          ${themeColor === "blue" ? "hover:bg-blue-400" : ""}
          ${themeColor === "purple" ? "hover:bg-purple-400" : ""}
          ${themeColor === "orange" ? "hover:bg-orange-400" : ""}

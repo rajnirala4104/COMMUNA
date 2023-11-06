@@ -17,7 +17,8 @@ export const UsersChatWith = () => {
    const { themeColor } = useContext(ThemeContext);
    const [loaggedUser, setLoaggedUser] = useState();
 
-   const { _user, chat, setChat, selectedChat, setSelectedChat } = ChatState();
+   const { _user, chat, setChat, selectedChat, setSelectedChat, fetchAgain } =
+      ChatState();
 
    const fetchChats = async () => {
       try {
@@ -38,7 +39,7 @@ export const UsersChatWith = () => {
    useEffect(() => {
       setLoaggedUser(JSON.parse(localStorage.getItem("userInfo")));
       fetchChats();
-   }, []);
+   }, [fetchAgain]);
 
    // console.log(chat);
    const { setIsPopupOn } = useContext(SearchPopupContext);

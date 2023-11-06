@@ -6,7 +6,8 @@ import { GroupSelectedUserBox } from "./GroupSelectedUserBox";
 import { SearchUserBox } from "./SearchUserBox";
 
 export const GroupProfile = () => {
-   const { _user, chat, setChat, selectedChat } = ChatState();
+   const { _user, chat, setChat, selectedChat, fetchAgain, setFetchAgain } =
+      ChatState();
    const [newName, setNewName] = useState();
    const [selectedUsers, setSelectedUsers] = useState([]);
    const { themeColor } = useContext(ThemeContext);
@@ -31,6 +32,7 @@ export const GroupProfile = () => {
             { chatId: selectedChat._id, chatName: newName },
             config
          );
+         setFetchAgain(!fetchAgain);
          setUsersProfilePopupOn(false);
       } catch (e) {
          console.log(
@@ -58,6 +60,7 @@ export const GroupProfile = () => {
                { chatId: selectedChat._id, userId: UserId },
                config
             );
+            setFetchAgain(!fetchAgain);
             setUsersProfilePopupOn(false);
          } catch (e) {
             console.log("something went worng in removFromGroup function");
@@ -88,6 +91,8 @@ export const GroupProfile = () => {
          console.log("error : ", error);
       }
    };
+
+   const addToGroup = () => {};
 
    return (
       <Fragment>
@@ -232,18 +237,7 @@ export const GroupProfile = () => {
                                     <Fragment key={key}>
                                        <SearchUserBox
                                           {...singleUserObject}
-                                          handleChat={() =>
-                                             selectedUsers.includes(
-                                                singleUserObject
-                                             )
-                                                ? console.log(
-                                                     "user already added in group"
-                                                  )
-                                                : setSelectedUsers([
-                                                     ...selectedUsers,
-                                                     singleUserObject,
-                                                  ])
-                                          }
+                                          handleChat={() => addToGroup()}
                                        />
                                     </Fragment>
                                  ))
@@ -291,7 +285,7 @@ export const GroupProfile = () => {
                                  ? "hover:shadow-gray-500/40"
                                  : ""
                            }
-             focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none`}
+                           focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none`}
                            data-ripple-light="true"
                         >
                            Leave Group
