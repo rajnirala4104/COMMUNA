@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, useContext } from "react";
+import React, { Fragment, Suspense, useContext, useState } from "react";
 import { capitalize, getSenderName } from "../Config/ChatNameLogics";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext, UsersProfilePopupProvider } from "../context";
@@ -8,6 +8,8 @@ export const ChatingSection = () => {
    const { selectedChat, _user } = ChatState();
 
    const { setUsersProfilePopupOn } = useContext(UsersProfilePopupProvider);
+
+   const [messageText, setMessageText] = useState();
 
    return (
       <Fragment>
@@ -80,6 +82,12 @@ export const ChatingSection = () => {
                } px-2`}
                         >
                            <input
+                              onKeyDown={(e) =>
+                                 e.key === "Enter"
+                                    ? console.log(messageText)
+                                    : ""
+                              }
+                              onChange={(e) => setMessageText(e.target.value)}
                               type="text"
                               className={`w-full h-10  ${
                                  themeColor === "green"
@@ -109,6 +117,7 @@ export const ChatingSection = () => {
                               placeholder="Message.."
                            />
                            <button
+                              onClick={() => console.log(messageText)}
                               className={` ${
                                  themeColor === "green"
                                     ? allThemeColors.green.bg300

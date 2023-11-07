@@ -16,7 +16,6 @@ export const GroupProfile = () => {
       setFetchAgain,
    } = ChatState();
    const [newName, setNewName] = useState();
-   const [selectedUsers, setSelectedUsers] = useState([]);
    const { themeColor } = useContext(ThemeContext);
    const { setUsersProfilePopupOn } = useContext(UsersProfilePopupProvider);
 
@@ -39,8 +38,8 @@ export const GroupProfile = () => {
             { chatId: selectedChat._id, chatName: newName },
             config
          );
-         setFetchAgain(!fetchAgain);
          setSelectedChat(data);
+         setFetchAgain(!fetchAgain);
          setUsersProfilePopupOn(false);
       } catch (e) {
          console.log(

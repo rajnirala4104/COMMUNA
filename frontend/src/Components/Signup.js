@@ -43,7 +43,10 @@ export const Signup = () => {
    return (
       <Fragment>
          <Suspense fallback="loading..">
-            <div className="cardContent flex my-5 justify-evenly items-start flex-col w-[80%] h-[100%]">
+            <div
+               onKeyDown={(e) => (e.key === "Enter" ? submitHandler() : "")}
+               className="cardContent flex my-5 justify-evenly items-start flex-col w-[80%] h-[100%]"
+            >
                <div className="w-72 my-4">
                   <div className="relative h-10 w-full min-w-[200px]">
                      <input

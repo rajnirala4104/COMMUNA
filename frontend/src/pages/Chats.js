@@ -24,14 +24,14 @@ import { SearchPopupContext } from "../context/SearchPopupContext";
 export const Chats = () => {
    const navigator = useNavigate();
    const [isUser, setIsUser] = useState(false);
-   const { _user } = ChatState();
+   const { _user, fetchAgain } = ChatState();
 
    useEffect(() => {
       if (!_user) {
          navigator("/");
       }
       setIsUser(true);
-   }, [navigator]);
+   }, [fetchAgain]);
 
    const [isPopupOn, setIsPopupOn] = useState(false);
    const { groupChatPopup } = useContext(GroupChatPopup);
