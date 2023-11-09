@@ -1,8 +1,15 @@
 import axios from "axios";
-import React, { Fragment, Suspense, useContext, useState } from "react";
+import React, {
+   Fragment,
+   Suspense,
+   useContext,
+   useEffect,
+   useState,
+} from "react";
 import { capitalize, getSenderName } from "../Config/ChatNameLogics";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext, UsersProfilePopupProvider } from "../context";
+import { Conversation } from "./Conversation";
 
 export const ChatingSection = () => {
    const { themeColor } = useContext(ThemeContext);
@@ -17,6 +24,26 @@ export const ChatingSection = () => {
       setNewMessage(e.target.value);
 
       // Typing Indicator Logic
+   };
+
+   const fetchMessages = async () => {
+      if (!selectedChat) return;
+      try {
+         const config = {
+            headers: {
+               Authorization: `Bearer ${_user.token}`,
+            },
+         };
+         setLoading(true);
+         const { data } = await axios.get(
+            `/api/message/${selectedChat._id}`,
+            config
+         );
+         setMessages(data);
+         setLoading(false);
+      } catch (error) {
+         console.log("something went wrong in fetch message function");
+      }
    };
 
    const sendMessage = async (e) => {
@@ -52,12 +79,17 @@ export const ChatingSection = () => {
 
    // console.log(messages);
 
+   useEffect(() => {
+      fetchMessages();
+   }, [selectedChat]);
+
+   // console.log(messages);
    return (
       <Fragment>
          <Suspense fallback="loading..">
             <Fragment>
                {selectedChat ? (
-                  <section className="w-full h-full border-l border-gray-500">
+                  <section className="w-full h-[88vh] border-l border-gray-500">
                      <div className="chatingArea w-full h-full flex justify-between flex-col mb-1">
                         <div
                            className={`upperPart flex items-center  h-[4rem] px-2
@@ -98,6 +130,10 @@ export const ChatingSection = () => {
                         </div>
 
                         <div
+                           style={{
+                              overflowY: "auto",
+                              overflowX: "hidden",
+                           }}
                            className={`chatingMainSection  flex w-full h-full  ${
                               themeColor === "green"
                                  ? allThemeColors.green.bg200
@@ -111,48 +147,12 @@ export const ChatingSection = () => {
                            {loading ? (
                               <span>loading..</span>
                            ) : (
-                              <div className="w-full flex flex-col justify-end h-[72vh] overflow-y-auto ">
-                                 {/* a single conversation my-2 */}
-                                 <div className="conversation my-1 w-full ">
-                                    {/* opposite user message */}
-                                    <div className="oppositeUserMessage flex items-start flex-col">
-                                       <span
-                                          className={`${
-                                             themeColor === "green"
-                                                ? allThemeColors.green.bg50
-                                                : ""
-                                          }
-               ${themeColor === "blue" ? allThemeColors.blue.bg50 : ""}
-               ${themeColor === "purple" ? allThemeColors.purple.bg50 : ""}
-               ${themeColor === "orange" ? allThemeColors.orange.bg50 : ""}
-               ${
-                  themeColor === "black" ? allThemeColors.black.bg50 : ""
-               } rounded-md px-3 py-2 mx-1`}
-                                       >
-                                          Hello, how are you..?
-                                       </span>
-                                    </div>
-
-                                    {/* logged user message */}
-
-                                    <div className="loggedUserMessage flex flex-col items-start float-right my-1">
-                                       <span
-                                          className={` ${
-                                             themeColor === "green"
-                                                ? allThemeColors.green.bg400
-                                                : ""
-                                          }
-               ${themeColor === "blue" ? allThemeColors.blue.bg400 : ""}
-               ${themeColor === "purple" ? allThemeColors.purple.bg400 : ""}
-               ${themeColor === "orange" ? allThemeColors.orange.bg400 : ""}
-               ${
-                  themeColor === "black" ? allThemeColors.black.bg400 : ""
-               } rounded-md px-3 py-2 mx-1  `}
-                                       >
-                                          Hii, i'm good and you?
-                                       </span>
-                                    </div>
-                                 </div>
+                              <div className="w-full overflow-x-hidden flex flex-col justify-end h-[72vh] overflow-y-auto ">
+                                 {messages.map((singleMessage, key) => (
+                                    <Fragment key={key}>
+                                       <Conversation message={singleMessage} />
+                                    </Fragment>
+                                 ))}
                               </div>
                            )}
                         </div>
