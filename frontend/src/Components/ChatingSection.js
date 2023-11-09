@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { Fragment, Suspense, useContext, useState } from "react";
 import { capitalize, getSenderName } from "../Config/ChatNameLogics";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
@@ -6,10 +7,50 @@ import { ChatState, ThemeContext, UsersProfilePopupProvider } from "../context";
 export const ChatingSection = () => {
    const { themeColor } = useContext(ThemeContext);
    const { selectedChat, _user } = ChatState();
-
    const { setUsersProfilePopupOn } = useContext(UsersProfilePopupProvider);
 
-   const [messageText, setMessageText] = useState();
+   const [newMessage, setNewMessage] = useState("");
+   const [loading, setLoading] = useState(false);
+   const [messages, setMessages] = useState([]);
+
+   const typingHandler = (e) => {
+      setNewMessage(e.target.value);
+
+      // Typing Indicator Logic
+   };
+
+   const sendMessage = async (e) => {
+      if (e.key === "Enter" && newMessage) {
+         try {
+            setLoading(true);
+            const config = {
+               headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${_user.token}`,
+               },
+            };
+
+            setNewMessage("");
+            const { data } = await axios.post(
+               "/api/message",
+               {
+                  content: newMessage,
+                  chatId: selectedChat._id,
+               },
+               config
+            );
+
+            console.log(data);
+            setMessages([...messages, data]);
+            setLoading(false);
+         } catch (error) {
+            alert("Something went wrong in send message fungtion ");
+            console.log(error);
+         }
+      }
+   };
+
+   // console.log(messages);
 
    return (
       <Fragment>
@@ -57,16 +98,64 @@ export const ChatingSection = () => {
                         </div>
 
                         <div
-                           className={`chatingMainSection w-full h-full  ${
+                           className={`chatingMainSection  flex w-full h-full  ${
                               themeColor === "green"
-                                 ? allThemeColors.green.bg100
+                                 ? allThemeColors.green.bg200
                                  : ""
                            }
-               ${themeColor === "blue" ? allThemeColors.blue.bg100 : ""}
-               ${themeColor === "purple" ? allThemeColors.purple.bg100 : ""}
-               ${themeColor === "orange" ? allThemeColors.orange.bg100 : ""}
-               ${themeColor === "black" ? allThemeColors.black.bg100 : ""}`}
-                        ></div>
+               ${themeColor === "blue" ? allThemeColors.blue.bg200 : ""}
+               ${themeColor === "purple" ? allThemeColors.purple.bg200 : ""}
+               ${themeColor === "orange" ? allThemeColors.orange.bg200 : ""}
+               ${themeColor === "black" ? allThemeColors.black.bg200 : ""}`}
+                        >
+                           {loading ? (
+                              <span>loading..</span>
+                           ) : (
+                              <div className="w-full flex flex-col justify-end h-[72vh] overflow-y-auto ">
+                                 {/* a single conversation my-2 */}
+                                 <div className="conversation my-1 w-full ">
+                                    {/* opposite user message */}
+                                    <div className="oppositeUserMessage flex items-start flex-col">
+                                       <span
+                                          className={`${
+                                             themeColor === "green"
+                                                ? allThemeColors.green.bg50
+                                                : ""
+                                          }
+               ${themeColor === "blue" ? allThemeColors.blue.bg50 : ""}
+               ${themeColor === "purple" ? allThemeColors.purple.bg50 : ""}
+               ${themeColor === "orange" ? allThemeColors.orange.bg50 : ""}
+               ${
+                  themeColor === "black" ? allThemeColors.black.bg50 : ""
+               } rounded-md px-3 py-2 mx-1`}
+                                       >
+                                          Hello, how are you..?
+                                       </span>
+                                    </div>
+
+                                    {/* logged user message */}
+
+                                    <div className="loggedUserMessage flex flex-col items-start float-right my-1">
+                                       <span
+                                          className={` ${
+                                             themeColor === "green"
+                                                ? allThemeColors.green.bg400
+                                                : ""
+                                          }
+               ${themeColor === "blue" ? allThemeColors.blue.bg400 : ""}
+               ${themeColor === "purple" ? allThemeColors.purple.bg400 : ""}
+               ${themeColor === "orange" ? allThemeColors.orange.bg400 : ""}
+               ${
+                  themeColor === "black" ? allThemeColors.black.bg400 : ""
+               } rounded-md px-3 py-2 mx-1  `}
+                                       >
+                                          Hii, i'm good and you?
+                                       </span>
+                                    </div>
+                                 </div>
+                              </div>
+                           )}
+                        </div>
 
                         <div
                            className={`lowerPart flex items-center  h-16  ${
@@ -82,13 +171,10 @@ export const ChatingSection = () => {
                } px-2`}
                         >
                            <input
-                              onKeyDown={(e) =>
-                                 e.key === "Enter"
-                                    ? console.log(messageText)
-                                    : ""
-                              }
-                              onChange={(e) => setMessageText(e.target.value)}
+                              onKeyDown={(e) => sendMessage(e)}
+                              onChange={(e) => typingHandler(e)}
                               type="text"
+                              defaultValue={newMessage}
                               className={`w-full h-10  ${
                                  themeColor === "green"
                                     ? allThemeColors.green.bg200
@@ -117,7 +203,7 @@ export const ChatingSection = () => {
                               placeholder="Message.."
                            />
                            <button
-                              onClick={() => console.log(messageText)}
+                              onClick={() => sendMessage()}
                               className={` ${
                                  themeColor === "green"
                                     ? allThemeColors.green.bg300
