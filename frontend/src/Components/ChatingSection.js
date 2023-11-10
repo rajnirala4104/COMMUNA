@@ -7,6 +7,7 @@ import React, {
    useState,
 } from "react";
 import ScrollableFeed from "react-scrollable-feed";
+import "../CSS/utils.css";
 import { capitalize, getSenderName } from "../Config/ChatNameLogics";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext, UsersProfilePopupProvider } from "../context";
@@ -74,7 +75,6 @@ export const ChatingSection = () => {
                config
             );
 
-            console.log(data);
             setMessages([...messages, data]);
             setLoading(false);
          } catch (error) {
@@ -133,8 +133,9 @@ export const ChatingSection = () => {
                         <div
                            style={{
                               overflowY: "auto",
+                              scrollbarWidth: "none",
                            }}
-                           className={`chatingMainSection  h-full items-end  flex w-full ${
+                           className={`chatingMainSection   h-full items-end  flex w-full ${
                               themeColor === "green"
                                  ? allThemeColors.green.bg200
                                  : ""
