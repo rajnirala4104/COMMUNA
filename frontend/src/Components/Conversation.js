@@ -4,7 +4,7 @@ import { ChatState, ThemeContext } from "../context";
 
 export const Conversation = (props) => {
    const { themeColor } = useContext(ThemeContext);
-   const { _user, selectedChat } = ChatState();
+   const { _user } = ChatState();
    // console.log(props.message);
    return (
       <Fragment>
@@ -41,7 +41,7 @@ ${themeColor === "purple" ? "text-purple-700" : ""}
 ${themeColor === "orange" ? "text-orange-700" : ""}
 ${themeColor === "black" ? "text-gray-700" : ""}   `}
                      >
-                        {selectedChat.isGroup ? props.message.sender.name : ""}
+                        {props.message.sender.name}
                      </span>
                      {props.message.content}
                   </span>
@@ -76,9 +76,7 @@ ${themeColor === "purple" ? "text-purple-950" : ""}
 ${themeColor === "orange" ? "text-orange-950" : ""}
 ${themeColor === "black" ? "text-gray-950" : ""}   `}
                      >
-                        {selectedChat.isGroup
-                           ? "You"
-                           : props.message.sender.name}
+                        {props.message.sender._id === _user._id ? "You" : ""}
                      </span>
                      {props.message.content}
                   </span>

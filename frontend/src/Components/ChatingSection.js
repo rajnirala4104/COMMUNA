@@ -132,9 +132,8 @@ export const ChatingSection = () => {
                         <div
                            style={{
                               overflowY: "auto",
-                              overflowX: "hidden",
                            }}
-                           className={`chatingMainSection  flex w-full h-full  ${
+                           className={`chatingMainSection h-full flex w-full ${
                               themeColor === "green"
                                  ? allThemeColors.green.bg200
                                  : ""
@@ -145,18 +144,24 @@ export const ChatingSection = () => {
                ${themeColor === "black" ? allThemeColors.black.bg200 : ""}`}
                         >
                            {loading ? (
-                              <span>loading..</span>
+                              <span className="m-auto">loading..</span>
                            ) : (
-                              <div className="w-full overflow-x-hidden flex flex-col justify-end h-[72vh] overflow-y-auto ">
-                                 {messages
-                                    ? messages.map((singleMessage, key) => (
-                                         <Fragment key={key}>
-                                            <Conversation
-                                               message={singleMessage}
-                                            />
-                                         </Fragment>
-                                      ))
-                                    : "Start Chating"}
+                              <div className="w-full h-full flex flex-col  ">
+                                 {messages.length !== 0 ? (
+                                    messages.map((singleMessage, key) => (
+                                       <Fragment key={key}>
+                                          <Conversation
+                                             message={singleMessage}
+                                          />
+                                       </Fragment>
+                                    ))
+                                 ) : (
+                                    <dir className=" w-full h-full flex justify-center items-center">
+                                       <span className="text-2xl">
+                                          Here is no past conversation
+                                       </span>
+                                    </dir>
+                                 )}
                               </div>
                            )}
                         </div>
