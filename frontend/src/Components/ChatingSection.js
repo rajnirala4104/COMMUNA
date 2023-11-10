@@ -148,11 +148,15 @@ export const ChatingSection = () => {
                               <span>loading..</span>
                            ) : (
                               <div className="w-full overflow-x-hidden flex flex-col justify-end h-[72vh] overflow-y-auto ">
-                                 {messages.map((singleMessage, key) => (
-                                    <Fragment key={key}>
-                                       <Conversation message={singleMessage} />
-                                    </Fragment>
-                                 ))}
+                                 {messages
+                                    ? messages.map((singleMessage, key) => (
+                                         <Fragment key={key}>
+                                            <Conversation
+                                               message={singleMessage}
+                                            />
+                                         </Fragment>
+                                      ))
+                                    : "Start Chating"}
                               </div>
                            )}
                         </div>
