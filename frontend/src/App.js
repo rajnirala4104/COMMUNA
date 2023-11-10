@@ -25,7 +25,10 @@ function App() {
                      value={{ groupChatPopup, setGroupChatPopup }}
                   >
                      <UsersProfilePopupProvider.Provider
-                        value={{ userProfilePopupOn, setUsersProfilePopupOn }}
+                        value={{
+                           userProfilePopupOn,
+                           setUsersProfilePopupOn,
+                        }}
                      >
                         <RouterProvider router={_ROUTER} />
                      </UsersProfilePopupProvider.Provider>

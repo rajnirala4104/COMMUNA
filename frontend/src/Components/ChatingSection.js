@@ -6,6 +6,7 @@ import React, {
    useEffect,
    useState,
 } from "react";
+import ScrollableFeed from "react-scrollable-feed";
 import { capitalize, getSenderName } from "../Config/ChatNameLogics";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext, UsersProfilePopupProvider } from "../context";
@@ -16,8 +17,8 @@ export const ChatingSection = () => {
    const { selectedChat, _user } = ChatState();
    const { setUsersProfilePopupOn } = useContext(UsersProfilePopupProvider);
 
-   const [newMessage, setNewMessage] = useState("");
    const [loading, setLoading] = useState(false);
+   const [newMessage, setNewMessage] = useState();
    const [messages, setMessages] = useState([]);
 
    const typingHandler = (e) => {
@@ -27,7 +28,9 @@ export const ChatingSection = () => {
    };
 
    const fetchMessages = async () => {
-      if (!selectedChat) return;
+      if (!selectedChat) {
+         return;
+      }
       try {
          const config = {
             headers: {
@@ -45,6 +48,10 @@ export const ChatingSection = () => {
          console.log("something went wrong in fetch message function");
       }
    };
+
+   useEffect(() => {
+      fetchMessages();
+   }, [selectedChat]);
 
    const sendMessage = async (e) => {
       if (e.key === "Enter" && newMessage) {
@@ -76,12 +83,6 @@ export const ChatingSection = () => {
          }
       }
    };
-
-   // console.log(messages);
-
-   useEffect(() => {
-      fetchMessages();
-   }, [selectedChat]);
 
    // console.log(messages);
    return (
@@ -133,7 +134,7 @@ export const ChatingSection = () => {
                            style={{
                               overflowY: "auto",
                            }}
-                           className={`chatingMainSection h-full  flex w-full ${
+                           className={`chatingMainSection  h-full items-end  flex w-full ${
                               themeColor === "green"
                                  ? allThemeColors.green.bg200
                                  : ""
@@ -146,7 +147,7 @@ export const ChatingSection = () => {
                            {loading ? (
                               <span className="m-auto">loading..</span>
                            ) : (
-                              <div className="w-full h-full flex py-4 flex-col  ">
+                              <ScrollableFeed className="w-full">
                                  {messages.length !== 0 ? (
                                     messages.map((singleMessage, key) => (
                                        <Fragment key={key}>
@@ -162,7 +163,7 @@ export const ChatingSection = () => {
                                        </span>
                                     </dir>
                                  )}
-                              </div>
+                              </ScrollableFeed>
                            )}
                         </div>
 
@@ -180,10 +181,11 @@ export const ChatingSection = () => {
                } px-2`}
                         >
                            <input
+                              id="messageInput"
                               onKeyDown={(e) => sendMessage(e)}
                               onChange={(e) => typingHandler(e)}
                               type="text"
-                              defaultValue={newMessage}
+                              // defaultValue={newMessage}
                               className={`w-full h-10  ${
                                  themeColor === "green"
                                     ? allThemeColors.green.bg200

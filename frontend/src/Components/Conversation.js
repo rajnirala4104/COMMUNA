@@ -8,14 +8,17 @@ export const Conversation = (props) => {
    // console.log(props.message);
    return (
       <Fragment>
-         <div className=" conversation  my-1 w-full ">
+         <div className=" conversation  my-1 w-full  flex flex-col justify-between items-center">
             {/* opposite user message */}
             {props.message.sender._id !== _user._id ? (
-               <div className="oppositeUserMessage  flex items-start flex-col w-[50%]">
-                  <span
-                     className={` flex flex-col  ${
-                        themeColor === "green" ? allThemeColors.green.bg50 : ""
-                     }
+               <div className="w-[100%]">
+                  <div className="oppositeUserMessage flex items-start flex-col w-[50%] float-left">
+                     <span
+                        className={` flex flex-col  ${
+                           themeColor === "green"
+                              ? allThemeColors.green.bg50
+                              : ""
+                        }
 ${themeColor === "blue" ? allThemeColors.blue.bg50 : ""}
 ${themeColor === "purple" ? allThemeColors.purple.bg50 : ""}
 ${themeColor === "orange" ? allThemeColors.orange.bg50 : ""}
@@ -31,20 +34,21 @@ ${themeColor === "black" ? "text-gray-900" : ""}
 
 
 `}
-                  >
-                     <span
-                        className={`text-[10px] ${
-                           themeColor === "green" ? "text-green-700" : ""
-                        }
+                     >
+                        <span
+                           className={`text-[10px] ${
+                              themeColor === "green" ? "text-green-700" : ""
+                           }
 ${themeColor === "blue" ? "text-blue-700" : ""}
 ${themeColor === "purple" ? "text-purple-700" : ""}
 ${themeColor === "orange" ? "text-orange-700" : ""}
 ${themeColor === "black" ? "text-gray-700" : ""}   `}
-                     >
-                        {props.message.sender.name}
+                        >
+                           {props.message.sender.name}
+                        </span>
+                        {props.message.content}
                      </span>
-                     {props.message.content}
-                  </span>
+                  </div>
                </div>
             ) : (
                ""
@@ -52,11 +56,14 @@ ${themeColor === "black" ? "text-gray-700" : ""}   `}
 
             {/* logged user message */}
             {props.message.sender._id === _user._id ? (
-               <div className="loggedUserMessage  flex justify-end flex-col w-[50%] items-end float-right my-1">
-                  <span
-                     className={` flex flex-col  ${
-                        themeColor === "green" ? allThemeColors.green.bg400 : ""
-                     }
+               <div className="w-[100%]">
+                  <div className="loggedUserMessage  flex justify-end flex-col w-[50%] items-end  my-1 float-right">
+                     <span
+                        className={` flex flex-col  ${
+                           themeColor === "green"
+                              ? allThemeColors.green.bg400
+                              : ""
+                        }
 ${themeColor === "blue" ? allThemeColors.blue.bg400 : ""}
 ${themeColor === "purple" ? allThemeColors.purple.bg400 : ""}
 ${themeColor === "orange" ? allThemeColors.orange.bg400 : ""}
@@ -66,20 +73,21 @@ ${
 
 
 `}
-                  >
-                     <span
-                        className={`text-[10px] ${
-                           themeColor === "green" ? "text-green-950" : ""
-                        }
+                     >
+                        <span
+                           className={`text-[10px] ${
+                              themeColor === "green" ? "text-green-950" : ""
+                           }
 ${themeColor === "blue" ? "text-blue-950" : ""}
 ${themeColor === "purple" ? "text-purple-950" : ""}
 ${themeColor === "orange" ? "text-orange-950" : ""}
 ${themeColor === "black" ? "text-gray-950" : ""}   `}
-                     >
-                        {props.message.sender._id === _user._id ? "You" : ""}
+                        >
+                           {props.message.sender._id === _user._id ? "You" : ""}
+                        </span>
+                        {props.message.content}
                      </span>
-                     {props.message.content}
-                  </span>
+                  </div>
                </div>
             ) : (
                ""
