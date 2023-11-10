@@ -8,10 +8,10 @@ export const Conversation = (props) => {
    // console.log(props.message);
    return (
       <Fragment>
-         <div className=" conversation my-1 w-full ">
+         <div className=" conversation  my-1 w-full ">
             {/* opposite user message */}
             {props.message.sender._id !== _user._id ? (
-               <div className="oppositeUserMessage flex items-start flex-col">
+               <div className="oppositeUserMessage  flex items-start flex-col w-[50%]">
                   <span
                      className={` flex flex-col  ${
                         themeColor === "green" ? allThemeColors.green.bg50 : ""
@@ -52,7 +52,7 @@ ${themeColor === "black" ? "text-gray-700" : ""}   `}
 
             {/* logged user message */}
             {props.message.sender._id === _user._id ? (
-               <div className="loggedUserMessage flex flex-col items-start float-right my-1">
+               <div className="loggedUserMessage  flex justify-end flex-col w-[50%] items-end float-right my-1">
                   <span
                      className={` flex flex-col  ${
                         themeColor === "green" ? allThemeColors.green.bg400 : ""

@@ -133,7 +133,7 @@ export const ChatingSection = () => {
                            style={{
                               overflowY: "auto",
                            }}
-                           className={`chatingMainSection h-full flex w-full ${
+                           className={`chatingMainSection h-full  flex w-full ${
                               themeColor === "green"
                                  ? allThemeColors.green.bg200
                                  : ""
@@ -146,7 +146,7 @@ export const ChatingSection = () => {
                            {loading ? (
                               <span className="m-auto">loading..</span>
                            ) : (
-                              <div className="w-full h-full flex flex-col  ">
+                              <div className="w-full h-full flex py-4 flex-col  ">
                                  {messages.length !== 0 ? (
                                     messages.map((singleMessage, key) => (
                                        <Fragment key={key}>
