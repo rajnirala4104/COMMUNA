@@ -23,7 +23,7 @@ var socket, selectedChatCompare;
 
 export const ChatingSection = () => {
    const { themeColor } = useContext(ThemeContext);
-   const { selectedChat, _user } = ChatState();
+   const { selectedChat, _user, setSelectedChat } = ChatState();
    const { setUsersProfilePopupOn } = useContext(UsersProfilePopupProvider);
 
    const [loading, setLoading] = useState(false);
@@ -122,7 +122,7 @@ export const ChatingSection = () => {
          <Suspense fallback="loading..">
             <Fragment>
                {selectedChat ? (
-                  <section className="w-full h-[88vh] border-l border-gray-500">
+                  <section className=" w-full lg:h-[88.2vh] border-l border-gray-500">
                      <div className="chatingArea w-full h-full flex justify-between flex-col mb-1">
                         <div
                            className={`upperPart flex items-center  h-[4rem] px-2
@@ -136,6 +136,13 @@ export const ChatingSection = () => {
                   
                   `}
                         >
+                           {" "}
+                           <div
+                              onClick={() => setSelectedChat(null)}
+                              className={`cursor-pointer backBtn w-[2rem] h-[2rem] rounded-full flex justify-center items-center`}
+                           >
+                              <i class="fa-solid fa-arrow-left"></i>
+                           </div>
                            <div
                               onClick={() => {
                                  setUsersProfilePopupOn(true);
@@ -180,7 +187,7 @@ export const ChatingSection = () => {
                            {loading ? (
                               <span className="m-auto">loading..</span>
                            ) : (
-                              <ScrollableFeed className="w-full">
+                              <ScrollableFeed className="w-full px-2">
                                  {messages.length !== 0 ? (
                                     messages.map((singleMessage, key) => (
                                        <Fragment key={key}>
@@ -276,7 +283,9 @@ export const ChatingSection = () => {
                   </section>
                ) : (
                   <div
-                     className={`chatingMainSection w-full h-full flex justify-center items-center ${
+                     className={` ${
+                        selectedChat ? "" : "hidden"
+                     } lg:flex chatingMainSection w-full  h-full justify-center items-center border-l border-black ${
                         themeColor === "green" ? allThemeColors.green.bg200 : ""
                      }
       ${themeColor === "blue" ? allThemeColors.blue.bg200 : ""}

@@ -16,7 +16,8 @@ export const Navbar = () => {
       <Fragment>
          {profilePopupOn ? <ProfilePopup /> : ""}
          <nav
-            className={`sticky inset-0 z-10 flex justify-between items-center h-max w-full max-w-full rounded-none 
+            className={`sticky inset-0 z-10 flex lg:flex-row  
+            lg:justify-between lg:items-center  w-full max-w-full rounded-none 
             ${themeColor === "green" ? allThemeColors.green.bg500 : ""}
                ${themeColor === "blue" ? allThemeColors.blue.bg500 : ""}
                ${themeColor === "purple" ? allThemeColors.purple.bg500 : ""}
@@ -24,28 +25,46 @@ export const Navbar = () => {
                ${themeColor === "black" ? allThemeColors.black.bg500 : ""} 
                bg-opacity-80 py-2 px-4 text-white shadow-md backdrop-blur-2xl backdrop-saturate-200 lg:px-8 lg:py-4 `}
          >
-            <div className="logo">
-               <Link to={"/"} className=" text-xl font-medium text-black">
-                  COMMUNA
-               </Link>
-            </div>
-            <div className="searchBar flex justify-center items-center">
-               <input
-                  className={`outline-none mx-1 
+            <div className=" flex flex-col lg:flex-row lg:justify-between lg:items-center justify-center  w-full max-w-full rounded-none">
+               <div className="logo">
+                  <Link to={"/"} className=" text-xl font-medium text-black">
+                     COMMUNA
+                  </Link>
+               </div>
+               <div className="searchBar flex justify-start lg:justify-center items-center">
+                  <input
+                     className={`outline-none hidden lg:inline mx-1 
                   ${themeColor === "green" ? allThemeColors.green.bg200 : ""}
                   ${themeColor === "blue" ? allThemeColors.blue.bg200 : ""}
                   ${themeColor === "purple" ? allThemeColors.purple.bg200 : ""}
                   ${themeColor === "orange" ? allThemeColors.orange.bg200 : ""}
                   ${themeColor === "black" ? allThemeColors.black.bg200 : ""}
                    placeholder-gray-600 text-slate-800 shadow-md px-3 py-1 rounded-md w-[55vh]`}
-                  type="text"
-                  placeholder="Search..."
-                  onClick={() => setIsPopupOn(!isPopupOn)}
-               />
-               <ThemeColorsO />
+                     type="text"
+                     placeholder="Search..."
+                     onClick={() => setIsPopupOn(!isPopupOn)}
+                  />
+                  <ThemeColorsO />
+               </div>
+               <div className="logedUserInfo hidden lg:flex justify-between items-center">
+                  <span className="text-slate-900 px-2">
+                     {capitalize(_user.name)}
+                  </span>
+                  <div
+                     className="userPic"
+                     onClick={() => setProfilePopupOn(!profilePopupOn)}
+                  >
+                     <img
+                        className="w-[3rem] rounded-full cursor-pointer"
+                        src={_user.pic}
+                        alt="communa"
+                     />
+                  </div>
+               </div>
             </div>
-            <div className="logedUserInfo flex justify-between items-center">
-               <span className="text-slate-900 px-2">
+
+            <div className="logedUserInfo flex flex-col-reverse  lg:hidden justify-between items-center">
+               <span className="text-slate-900 w-32 text-[12px] px-2 text-center">
                   {capitalize(_user.name)}
                </span>
                <div
