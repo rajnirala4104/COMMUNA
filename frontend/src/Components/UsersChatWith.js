@@ -44,6 +44,7 @@ export const UsersChatWith = () => {
    // console.log(chat);
    const { setIsPopupOn } = useContext(SearchPopupContext);
    const { setGroupChatPopup } = useContext(GroupChatPopup);
+
    return (
       <Fragment>
          <section

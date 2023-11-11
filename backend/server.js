@@ -6,7 +6,6 @@ const userRouters = require("./Routes/userRoutes");
 const chatRoutes = require("./Routes/chatRoutes");
 const messageRoutes = require("./Routes/messageRoute");
 const { notFoundErr, erroHandler } = require("./middleware/errors");
-
 const cors = require("cors");
 
 connectDatabase();
@@ -24,4 +23,44 @@ app.use("/api/message", messageRoutes);
 app.use(notFoundErr);
 app.use(erroHandler);
 
-app.listen(PORT, console.log(`server has started at ${PORT}`.yellow.bold));
+const server = app.listen(
+   PORT,
+   console.log(`server has started at ${PORT}`.yellow.bold)
+);
+
+const io = require("socket.io")(server, {
+   pingTimeout: 60000,
+   cors: {
+      origin: "http://localhost:3000",
+   },
+});
+
+io.on("connection", (socket) => {
+   console.log("connected to socket.io");
+
+   socket.on("setup", (userData) => {
+      socket.join(userData._id);
+      console.log(userData._id);
+      socket.emit("connected");
+   });
+
+   socket.on("join chat", (room) => {
+      socket.join(room);
+      console.log(`User joined Room ${room}`);
+   });
+
+   socket.on("new message", (newMessageRecieved) => {
+      var chat = newMessageRecieved.chat;
+
+      if (!chat.users) {
+         console.log("chat.users not define");
+         return;
+      }
+      chat.users.forEach((user) => {
+         if (user._id == newMessageRecieved.sender._id) {
+            return;
+         }
+         socket.in(user._id).emit("message recieved", newMessageRecieved);
+      });
+   });
+});

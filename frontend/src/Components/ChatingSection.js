@@ -7,11 +7,19 @@ import React, {
    useState,
 } from "react";
 import ScrollableFeed from "react-scrollable-feed";
+import io from "socket.io-client";
 import "../CSS/utils.css";
-import { capitalize, getSenderName } from "../Config/ChatNameLogics";
+import {
+   capitalize,
+   getSenderName,
+   getUserImage,
+} from "../Config/ChatNameLogics";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext, UsersProfilePopupProvider } from "../context";
 import { Conversation } from "./Conversation";
+
+const ENDPOINT = "http://localhost:8000";
+var socket, selectedChatCompare;
 
 export const ChatingSection = () => {
    const { themeColor } = useContext(ThemeContext);
@@ -21,6 +29,13 @@ export const ChatingSection = () => {
    const [loading, setLoading] = useState(false);
    const [newMessage, setNewMessage] = useState();
    const [messages, setMessages] = useState([]);
+   const [socketConnected, setSocketConnected] = useState(false);
+
+   useEffect(() => {
+      socket = io(ENDPOINT);
+      socket.emit("setup", _user);
+      socket.on("connection", () => setSocketConnected(true));
+   }, []);
 
    const typingHandler = (e) => {
       setNewMessage(e.target.value);
@@ -45,6 +60,7 @@ export const ChatingSection = () => {
          );
          setMessages(data);
          setLoading(false);
+         socket.emit("join chat", selectedChat._id);
       } catch (error) {
          console.log("something went wrong in fetch message function");
       }
@@ -52,7 +68,21 @@ export const ChatingSection = () => {
 
    useEffect(() => {
       fetchMessages();
+      selectedChatCompare = selectedChat;
    }, [selectedChat]);
+
+   useEffect(() => {
+      socket.on("message recieved", (newMessageRecieved) => {
+         if (
+            !selectedChatCompare ||
+            selectedChatCompare._id !== newMessageRecieved.chat._id
+         ) {
+            // give notification
+         } else {
+            setMessages([...messages, newMessageRecieved]);
+         }
+      });
+   });
 
    const sendMessage = async (e) => {
       if (e.key === "Enter" && newMessage) {
@@ -74,6 +104,8 @@ export const ChatingSection = () => {
                },
                config
             );
+
+            socket.emit("new message", data);
 
             setMessages([...messages, data]);
             setLoading(false);
@@ -112,7 +144,7 @@ export const ChatingSection = () => {
                            >
                               <img
                                  className="w-10 rounded-full"
-                                 src="https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+                                 src={getUserImage(selectedChat, _user)}
                                  alt=""
                               />
                            </div>
@@ -135,7 +167,7 @@ export const ChatingSection = () => {
                               overflowY: "auto",
                               scrollbarWidth: "none",
                            }}
-                           className={`chatingMainSection   h-full items-end  flex w-full ${
+                           className={`chatingMainSection  h-full items-end  flex w-full ${
                               themeColor === "green"
                                  ? allThemeColors.green.bg200
                                  : ""
