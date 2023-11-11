@@ -12,7 +12,7 @@ export const Conversation = (props) => {
             {/* opposite user message */}
             {props.message.sender._id !== _user._id ? (
                <div className="w-[100%]">
-                  <div className="oppositeUserMessage flex items-start flex-col w-[50%] float-left">
+                  <div className="oppositeUserMessage flex items-start flex-col w-[75%] lg:w-[50%] float-left">
                      <span
                         className={` flex flex-col  ${
                            themeColor === "green"

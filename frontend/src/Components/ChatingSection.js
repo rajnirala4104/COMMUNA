@@ -30,17 +30,39 @@ export const ChatingSection = () => {
    const [newMessage, setNewMessage] = useState();
    const [messages, setMessages] = useState([]);
    const [socketConnected, setSocketConnected] = useState(false);
+   const [isTyping, setIsTyping] = useState(false);
+   const [typing, setTyping] = useState(false);
 
    useEffect(() => {
       socket = io(ENDPOINT);
       socket.emit("setup", _user);
-      socket.on("connection", () => setSocketConnected(true));
+      socket.on("connected", () => setSocketConnected(true));
+      socket.on("typing", () => setIsTyping(true));
+      socket.on("stop typing", () => setIsTyping(false));
    }, []);
 
    const typingHandler = (e) => {
       setNewMessage(e.target.value);
 
-      // Typing Indicator Logic
+      if (!socketConnected) {
+         return;
+      }
+      if (!typing) {
+         setTyping(true);
+         socket.emit("typing", selectedChat._id);
+      }
+      let lastTypingTime = new Date().getTime();
+
+      let timerRange = 3000;
+      setTimeout(() => {
+         let timeNow = new Date().getTime();
+         let timeDiff = timeNow - lastTypingTime;
+
+         if (timeDiff >= timerRange && typing) {
+            socket.emit("stop typing", selectedChat._id);
+            setTyping(false);
+         }
+      }, timerRange);
    };
 
    const fetchMessages = async () => {
@@ -166,6 +188,27 @@ export const ChatingSection = () => {
                                          )
                                       )}
                               </span>
+                           </div>
+                           <div>
+                              {selectedChat.isGroup ? (
+                                 ""
+                              ) : (
+                                 <Fragment>
+                                    {isTyping ? (
+                                       <Fragment>
+                                          {selectedChat._id === _user._id ? (
+                                             <span className="text-red-400">
+                                                Typing
+                                             </span>
+                                          ) : (
+                                             ""
+                                          )}
+                                       </Fragment>
+                                    ) : (
+                                       ""
+                                    )}
+                                 </Fragment>
+                              )}
                            </div>
                         </div>
 
