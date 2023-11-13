@@ -138,7 +138,7 @@ export const ChatingSection = () => {
       }
    };
 
-   // console.log(messages);
+   // console.log(selectedChat._id, _user._id);
    return (
       <Fragment>
          <Suspense fallback="loading..">
@@ -163,7 +163,7 @@ export const ChatingSection = () => {
                               onClick={() => setSelectedChat(null)}
                               className={`cursor-pointer backBtn w-[2rem] h-[2rem] rounded-full flex justify-center items-center`}
                            >
-                              <i class="fa-solid fa-arrow-left"></i>
+                              <i className="fa-solid fa-arrow-left"></i>
                            </div>
                            <div
                               onClick={() => {
@@ -196,12 +196,12 @@ export const ChatingSection = () => {
                                  <Fragment>
                                     {isTyping ? (
                                        <Fragment>
-                                          {selectedChat._id === _user._id ? (
-                                             <span className="text-red-400">
-                                                Typing
-                                             </span>
-                                          ) : (
+                                          {newMessage ? (
                                              ""
+                                          ) : (
+                                             <span className="text-red-700">
+                                                Typing...
+                                             </span>
                                           )}
                                        </Fragment>
                                     ) : (
