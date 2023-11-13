@@ -23,7 +23,15 @@ var socket, selectedChatCompare;
 
 export const ChatingSection = () => {
    const { themeColor } = useContext(ThemeContext);
-   const { selectedChat, _user, setSelectedChat } = ChatState();
+   const {
+      selectedChat,
+      _user,
+      setSelectedChat,
+      notification,
+      setNotification,
+      fetchAgain,
+      setFetchAgain,
+   } = ChatState();
    const { setUsersProfilePopupOn } = useContext(UsersProfilePopupProvider);
 
    const [loading, setLoading] = useState(false);
@@ -99,7 +107,10 @@ export const ChatingSection = () => {
             !selectedChatCompare ||
             selectedChatCompare._id !== newMessageRecieved.chat._id
          ) {
-            // give notification
+            if (!notification.includes(newMessageRecieved)) {
+               setNotification([newMessageRecieved, ...notification]);
+               setFetchAgain(!fetchAgain);
+            }
          } else {
             setMessages([...messages, newMessageRecieved]);
          }
@@ -108,6 +119,8 @@ export const ChatingSection = () => {
 
    const sendMessage = async (e) => {
       if (e.key === "Enter" && newMessage) {
+         socket.emit("stop typing", selectedChat._id);
+
          try {
             setLoading(true);
             const config = {
@@ -138,7 +151,7 @@ export const ChatingSection = () => {
       }
    };
 
-   // console.log(selectedChat._id, _user._id);
+   console.log(notification);
    return (
       <Fragment>
          <Suspense fallback="loading..">
@@ -199,8 +212,8 @@ export const ChatingSection = () => {
                                           {newMessage ? (
                                              ""
                                           ) : (
-                                             <span className="text-red-700">
-                                                Typing...
+                                             <span className="text-red-600">
+                                                typing..
                                              </span>
                                           )}
                                        </Fragment>
