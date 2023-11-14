@@ -47,7 +47,33 @@ export const Navbar = () => {
                   <ThemeColorsO />
                </div>
                <div className="logedUserInfo hidden lg:flex justify-between items-center">
-                  <span className="text-slate-900 px-2">
+                  <div className="flex justify-between items-center">
+                     <span className="text-slate-900 px-2">
+                        {capitalize(_user.name)}
+                     </span>
+                     <div
+                        className="userPic"
+                        onClick={() => setProfilePopupOn(!profilePopupOn)}
+                     >
+                        <img
+                           className="w-[3rem] rounded-full cursor-pointer"
+                           src={_user.pic}
+                           alt="communa"
+                        />
+                     </div>
+                  </div>
+                  <div className="notifiBell mx-4 flex ">
+                     <i className="fa-solid fa-bell text-2xl hover:text-gray-300 cursor-pointer"></i>
+                     <span className="w-[20px] h-[20px] rounded-full bg-red-500 flex justify-center items-center">
+                        4
+                     </span>
+                  </div>
+               </div>
+            </div>
+
+            <div className="logedUserInfo  flex  lg:hidden justify-center items-center">
+               <div className="flex flex-col-reverse justify-between items-center">
+                  <span className="text-slate-900 w-24 text-[12px] text-center">
                      {capitalize(_user.name)}
                   </span>
                   <div
@@ -61,21 +87,8 @@ export const Navbar = () => {
                      />
                   </div>
                </div>
-            </div>
-
-            <div className="logedUserInfo flex flex-col-reverse  lg:hidden justify-between items-center">
-               <span className="text-slate-900 w-32 text-[12px] px-2 text-center">
-                  {capitalize(_user.name)}
-               </span>
-               <div
-                  className="userPic"
-                  onClick={() => setProfilePopupOn(!profilePopupOn)}
-               >
-                  <img
-                     className="w-[3rem] rounded-full cursor-pointer"
-                     src={_user.pic}
-                     alt="communa"
-                  />
+               <div className="notifiBell ">
+                  <i className="fa-solid fa-bell text-2xl hover:text-gray-300 cursor-pointer"></i>
                </div>
             </div>
          </nav>
