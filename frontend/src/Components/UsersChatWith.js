@@ -50,7 +50,7 @@ export const UsersChatWith = () => {
          <section
             className={`${
                selectedChat ? "hidden" : ""
-            } lg:inline lg:w-[30%] w-[100vh] relative overflow-y-auto h-full overflow-x-hidden ${
+            } lg:inline lg:w-[30%] w-[100%] relative overflow-y-auto h-full overflow-x-hidden ${
                themeColor === "green" ? allThemeColors.green.bg100 : ""
             }
                ${themeColor === "blue" ? allThemeColors.blue.bg100 : ""}
@@ -172,7 +172,7 @@ export const UsersChatWith = () => {
                     ))
                   : "Nothing to show here.."}
             </div>
-            <div className=" flex fixed top-[37rem] left-[7%] ">
+            <div className=" flex fixed lg:top-[37rem] lg:left-[7%] top-[89%] left-[69%]">
                <button
                   onClick={() => setIsPopupOn(true)}
                   className={`py-2 px-3 ${

@@ -53,7 +53,7 @@ export const SearchPopup = () => {
                className="z-20 w-full h-full bg-[rgba(128,126,126,0.3)] backdrop-blur-md absolute top-0 flex justify-center items-center"
             >
                <div
-                  className={`w-[50%] rounded-md flex flex-col bg p-4 
+                  className={`lg:w-[50%] w-[80%] rounded-md flex flex-col bg p-4 
                
                ${themeColor === "blue" ? allThemeColors.blue.bg100 : ""}
                   ${themeColor === "purple" ? allThemeColors.purple.bg100 : ""}
@@ -67,7 +67,7 @@ export const SearchPopup = () => {
                         onClick={() => {
                            setIsPopupOn(false);
                         }}
-                        className="absolute -top-7 left-[98%] my-3 cursor-pointer"
+                        className="absolute -top-7 left-[98%] my-2  cursor-pointer"
                      >
                         <i className="fa-solid fa-x text-gray-600 text-[15px]"></i>
                      </span>

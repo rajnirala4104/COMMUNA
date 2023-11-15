@@ -3,18 +3,26 @@ import { Link } from "react-router-dom";
 import { capitalize } from "../Config/ChatNameLogics";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ProfilPicProvider, ThemeContext } from "../context";
+import { NotificationPopupProvider } from "../context/NotificationPopupProvider";
 import { SearchPopupContext } from "../context/SearchPopupContext";
+import { NotificationPopup } from "./NotificationPopup";
 import { ProfilePopup } from "./ProfilePopup";
 import { ThemeColorsO } from "./ThemeColorsO";
 
 export const Navbar = () => {
-   const { _user } = ChatState();
+   const { _user, fetchAgain, setFetchAgain, notification, setNotification } =
+      ChatState();
    const { themeColor } = useContext(ThemeContext);
    const { isPopupOn, setIsPopupOn } = useContext(SearchPopupContext);
    const { profilePopupOn, setProfilePopupOn } = useContext(ProfilPicProvider);
+   const { noficationPopup, setNotificationPopup } = useContext(
+      NotificationPopupProvider
+   );
+
    return (
       <Fragment>
          {profilePopupOn ? <ProfilePopup /> : ""}
+         {noficationPopup ? <NotificationPopup /> : ""}
          <nav
             className={`sticky inset-0 z-10 flex lg:flex-row  
             lg:justify-between lg:items-center  w-full max-w-full rounded-none 
@@ -62,16 +70,23 @@ export const Navbar = () => {
                         />
                      </div>
                   </div>
-                  <div className="notifiBell mx-4 flex ">
+                  <div
+                     onClick={() => setNotificationPopup(!noficationPopup)}
+                     className="notifiBell mx-4 flex "
+                  >
                      <i className="fa-solid fa-bell text-2xl hover:text-gray-300 cursor-pointer"></i>
-                     <span className="w-[20px] h-[20px] rounded-full bg-red-500 flex justify-center items-center">
-                        4
-                     </span>
+                     {notification.length !== 0 ? (
+                        <span className="-translate-x-2 text-[11px] w-[15px] h-[15px] rounded-full bg-red-500 flex justify-center items-center">
+                           {notification.length}
+                        </span>
+                     ) : (
+                        ""
+                     )}
                   </div>
                </div>
             </div>
 
-            <div className="logedUserInfo  flex  lg:hidden justify-center items-center">
+            <div className="logedUserInfo  flex flex-row-reverse lg:hidden justify-end items-center">
                <div className="flex flex-col-reverse justify-between items-center">
                   <span className="text-slate-900 w-24 text-[12px] text-center">
                      {capitalize(_user.name)}
@@ -87,8 +102,18 @@ export const Navbar = () => {
                      />
                   </div>
                </div>
-               <div className="notifiBell ">
+               <div
+                  onClick={() => setNotificationPopup(!noficationPopup)}
+                  className="notifiBell flex cursor-pointer justify-center items-center"
+               >
                   <i className="fa-solid fa-bell text-2xl hover:text-gray-300 cursor-pointer"></i>
+                  {notification.length !== 0 ? (
+                     <span className="-translate-x-2 text-[11px] w-[15px] h-[15px] rounded-full bg-red-500 flex justify-center items-center">
+                        {notification.length}
+                     </span>
+                  ) : (
+                     ""
+                  )}
                </div>
             </div>
          </nav>

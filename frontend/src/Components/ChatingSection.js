@@ -119,8 +119,6 @@ export const ChatingSection = () => {
 
    const sendMessage = async (e) => {
       if (e.key === "Enter" && newMessage) {
-         socket.emit("stop typing", selectedChat._id);
-
          try {
             setLoading(true);
             const config = {
@@ -151,7 +149,6 @@ export const ChatingSection = () => {
       }
    };
 
-   console.log(notification);
    return (
       <Fragment>
          <Suspense fallback="loading..">

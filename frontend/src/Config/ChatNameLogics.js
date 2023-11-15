@@ -25,3 +25,8 @@ export const capitalize = (str, lower = false) =>
    (lower ? str.toLowerCase() : str).replace(/(?:^|\s|["'([{])+\S/g, (match) =>
       match.toUpperCase()
    );
+
+export const removeAnObjectFromAnArray = (arr, ObjectId) => {
+   const finalData = arr.filter((obj) => obj._id === ObjectId);
+   finalData.splice(0, 1);
+};

@@ -6,6 +6,7 @@ import {
    ThemeContext,
    UsersProfilePopupProvider,
 } from "./context";
+import { NotificationPopupProvider } from "./context/NotificationPopupProvider";
 import { _ROUTER } from "./router";
 
 function App() {
@@ -14,26 +15,31 @@ function App() {
 
    const [groupChatPopup, setGroupChatPopup] = useState(false);
    const [userProfilePopupOn, setUsersProfilePopupOn] = useState(false);
+   const [noficationPopup, setNotificationPopup] = useState(false);
    return (
       <Fragment>
          <Suspense fallback="loading...">
             <ThemeContext.Provider value={{ themeColor, setThemeColor }}>
-               <ProfilPicProvider.Provider
-                  value={{ profilePopupOn, setProfilePopupOn }}
+               <NotificationPopupProvider.Provider
+                  value={{ noficationPopup, setNotificationPopup }}
                >
-                  <GroupChatPopup.Provider
-                     value={{ groupChatPopup, setGroupChatPopup }}
+                  <ProfilPicProvider.Provider
+                     value={{ profilePopupOn, setProfilePopupOn }}
                   >
-                     <UsersProfilePopupProvider.Provider
-                        value={{
-                           userProfilePopupOn,
-                           setUsersProfilePopupOn,
-                        }}
+                     <GroupChatPopup.Provider
+                        value={{ groupChatPopup, setGroupChatPopup }}
                      >
-                        <RouterProvider router={_ROUTER} />
-                     </UsersProfilePopupProvider.Provider>
-                  </GroupChatPopup.Provider>
-               </ProfilPicProvider.Provider>
+                        <UsersProfilePopupProvider.Provider
+                           value={{
+                              userProfilePopupOn,
+                              setUsersProfilePopupOn,
+                           }}
+                        >
+                           <RouterProvider router={_ROUTER} />
+                        </UsersProfilePopupProvider.Provider>
+                     </GroupChatPopup.Provider>
+                  </ProfilPicProvider.Provider>
+               </NotificationPopupProvider.Provider>
             </ThemeContext.Provider>
          </Suspense>
       </Fragment>

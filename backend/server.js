@@ -31,12 +31,12 @@ const server = app.listen(
 const io = require("socket.io")(server, {
    pingTimeout: 60000,
    cors: {
-      origin: "http://localhost:3000",
+      origin: "http://127.0.0.1:3000",
    },
 });
 
 io.on("connection", (socket) => {
-   // console.log("connected to socket.io");
+   console.log("connected to socket.io");
 
    socket.on("setup", (userData) => {
       socket.join(userData._id);
@@ -65,10 +65,5 @@ io.on("connection", (socket) => {
          }
          socket.in(user._id).emit("message recieved", newMessageRecieved);
       });
-   });
-
-   socket.off("setup", () => {
-      console.log("user disconnected");
-      socket.leave(userData._id);
    });
 });

@@ -5,6 +5,8 @@ export * from "./GroupProfile";
 export * from "./GroupSelectedUserBox";
 export * from "./LoginNdSignup";
 export * from "./Navbar";
+export * from "./NotificationPopup";
+export * from "./NotificationUserBox";
 export * from "./ProfilePopup";
 export * from "./SearchLoading";
 export * from "./SearchPopup";
