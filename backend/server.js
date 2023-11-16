@@ -7,6 +7,7 @@ const chatRoutes = require("./Routes/chatRoutes");
 const messageRoutes = require("./Routes/messageRoute");
 const { notFoundErr, erroHandler } = require("./middleware/errors");
 const cors = require("cors");
+const path = require("path");
 
 connectDatabase();
 
@@ -19,6 +20,33 @@ app.use(cors());
 app.use("/api/user", userRouters);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
+
+// -------- doployment-------
+
+const __currentFileDirectory = path.resolve();
+if (process.env.NODE_DEPLOY === "development") {
+   app.use(
+      express.static(path.join(__currentFileDirectory, "../frontend/build"))
+   );
+
+   app.get("*", (req, res) => {
+      res.sendFile(
+         path.resolve(
+            path.join(
+               __currentFileDirectory,
+               "../frontend",
+               "build",
+               "index.html"
+            )
+         )
+      );
+   });
+} else {
+   app.get("/", (req, res) => {
+      res.send("API is Running Successfully");
+   });
+}
+// -------- doployment-------
 
 app.use(notFoundErr);
 app.use(erroHandler);
@@ -41,12 +69,12 @@ io.on("connection", (socket) => {
    socket.on("setup", (userData) => {
       socket.join(userData._id);
       console.log(userData._id);
-      socket.emit("connected");
+      // socket.emit("connected");
    });
 
    socket.on("join chat", (room) => {
       socket.join(room);
-      console.log(`User joined Room ${room}`);
+      // console.log(`User joined Room ${room}`);
    });
 
    socket.on("typing", (room) => socket.in(room).emit("typing"));
