@@ -3,17 +3,12 @@ import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext } from "../context";
 import { NotificationPopupProvider } from "../context/NotificationPopupProvider";
 import { NotificationUserBox } from "./NotificationUserBox";
-import { UserBox } from "./UserBox";
 
 export const NotificationPopup = () => {
    const { themeColor } = useContext(ThemeContext);
-   const { noficationPopup, setNotificationPopup } = useContext(
-      NotificationPopupProvider
-   );
+   const { setNotificationPopup } = useContext(NotificationPopupProvider);
 
-   const { fetchAgain, setFetchAgain, notification, setNotification, _user } =
-      ChatState();
-   console.log(notification);
+   const { notification } = ChatState();
    return (
       <Fragment>
          <Suspense>
@@ -39,17 +34,19 @@ export const NotificationPopup = () => {
                      </span>
                   </div>
                   <div className="notifications">
-                     {notification
-                        ? notification.map((notifi, i) => {
-                             return (
-                                <Fragment key={i}>
-                                   <div className="flex flex-col justify-center ">
-                                      <NotificationUserBox {...notifi} />
-                                   </div>
-                                </Fragment>
-                             );
-                          })
-                        : ""}
+                     {notification.length !== 0 ? (
+                        notification.map((notifi, i) => {
+                           return (
+                              <Fragment key={i}>
+                                 <div className="flex flex-col justify-center ">
+                                    <NotificationUserBox {...notifi} />
+                                 </div>
+                              </Fragment>
+                           );
+                        })
+                     ) : (
+                        <span className="mx-auto">No new Messages</span>
+                     )}
                   </div>
                </div>
             </section>
