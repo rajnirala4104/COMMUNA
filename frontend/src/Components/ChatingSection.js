@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, {
    Fragment,
    Suspense,
@@ -14,11 +13,12 @@ import {
    getSenderName,
    getUserImage,
 } from "../Config/ChatNameLogics";
+import { fetchMessagesApiCall, sendMessageApiCall } from "../api/servces";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext, UsersProfilePopupProvider } from "../context";
 import { Conversation } from "./Conversation";
 
-const ENDPOINT = "http://localhost:8000";
+const ENDPOINT = "http://127.0.0.1:8000";
 var socket, selectedChatCompare;
 
 export const ChatingSection = () => {
@@ -35,7 +35,7 @@ export const ChatingSection = () => {
    const { setUsersProfilePopupOn } = useContext(UsersProfilePopupProvider);
 
    const [loading, setLoading] = useState(false);
-   const [newMessage, setNewMessage] = useState();
+   const [newMessage, setNewMessage] = useState("");
    const [messages, setMessages] = useState([]);
    const [socketConnected, setSocketConnected] = useState(false);
    const [isTyping, setIsTyping] = useState(false);
@@ -78,17 +78,14 @@ export const ChatingSection = () => {
          return;
       }
       try {
-         const config = {
-            headers: {
-               Authorization: `Bearer ${_user.token}`,
-            },
-         };
          setLoading(true);
-         const { data } = await axios.get(
-            `/api/message/${selectedChat._id}`,
-            config
+
+         const response = await fetchMessagesApiCall(
+            _user.token,
+            selectedChat._id
          );
-         setMessages(data);
+
+         setMessages(response.data);
          setLoading(false);
          socket.emit("join chat", selectedChat._id);
       } catch (error) {
@@ -121,26 +118,16 @@ export const ChatingSection = () => {
       if (e.key === "Enter" && newMessage) {
          try {
             setLoading(true);
-            const config = {
-               headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${_user.token}`,
-               },
-            };
 
             setNewMessage("");
-            const { data } = await axios.post(
-               "/api/message",
-               {
-                  content: newMessage,
-                  chatId: selectedChat._id,
-               },
-               config
-            );
+            const response = await sendMessageApiCall(_user.token, {
+               content: newMessage,
+               chatId: selectedChat._id,
+            });
 
-            socket.emit("new message", data);
+            socket.emit("new message", response.data);
 
-            setMessages([...messages, data]);
+            setMessages([...messages, response.data]);
             setLoading(false);
          } catch (error) {
             alert("Something went wrong in send message fungtion ");
@@ -278,7 +265,7 @@ export const ChatingSection = () => {
                               onKeyDown={(e) => sendMessage(e)}
                               onChange={(e) => typingHandler(e)}
                               type="text"
-                              // defaultValue={newMessage}
+                              defaultValue={newMessage}
                               className={`w-full h-10  ${
                                  themeColor === "green"
                                     ? allThemeColors.green.bg200
@@ -307,7 +294,7 @@ export const ChatingSection = () => {
                               placeholder="Message.."
                            />
                            <button
-                              onClick={() => sendMessage()}
+                              onClick={(e) => sendMessage(e)}
                               className={` ${
                                  themeColor === "green"
                                     ? allThemeColors.green.bg300

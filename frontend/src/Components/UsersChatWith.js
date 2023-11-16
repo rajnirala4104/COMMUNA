@@ -5,6 +5,7 @@ import {
    getSenderName,
    getUserImage,
 } from "../Config/ChatNameLogics";
+import { getAllTheChat } from "../api/servces/chats";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import {
    ChatState,
@@ -15,21 +16,13 @@ import {
 
 export const UsersChatWith = () => {
    const { themeColor } = useContext(ThemeContext);
-   const [loaggedUser, setLoaggedUser] = useState();
 
    const { _user, chat, setChat, selectedChat, setSelectedChat, fetchAgain } =
       ChatState();
 
    const fetchChats = async () => {
       try {
-         const config = {
-            headers: {
-               Authorization: `Bearer ${_user.token}`,
-            },
-         };
-
-         const { data } = await axios.get("/api/chat", config);
-         // console.log(data);
+         const { data } = await getAllTheChat(_user.token);
          setChat(data);
       } catch (e) {
          console.log("Oops!! something went wron fetchChats function");
@@ -37,7 +30,6 @@ export const UsersChatWith = () => {
    };
 
    useEffect(() => {
-      setLoaggedUser(JSON.parse(localStorage.getItem("userInfo")));
       fetchChats();
    }, [fetchAgain]);
 

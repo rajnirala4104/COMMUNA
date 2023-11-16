@@ -15,3 +15,13 @@ export const accessChatApiCall = (userToken, userId) => {
 
    return http.post(ENDPOINTS.chats, userId, config);
 };
+
+export const getAllTheChat = (loaggedUserToken) => {
+   const config = {
+      headers: {
+         Authorization: `Bearer ${loaggedUserToken}`,
+      },
+   };
+
+   return http.get(ENDPOINTS.chats, config);
+};

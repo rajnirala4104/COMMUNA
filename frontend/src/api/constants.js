@@ -10,4 +10,5 @@ export const ENDPOINTS = {
    addToGroup: "/api/chat/groupadd",
    removeFromGroup: "/api/chat/groupremove",
    searchUser: "/api/user?search",
+   sendMessageRoute: "/api/message",
 };
