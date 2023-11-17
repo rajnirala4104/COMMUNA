@@ -7,7 +7,7 @@ export const loginHelp = (email, password) => {
       ENDPOINTS.login,
       { email, password },
       {
-         Headers: {
+         headers: {
             "Content-Type": "application/json",
          },
       }
