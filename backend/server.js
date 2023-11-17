@@ -1,11 +1,11 @@
 const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
-const connectDatabase = require("./backend/configs/database");
-const userRouters = require("./backend/Routes/userRoutes");
-const chatRoutes = require("./backend/Routes/chatRoutes");
-const messageRoutes = require("./backend/Routes/messageRoute");
-const { notFoundErr, erroHandler } = require("./backend/middleware/errors");
+const connectDatabase = require("./configs/database");
+const userRouters = require("./Routes/userRoutes");
+const chatRoutes = require("./Routes/chatRoutes");
+const messageRoutes = require("./Routes/messageRoute");
+const { notFoundErr, erroHandler } = require("./middleware/errors");
 const cors = require("cors");
 const path = require("path");
 

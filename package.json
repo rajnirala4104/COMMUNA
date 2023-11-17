@@ -5,8 +5,9 @@
    "main": "server.js",
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "node server.js",
-      "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+      "start": "node backend/server.js",
+      "server": "nodemon backend/server.js",
+      "build": "npm install --legacy-peer-deps && npm install --legacy-peer-deps --prefix frontend && npm run build --prefix frontend"
    },
    "author": "raj nirala",
    "license": "ISC",
