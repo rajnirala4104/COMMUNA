@@ -24,7 +24,7 @@ app.use("/api/message", messageRoutes);
 // -------- doployment-------
 
 const __currentFileDirectory = path.resolve();
-if (process.env.NODE_DEPLOY === "development") {
+if (process.env.NODE_DEPLOY === "deploy") {
    app.use(
       express.static(path.join(__currentFileDirectory, "/frontend/build"))
    );
