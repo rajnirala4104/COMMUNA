@@ -140,7 +140,7 @@ export const GroupProfile = () => {
       <Fragment>
          <Suspense fallback={"loading.."}>
             <div
-               className={`w-[50%] rounded-md flex justify-center items-center flex-col bg p-4 relative
+               className={` lg:w-[50%] w-[80%] rounded-md flex justify-center items-center flex-col bg p-4 relative
                
                ${themeColor === "blue" ? allThemeColors.blue.bg100 : ""}
                   ${themeColor === "purple" ? allThemeColors.purple.bg100 : ""}
@@ -173,7 +173,7 @@ export const GroupProfile = () => {
                      <i className="fa-solid fa-x text-gray-800 text-[12px] -mx-2"></i>
                   </span>
                </div>
-               <div className="my-3">
+               <div className="my-3 flex justify-center items-center flex-wrap">
                   <input
                      onChange={(e) => setNewName(e.target.value)}
                      className="px-2 py-1 rounded-md focus:outline-none"
@@ -220,7 +220,7 @@ export const GroupProfile = () => {
                      Update Name
                   </span>
                </div>
-               <div className="flex ">
+               <div className="flex justify-center flex-wrap">
                   {_user.email === selectedChat.groupAdmin.email
                      ? selectedChat.users.map((userObj, i) => (
                           <Fragment key={i}>

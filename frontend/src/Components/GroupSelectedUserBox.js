@@ -3,7 +3,7 @@ import { ChatState, ThemeContext } from "../context";
 
 export const GroupSelectedUserBox = (props) => {
    const { themeColor } = useContext(ThemeContext);
-   const { selectedChat, _user } = ChatState();
+   const { selectedChat } = ChatState();
 
    return (
       <Fragment>

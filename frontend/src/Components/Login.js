@@ -23,6 +23,7 @@ export const Login = () => {
          setFetchAgain(!fetchAgain);
          window.location.reload();
       } catch (e) {
+         console.log(userLoginEmail, userLoginPassword);
          alert("Oops!! something went wrong..");
       }
    };
