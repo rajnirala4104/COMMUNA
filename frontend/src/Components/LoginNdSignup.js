@@ -21,10 +21,10 @@ export const LoginNdSignup = () => {
                themeColor === "orange" ? allThemeColors.orange.bg300 : ""
             }`}
          >
-            <div className="container w-full h-full flex justify-center items-center flex-col ">
+            <div className=" container w-full h-full flex justify-center items-center flex-col ">
                <ThemeColorsO />
                <div
-                  className={`card w-96 flex justify-between items-center flex-col rounded-md bg-white`}
+                  className={`shadow-lg card w-96 flex justify-between items-center flex-col rounded-md bg-white`}
                >
                   <div className="btns flex justify-between items-center w-[99.9%]">
                      <button

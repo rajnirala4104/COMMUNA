@@ -20,21 +20,10 @@ function App() {
       <Fragment>
          <Suspense fallback="loading...">
             <ThemeContext.Provider value={{ themeColor, setThemeColor }}>
-               <NotificationPopupProvider.Provider
-                  value={{ noficationPopup, setNotificationPopup }}
-               >
-                  <ProfilPicProvider.Provider
-                     value={{ profilePopupOn, setProfilePopupOn }}
-                  >
-                     <GroupChatPopup.Provider
-                        value={{ groupChatPopup, setGroupChatPopup }}
-                     >
-                        <UsersProfilePopupProvider.Provider
-                           value={{
-                              userProfilePopupOn,
-                              setUsersProfilePopupOn,
-                           }}
-                        >
+               <NotificationPopupProvider.Provider value={{ noficationPopup, setNotificationPopup }} >
+                  <ProfilPicProvider.Provider value={{ profilePopupOn, setProfilePopupOn }} >
+                     <GroupChatPopup.Provider value={{ groupChatPopup, setGroupChatPopup }} >
+                        <UsersProfilePopupProvider.Provider value={{ userProfilePopupOn, setUsersProfilePopupOn, }} >
                            <RouterProvider router={_ROUTER} />
                         </UsersProfilePopupProvider.Provider>
                      </GroupChatPopup.Provider>
