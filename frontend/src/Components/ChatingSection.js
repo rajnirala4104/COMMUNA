@@ -92,7 +92,7 @@ export const ChatingSection = () => {
          setLoading(false);
          socket.emit("join chat", selectedChat._id);
       } catch (error) {
-         console.log("something went wrong in fetch message function");
+         alert("something went wrong in fetch message function");
       }
    };
 
@@ -143,8 +143,7 @@ export const ChatingSection = () => {
             setMessages([...messages, data]);
             setLoading(false);
          } catch (error) {
-            alert("Something went wrong in send message fungtion ");
-            console.log(error);
+            console.log(error.message);
          }
       }
    };
@@ -192,11 +191,11 @@ export const ChatingSection = () => {
                                  {selectedChat.isGroup
                                     ? selectedChat.chatName
                                     : capitalize(
-                                         getSenderName(
-                                            _user,
-                                            selectedChat.users
-                                         )
-                                      )}
+                                       getSenderName(
+                                          _user,
+                                          selectedChat.users
+                                       )
+                                    )}
                               </span>
                            </div>
                            <div>
@@ -227,11 +226,10 @@ export const ChatingSection = () => {
                               overflowY: "auto",
                               scrollbarWidth: "none",
                            }}
-                           className={`chatingMainSection  h-full items-end  flex w-full ${
-                              themeColor === "green"
-                                 ? allThemeColors.green.bg200
-                                 : ""
-                           }
+                           className={`chatingMainSection  h-full items-end  flex w-full ${themeColor === "green"
+                              ? allThemeColors.green.bg200
+                              : ""
+                              }
                ${themeColor === "blue" ? allThemeColors.blue.bg200 : ""}
                ${themeColor === "purple" ? allThemeColors.purple.bg200 : ""}
                ${themeColor === "orange" ? allThemeColors.orange.bg200 : ""}
@@ -261,17 +259,15 @@ export const ChatingSection = () => {
                         </div>
 
                         <div
-                           className={`lowerPart flex items-center  h-16  ${
-                              themeColor === "green"
-                                 ? allThemeColors.green.bg300
-                                 : ""
-                           }
+                           className={`lowerPart flex items-center  h-16  ${themeColor === "green"
+                              ? allThemeColors.green.bg300
+                              : ""
+                              }
                ${themeColor === "blue" ? allThemeColors.blue.bg300 : ""}
                ${themeColor === "purple" ? allThemeColors.purple.bg300 : ""}
                ${themeColor === "orange" ? allThemeColors.orange.bg300 : ""}
-               ${
-                  themeColor === "black" ? allThemeColors.black.bg300 : ""
-               } px-2`}
+               ${themeColor === "black" ? allThemeColors.black.bg300 : ""
+                              } px-2`}
                         >
                            <input
                               id="messageInput"
@@ -279,55 +275,47 @@ export const ChatingSection = () => {
                               onChange={(e) => typingHandler(e)}
                               type="text"
                               value={newMessage}
-                              className={`w-full h-10  ${
-                                 themeColor === "green"
-                                    ? allThemeColors.green.bg200
+                              className={`w-full h-10  ${themeColor === "green"
+                                 ? allThemeColors.green.bg200
+                                 : ""
+                                 }
+                        ${themeColor === "blue"
+                                    ? allThemeColors.blue.bg200
                                     : ""
-                              }
-                        ${
-                           themeColor === "blue"
-                              ? allThemeColors.blue.bg200
-                              : ""
-                        }
-                        ${
-                           themeColor === "purple"
-                              ? allThemeColors.purple.bg200
-                              : ""
-                        }
-                        ${
-                           themeColor === "orange"
-                              ? allThemeColors.orange.bg200
-                              : ""
-                        }
-                        ${
-                           themeColor === "black"
-                              ? allThemeColors.black.bg200
-                              : ""
-                        } placeholder:text-gray-700 outline-none px-2 rounded-md`}
+                                 }
+                        ${themeColor === "purple"
+                                    ? allThemeColors.purple.bg200
+                                    : ""
+                                 }
+                        ${themeColor === "orange"
+                                    ? allThemeColors.orange.bg200
+                                    : ""
+                                 }
+                        ${themeColor === "black"
+                                    ? allThemeColors.black.bg200
+                                    : ""
+                                 } placeholder:text-gray-700 outline-none px-2 rounded-md`}
                               placeholder="Message.."
                            />
                            <button
                               onClick={() => sendMessage()}
-                              className={` ${
-                                 themeColor === "green"
-                                    ? allThemeColors.green.bg300
-                                    : ""
-                              }
+                              className={` ${themeColor === "green"
+                                 ? allThemeColors.green.bg300
+                                 : ""
+                                 }
                ${themeColor === "blue" ? allThemeColors.blue.bg300 : ""}
                ${themeColor === "purple" ? allThemeColors.purple.bg300 : ""}
                ${themeColor === "orange" ? allThemeColors.orange.bg300 : ""}
-               ${
-                  themeColor === "black" ? allThemeColors.black.bg300 : ""
-               } px-5 mx-1 py-2 rounded-md 
+               ${themeColor === "black" ? allThemeColors.black.bg300 : ""
+                                 } px-5 mx-1 py-2 rounded-md 
                 ${themeColor === "green" ? "hover:bg-green-400" : ""}
                ${themeColor === "blue" ? "hover:bg-blue-400" : ""}
                ${themeColor === "purple" ? "hover:bg-purple-400" : ""}
                ${themeColor === "orange" ? "hover:bg-orange-400" : ""}
-                              ${
-                                 themeColor === "black"
+                              ${themeColor === "black"
                                     ? "hover:bg-gray-400"
                                     : ""
-                              }`}
+                                 }`}
                            >
                               <i className="fa-solid fa-paper-plane"></i>
                            </button>
@@ -336,22 +324,18 @@ export const ChatingSection = () => {
                   </section>
                ) : (
                   <div
-                     className={` ${
-                        selectedChat ? "" : "hidden"
-                     } lg:flex chatingMainSection w-full  h-full justify-center items-center border-l border-black ${
-                        themeColor === "green" ? allThemeColors.green.bg200 : ""
-                     }
+                     className={` ${selectedChat ? "" : "hidden"
+                        } lg:flex chatingMainSection w-full  h-full justify-center items-center border-l border-black ${themeColor === "green" ? allThemeColors.green.bg200 : ""
+                        }
       ${themeColor === "blue" ? allThemeColors.blue.bg200 : ""}
       ${themeColor === "purple" ? allThemeColors.purple.bg200 : ""}
       ${themeColor === "orange" ? allThemeColors.orange.bg200 : ""}
-                     ${
-                        themeColor === "black" ? allThemeColors.black.bg200 : ""
-                     }`}
+                     ${themeColor === "black" ? allThemeColors.black.bg200 : ""
+                        }`}
                   >
                      <span
-                        className={`text-4xl  ${
-                           themeColor === "blue" ? "text-blue-900" : ""
-                        }
+                        className={`text-4xl  ${themeColor === "blue" ? "text-blue-900" : ""
+                           }
                   ${themeColor === "purple" ? "text-purple-800" : ""}
                   ${themeColor === "orange" ? "text-orange-800" : ""}
                   ${themeColor === "black" ? "text-gray-800" : ""}

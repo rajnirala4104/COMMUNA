@@ -28,7 +28,7 @@ export const SearchPopup = () => {
          setLoading(false);
          setSearchResult(data);
       } catch (e) {
-         console.log("something went wrong in search handler function");
+         alert(e.message);
       }
    };
 
@@ -41,7 +41,7 @@ export const SearchPopup = () => {
          // console.log(data);
          setSelectedChat(data);
       } catch (e) {
-         console.log("Oops!! something went wrong in access chat");
+         alert(e.message);
       }
    };
 
@@ -73,62 +73,50 @@ export const SearchPopup = () => {
                      </span>
                      <input
                         onChange={(e) => setSearchText(e.target.value)}
-                        className={`outline-none mx-1 py-2  ${
-                           themeColor === "green"
-                              ? allThemeColors.green.bg200
-                              : ""
-                        }
+                        className={`outline-none mx-1 py-2  ${themeColor === "green"
+                           ? allThemeColors.green.bg200
+                           : ""
+                           }
                   ${themeColor === "blue" ? allThemeColors.blue.bg200 : ""}
                   ${themeColor === "purple" ? allThemeColors.purple.bg200 : ""}
                   ${themeColor === "orange" ? allThemeColors.orange.bg200 : ""}
-                  ${
-                     themeColor === "black" ? allThemeColors.black.bg200 : ""
-                  } placeholder-gray-600 text-slate-800 shadow-md px-3 py-1 rounded-md w-[55vh]`}
+                  ${themeColor === "black" ? allThemeColors.black.bg200 : ""
+                           } placeholder-gray-600 text-slate-800 shadow-md px-3 py-1 rounded-md w-[55vh]`}
                         type="text"
                         placeholder="Search..."
                      />
                      <span
                         onClick={() => searchHandler()}
-                        className={`middle none center rounded-lg cursor-pointer  ${
-                           themeColor === "blue"
-                              ? allThemeColors.blue.bg500
-                              : ""
-                        } ${
-                           themeColor === "orange"
+                        className={`middle none center rounded-lg cursor-pointer  ${themeColor === "blue"
+                           ? allThemeColors.blue.bg500
+                           : ""
+                           } ${themeColor === "orange"
                               ? allThemeColors.orange.bg500
                               : ""
-                        } ${
-                           themeColor === "green"
+                           } ${themeColor === "green"
                               ? allThemeColors.green.bg500
                               : ""
-                        } ${
-                           themeColor === "purple"
+                           } ${themeColor === "purple"
                               ? allThemeColors.purple.bg500
                               : ""
-                        }${
-                           themeColor === "black"
+                           }${themeColor === "black"
                               ? allThemeColors.black.bg500
                               : ""
-                        }
-                      py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:shadow-lg   ${
-                         themeColor === "blue" ? "hover:shadow-blue-500/40" : ""
-                      } ${
-                           themeColor === "green"
+                           }
+                      py-3 px-6 font-sans text-xs font-bold uppercase text-white transition-all hover:shadow-lg   ${themeColor === "blue" ? "hover:shadow-blue-500/40" : ""
+                           } ${themeColor === "green"
                               ? "hover:shadow-green-500/40"
                               : ""
-                        } ${
-                           themeColor === "orange"
+                           } ${themeColor === "orange"
                               ? "hover:shadow-orange-500/40"
                               : ""
-                        } ${
-                           themeColor === "purple"
+                           } ${themeColor === "purple"
                               ? "hover:shadow-purple-500/40"
                               : ""
-                        }${
-                           themeColor === "black"
+                           }${themeColor === "black"
                               ? "hover:shadow-gray-500/40"
                               : ""
-                        }
+                           }
                       focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none`}
                         data-ripple-light="true"
                      >

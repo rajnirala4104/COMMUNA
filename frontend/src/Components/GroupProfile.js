@@ -42,9 +42,7 @@ export const GroupProfile = () => {
          setFetchAgain(!fetchAgain);
          setUsersProfilePopupOn(false);
       } catch (e) {
-         console.log(
-            "something went worng in uopdateGroupNameHandler function"
-         );
+         alert(e.message)
       }
    };
 
@@ -101,7 +99,7 @@ export const GroupProfile = () => {
          setSearchResults(data);
          setLoading(false);
       } catch (error) {
-         console.log("error : ", error);
+         alert("error : ", error);
       }
    };
 
@@ -151,9 +149,8 @@ export const GroupProfile = () => {
             >
                <div className="groupTitle my-3 mb-5">
                   <h1
-                     className={`text-4xl  ${
-                        themeColor === "blue" ? "text-blue-900" : ""
-                     }
+                     className={`text-4xl  ${themeColor === "blue" ? "text-blue-900" : ""
+                        }
                   ${themeColor === "purple" ? "text-purple-800" : ""}
                   ${themeColor === "orange" ? "text-orange-800" : ""}
                   ${themeColor === "black" ? "text-gray-800" : ""}
@@ -182,38 +179,28 @@ export const GroupProfile = () => {
                   />
                   <span
                      onClick={() => updateGroupNameHandler()}
-                     className={`middle none center rounded-lg cursor-pointer  ${
-                        themeColor === "blue" ? allThemeColors.blue.bg500 : ""
-                     } ${
-                        themeColor === "orange"
+                     className={`middle none center rounded-lg cursor-pointer  ${themeColor === "blue" ? allThemeColors.blue.bg500 : ""
+                        } ${themeColor === "orange"
                            ? allThemeColors.orange.bg500
                            : ""
-                     } ${
-                        themeColor === "green" ? allThemeColors.green.bg500 : ""
-                     } ${
-                        themeColor === "purple"
+                        } ${themeColor === "green" ? allThemeColors.green.bg500 : ""
+                        } ${themeColor === "purple"
                            ? allThemeColors.purple.bg500
                            : ""
-                     }${
-                        themeColor === "black" ? allThemeColors.black.bg500 : ""
-                     }
-                      py-2 px-6 mx-2 font-sans text-xs font-bold uppercase text-white transition-all hover:shadow-lg   ${
-                         themeColor === "blue" ? "hover:shadow-blue-500/40" : ""
-                      } ${
-                        themeColor === "green"
+                        }${themeColor === "black" ? allThemeColors.black.bg500 : ""
+                        }
+                      py-2 px-6 mx-2 font-sans text-xs font-bold uppercase text-white transition-all hover:shadow-lg   ${themeColor === "blue" ? "hover:shadow-blue-500/40" : ""
+                        } ${themeColor === "green"
                            ? "hover:shadow-green-500/40"
                            : ""
-                     } ${
-                        themeColor === "orange"
+                        } ${themeColor === "orange"
                            ? "hover:shadow-orange-500/40"
                            : ""
-                     } ${
-                        themeColor === "purple"
+                        } ${themeColor === "purple"
                            ? "hover:shadow-purple-500/40"
                            : ""
-                     }${
-                        themeColor === "black" ? "hover:shadow-gray-500/40" : ""
-                     }
+                        }${themeColor === "black" ? "hover:shadow-gray-500/40" : ""
+                        }
                       focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none`}
                      data-ripple-light="true"
                   >
@@ -223,29 +210,29 @@ export const GroupProfile = () => {
                <div className="flex justify-center flex-wrap">
                   {_user.email === selectedChat.groupAdmin.email
                      ? selectedChat.users.map((userObj, i) => (
-                          <Fragment key={i}>
-                             <GroupSelectedUserBox
-                                userObject={userObj}
-                                closeHandlerFucntion={() =>
-                                   removeFromGroup(userObj._id, userObj)
-                                }
-                             />
-                          </Fragment>
-                       ))
+                        <Fragment key={i}>
+                           <GroupSelectedUserBox
+                              userObject={userObj}
+                              closeHandlerFucntion={() =>
+                                 removeFromGroup(userObj._id, userObj)
+                              }
+                           />
+                        </Fragment>
+                     ))
                      : selectedChat.users.map((userObj, i) => (
-                          <Fragment key={i}>
-                             <GroupSelectedUserBox
-                                userObject={userObj}
-                                closeHandlerFucntion={() =>
-                                   userObj.email === _user.email
-                                      ? removeFromGroup(userObj._id, userObj)
-                                      : alert(
-                                           "You can't remove this user because you are not admin"
-                                        )
-                                }
-                             />
-                          </Fragment>
-                       ))}
+                        <Fragment key={i}>
+                           <GroupSelectedUserBox
+                              userObject={userObj}
+                              closeHandlerFucntion={() =>
+                                 userObj.email === _user.email
+                                    ? removeFromGroup(userObj._id, userObj)
+                                    : alert(
+                                       "You can't remove this user because you are not admin"
+                                    )
+                              }
+                           />
+                        </Fragment>
+                     ))}
                </div>
                <div className="search">
                   {selectedChat.groupAdmin._id === _user._id ? (
@@ -253,17 +240,15 @@ export const GroupProfile = () => {
                         <div className="flex justify-center items-center my-3 relative">
                            <input
                               onChange={(e) => handleSearch(e.target.value)}
-                              className={`outline-none mx-1 py-2  ${
-                                 themeColor === "green"
-                                    ? allThemeColors.green.bg200
-                                    : ""
-                              }
+                              className={`outline-none mx-1 py-2  ${themeColor === "green"
+                                 ? allThemeColors.green.bg200
+                                 : ""
+                                 }
                   ${themeColor === "blue" ? allThemeColors.blue.bg200 : ""}
                   ${themeColor === "purple" ? allThemeColors.purple.bg200 : ""}
                   ${themeColor === "orange" ? allThemeColors.orange.bg200 : ""}
-                  ${
-                     themeColor === "black" ? allThemeColors.black.bg200 : ""
-                  } placeholder-gray-600 text-slate-800 shadow-md px-3 py-1 rounded-md w-[55vh]`}
+                  ${themeColor === "black" ? allThemeColors.black.bg200 : ""
+                                 } placeholder-gray-600 text-slate-800 shadow-md px-3 py-1 rounded-md w-[55vh]`}
                               type="text"
                               placeholder="Add Members"
                            />
@@ -292,43 +277,34 @@ export const GroupProfile = () => {
                      <div className="my-5">
                         <span
                            onClick={() => removeFromGroup(_user._id, _user)}
-                           className={`py-2 middle none center rounded-lg cursor-pointer  ${
-                              themeColor === "blue"
-                                 ? allThemeColors.blue.bg500
-                                 : ""
-                           } ${
-                              themeColor === "orange"
+                           className={`py-2 middle none center rounded-lg cursor-pointer  ${themeColor === "blue"
+                              ? allThemeColors.blue.bg500
+                              : ""
+                              } ${themeColor === "orange"
                                  ? allThemeColors.orange.bg500
                                  : ""
-                           } ${
-                              themeColor === "green"
+                              } ${themeColor === "green"
                                  ? allThemeColors.green.bg500
                                  : ""
-                           } ${
-                              themeColor === "purple"
+                              } ${themeColor === "purple"
                                  ? allThemeColors.purple.bg500
                                  : ""
-                           }${
-                              themeColor === "black"
+                              }${themeColor === "black"
                                  ? allThemeColors.black.bg500
                                  : ""
-                           }
+                              }
              py-2 px-6 mx-2 font-sans text-xs font-bold 
-             uppercase text-white transition-all hover:shadow-lg   ${
-                themeColor === "blue" ? "hover:shadow-blue-500/40" : ""
-             } ${themeColor === "green" ? "hover:shadow-green-500/40" : ""} ${
-                              themeColor === "orange"
+             uppercase text-white transition-all hover:shadow-lg   ${themeColor === "blue" ? "hover:shadow-blue-500/40" : ""
+                              } ${themeColor === "green" ? "hover:shadow-green-500/40" : ""} ${themeColor === "orange"
                                  ? "hover:shadow-orange-500/40"
                                  : ""
-                           } ${
-                              themeColor === "purple"
+                              } ${themeColor === "purple"
                                  ? "hover:shadow-purple-500/40"
                                  : ""
-                           }${
-                              themeColor === "black"
+                              }${themeColor === "black"
                                  ? "hover:shadow-gray-500/40"
                                  : ""
-                           }
+                              }
                            focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none`}
                            data-ripple-light="true"
                         >

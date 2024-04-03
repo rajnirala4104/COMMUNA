@@ -1,11 +1,11 @@
 const expressAsyncHandler = require("express-async-handler");
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
+const { StatusCodes } = require("http-status-codes");
 
 const accessChat = expressAsyncHandler(async (req, res) => {
    const { userId } = req.body;
    if (!userId) {
-      console.log("UserId param not sent with request");
       return res.sendStatus(400);
    }
 
@@ -25,7 +25,11 @@ const accessChat = expressAsyncHandler(async (req, res) => {
    });
 
    if (isChat.length > 0) {
-      console.log("THIS CHAT IS ALREADY EXIST IN OUR DATABASE", isChat);
+      return res.status(StatusCodes.BAD_REQUEST).json({
+         message: "This chat is already exist in our database",
+         status: StatusCodes.BAD_REQUEST,
+         data: isChat
+      })
       // res.send(isChat[0]);
    } else {
       let chatData = {
@@ -65,7 +69,7 @@ const fetchChat = expressAsyncHandler(async (req, res) => {
             );
          });
    } catch (e) {
-      console.log(`Oops!! ${e}`);
+      throw new Error(e.message)
    }
 });
 

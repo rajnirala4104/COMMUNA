@@ -25,13 +25,13 @@ app.use("/api/message", messageRoutes);
 // ----------- deployment -------
 
 const __currentDirectoryMode = path.resolve()
-if(process.env.NODE_MODE === "production"){  
+if (process.env.NODE_MODE === "production") {
    app.use(express.static(path.join(__currentDirectoryMode, "../frontend/build")))
-   app.get('*', (req,res) => {
+   app.get('*', (req, res) => {
       res.sendFile(path.resolve(__currentDirectoryMode, "../frontend", "build", "index.html"))
    })
-}else{
-   app.get('/', (req,res) => {
+} else {
+   app.get('/', (req, res) => {
       res.send("API is running successfully")
    })
 }
@@ -55,17 +55,14 @@ const io = require("socket.io")(server, {
 });
 
 io.on("connection", (socket) => {
-   console.log("connected to socket.io");
 
    socket.on("setup", (userData) => {
       socket.join(userData._id);
-      console.log(userData._id);
       socket.emit("connected");
    });
 
    socket.on("join chat", (room) => {
       socket.join(room);
-      console.log(`User joined Room ${room}`);
    });
 
    socket.on("typing", (room) => socket.in(room).emit("typing"));
@@ -75,7 +72,6 @@ io.on("connection", (socket) => {
       const chat = newMessageRecieved.chat;
 
       if (!chat.users) {
-         console.log("chat.users not define");
          return;
       }
       chat.users.forEach((user) => {
