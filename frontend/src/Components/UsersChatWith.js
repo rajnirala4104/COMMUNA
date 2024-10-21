@@ -29,7 +29,6 @@ export const UsersChatWith = () => {
          };
 
          const { data } = await axios.get("/api/chat", config);
-         // console.log(data);
          setChat(data);
       } catch (e) {
          console.log("Oops!! something went wron fetchChats function");
@@ -41,7 +40,6 @@ export const UsersChatWith = () => {
       fetchChats();
    }, [fetchAgain]);
 
-   // console.log(chat);
    const { setIsPopupOn } = useContext(SearchPopupContext);
    const { setGroupChatPopup } = useContext(GroupChatPopup);
 

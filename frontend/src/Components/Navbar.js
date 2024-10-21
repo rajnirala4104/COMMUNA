@@ -10,8 +10,7 @@ import { ProfilePopup } from "./ProfilePopup";
 import { ThemeColorsO } from "./ThemeColorsO";
 
 export const Navbar = () => {
-   const { _user, fetchAgain, setFetchAgain, notification, setNotification } =
-      ChatState();
+   const { _user, notification } = ChatState();
    const { themeColor } = useContext(ThemeContext);
    const { isPopupOn, setIsPopupOn } = useContext(SearchPopupContext);
    const { profilePopupOn, setProfilePopupOn } = useContext(ProfilPicProvider);

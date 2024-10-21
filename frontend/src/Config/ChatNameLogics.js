@@ -6,7 +6,7 @@ export const getUserWholeObject = (loggedUser, userArr) => {
    return userArr[0]._id === loggedUser._id ? userArr[1] : userArr[0];
 };
 
-export const getUserImage = (singleUserObject, loaggedUser) => {
+export const getUserImage = (singleUserObject, loggedInUser) => {
    const usersArray = singleUserObject.isGroup
       ? [
            "",
@@ -15,9 +15,8 @@ export const getUserImage = (singleUserObject, loaggedUser) => {
            },
         ]
       : singleUserObject.users;
-   const singleUser = usersArray.map((user) =>
-      user._id === loaggedUser._id ? "" : user.pic
-   );
+   const singleUser = usersArray.map((user) => user.pic);
+
    return singleUser[1];
 };
 
