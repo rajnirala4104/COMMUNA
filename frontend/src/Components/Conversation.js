@@ -6,6 +6,9 @@ import { getTimeFromMongoData } from "../utils";
 export const Conversation = (props) => {
    const { themeColor } = useContext(ThemeContext);
    const { _user } = ChatState();
+
+   // TODO: sort all the messages by year/month/time
+
    return (
       <Fragment>
          <div className=" conversation  my-1 w-full  flex flex-col justify-between items-center">
@@ -69,7 +72,7 @@ export const Conversation = (props) => {
                            {props.message.sender.name}
                         </span>
                         <span className="">{props.message.content}</span>
-                        <span className="text-[10px] opacity-70 select-none -mb-1">
+                        <span className="text-[10px] flex justify-start items-center w-full opacity-70 select-none -mb-1">
                            {getTimeFromMongoData(props.message.createdAt)}
                         </span>
                      </span>
@@ -135,7 +138,7 @@ export const Conversation = (props) => {
                            {props.message.sender._id === _user._id ? "You" : ""}
                         </span>
                         <span>{props.message.content}</span>
-                        <span className="text-[10px] opacity-70 select-none -mb-1">
+                        <span className="text-[10px] flex justify-end items-center w-full opacity-70 select-none -mb-1">
                            {getTimeFromMongoData(props.message.createdAt)}
                         </span>
                      </span>
