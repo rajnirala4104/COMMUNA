@@ -6,7 +6,7 @@ const userRouters = require("./Routes/userRoutes");
 const chatRoutes = require("./Routes/chatRoutes");
 const messageRoutes = require("./Routes/messageRoute");
 const { notFoundErr, erroHandler } = require("./middleware/errors");
-const path = require('path')
+const path = require("path");
 const cors = require("cors");
 
 connectDatabase();
@@ -21,23 +21,30 @@ app.use("/api/user", userRouters);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
 
-
 // ----------- deployment -------
 
-const __currentDirectoryMode = path.resolve()
+const __currentDirectoryMode = path.resolve();
 if (process.env.NODE_MODE === "production") {
-   app.use(express.static(path.join(__currentDirectoryMode, "../frontend/build")))
-   app.get('*', (req, res) => {
-      res.sendFile(path.resolve(__currentDirectoryMode, "../frontend", "build", "index.html"))
-   })
+   app.use(
+      express.static(path.join(__currentDirectoryMode, "../frontend/build"))
+   );
+   app.get("*", (req, res) => {
+      res.sendFile(
+         path.resolve(
+            __currentDirectoryMode,
+            "../frontend",
+            "build",
+            "index.html"
+         )
+      );
+   });
 } else {
-   app.get('/', (req, res) => {
-      res.send("API is running successfully")
-   })
+   app.get("/", (req, res) => {
+      res.send("API is running successfully");
+   });
 }
 
 // ----------- deployment -------
-
 
 app.use(notFoundErr);
 app.use(erroHandler);
@@ -55,7 +62,6 @@ const io = require("socket.io")(server, {
 });
 
 io.on("connection", (socket) => {
-
    socket.on("setup", (userData) => {
       socket.join(userData._id);
       socket.emit("connected");

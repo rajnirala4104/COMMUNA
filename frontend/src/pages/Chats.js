@@ -43,8 +43,8 @@ export const Chats = () => {
             <SearchPopupContext.Provider value={{ isPopupOn, setIsPopupOn }}>
                {isUser ? (
                   <Fragment>
-                     {isPopupOn ? <SearchPopup /> : <></>}
-                     {groupChatPopup ? <CreateGroupPopup /> : ""}
+                     {isPopupOn && <SearchPopup />}
+                     {groupChatPopup && <CreateGroupPopup />}
                      {userProfilePopupOn && <UsersProfilePopup />}
                      <Navbar />
                      <div className="flex justify-between w-full h-[87vh]">
