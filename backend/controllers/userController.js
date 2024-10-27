@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const generateToken = require("../configs/generateToken");
 const asyncHandler = require("express-async-handler");
+const { StatusCodes } = require("http-status-codes");
 
 const registieredUser = asyncHandler(async (req, res) => {
    const { name, email, password, pic } = req.body;
@@ -16,17 +17,14 @@ const registieredUser = asyncHandler(async (req, res) => {
       throw new Error("User is alredy exists");
    }
 
-   const user = await User.create({
-      name,
-      email,
-      password,
-      pic,
-   });
+   const user = await User.create({ name, email, password, pic, });
+
    if (user) {
       res.status(200).json({
          _id: user._id,
          name: user.name,
          email: user.email,
+         password: user.password,
          pic: user.pic,
          token: generateToken(user._id),
       });
@@ -38,11 +36,14 @@ const registieredUser = asyncHandler(async (req, res) => {
 
 const authUser = asyncHandler(async (req, res) => {
    const { email, password } = req.body;
-   const user = await User.findOne({ email, password });
+   const user = await User.findOne({ email });
 
-   // ------ bug ------
-   // ---- && (await user.matchPassword(password)) ------
-   if (user) {
+   if (!user) {
+      res.status(StatusCodes.NOT_FOUND);
+      throw new Error("Invalid Email");
+   }
+
+   if (await user.matchPassword(password)) {
       res.json({
          _id: user._id,
          name: user.name,
