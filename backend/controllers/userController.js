@@ -47,13 +47,25 @@ const registieredUser = asyncHandler(async (req, res) => {
 });
 
 const authUser = asyncHandler(async (req, res) => {
+   // Step 1: get the email and password from the req.body
    const { email, password } = req.body;
+
+   // Step 2: fetch the user from the database based on email
    const user = await User.findOne({ email });
-   const isPasswordTrue = await user.matchPassword(password);
 
-   if (!user) throw new ApiError(StatusCodes.BAD_REQUEST, "Invalid Email");
-   if (!isPasswordTrue) throw new ApiError(StatusCodes.BAD_REQUEST, "Invalid Password");
+   // Step 3: check if the user exists
+   if (!user) {
+      throw new ApiError(StatusCodes.BAD_REQUEST, "Invalid Email");
+   }
 
+   // Step 4: check if the password is valid
+   const isPasswordTrue = await user.matchPassword(password); // this will return Boolean
+
+   if (!isPasswordTrue) {
+      throw new ApiError(StatusCodes.BAD_REQUEST, "Invalid Password");
+   }
+
+   // Step 5: return the response with the user data
    return res.status(StatusCodes.OK).json(
       new ApiResponse(
          StatusCodes.OK,
@@ -66,11 +78,12 @@ const authUser = asyncHandler(async (req, res) => {
             pic: user.pic,
             token: generateToken(user._id),
          }
-      ));
+      )
+   );
 });
 
-// ------- /api/user?search=pulkit
-const _user = asyncHandler(async (req, res) => {
+const searchUserController = asyncHandler(async (req, res) => {
+   // Step 1: prepare the keyword obj
    const keyword = req.query.search
       ? {
            $or: [
@@ -80,10 +93,12 @@ const _user = asyncHandler(async (req, res) => {
         }
       : {};
 
-   const users = await User.find(keyword)
-      .find({ _id: { $ne: req.user._id } })
+   // Step 2: exclude the current user
+   const users = await User.find({ ...keyword, _id: { $ne: req.user._id } })
       .select("-password");
+
+   // Step 3: return the response with the user data
    res.send(users);
 });
 
-module.exports = { registieredUser, authUser, _user };
+module.exports = { registieredUser, authUser, searchUserController };
