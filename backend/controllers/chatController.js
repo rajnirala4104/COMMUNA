@@ -2,41 +2,61 @@ const expressAsyncHandler = require("express-async-handler");
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
 const { StatusCodes } = require("http-status-codes");
+const ApiResponse = require("../utils/apiResponse");
+const ApiError = require("../utils/apiError");
 
 const accessChat = expressAsyncHandler(async (req, res) => {
    const { userId } = req.body;
+
+   // Step-1 Check if the user id is provided
    if (!userId) {
-      return res.sendStatus(400);
+      throw new ApiError(StatusCodes.BAD_REQUEST, "User Id not provided");
    }
 
-   let isChat = await Chat.find({
-      isGroup: false,
-      $and: [
-         { users: { $elemMatch: { $eq: req.user._id } } },
-         { users: { $elemMatch: { $eq: userId } } },
-      ],
-   })
-      .populate("users", "-password")
-      .populate("latestMessage");
-
-   isChat = await User.populate(isChat, {
-      path: "latestMessage.sender",
-      select: "name pic email",
+   // Step-2 Check if a chat exists between the current user and the specified user
+   const isChat = await Chat.findOne({
+      isGroup: false, // Ensure it is not a group chat
+      users: {
+         $all: [req.user._id, userId],
+      },
    });
 
-   if (isChat.length > 0) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
-         message: "This chat is already exist in our database",
-         status: StatusCodes.BAD_REQUEST,
-         data: isChat
-      })
-      // res.send(isChat[0]);
+   // Step-3 Check if the chat exists
+   if (isChat) {
+      // Step-4 Populate the chat with user details excluding passwords
+      const FullChat = await Chat.populate(isChat, {
+         path: "users",
+         select: "-password",
+      });
+
+      // Step-5 Populate the chat with the latest message details
+      const latestMessage = await Chat.populate(FullChat, {
+         path: "latestMessage",
+         select: "-chat",
+      });
+
+      // Step-6 Populate the latest message with user details excluding passwords
+      const finalChat = await User.populate(latestMessage, {
+         path: "latestMessage.sender",
+         select: "name pic email",
+      });
+
+      return res.status(StatusCodes.OK).json(
+         new ApiResponse(
+            StatusCodes.OK,
+            "Chat Already Exists",
+            finalChat
+         )
+      );
    } else {
+      // Step-4 Create a new chat
       let chatData = {
          chatName: "sender",
          isGroup: false,
          users: [req.user._id, userId],
       };
+
+      // Step-5 Create a new chat
       try {
          const createdChat = await Chat.create(chatData);
          const FullChat = await Chat.findOne({ _id: createdChat._id }).populate(
@@ -44,32 +64,46 @@ const accessChat = expressAsyncHandler(async (req, res) => {
             "-password"
          );
 
-         // console.log(FullChat);
-         res.status(200).send(FullChat);
+         return res.status(StatusCodes.OK).json(
+            new ApiResponse(
+               StatusCodes.OK,
+               "Chat Created Successfully",
+               FullChat
+            )
+         );
+
       } catch (e) {
          res.status(400);
-         throw new Error(e.message);
+         throw new ApiError(StatusCodes.BAD_REQUEST, e.message);
       }
    }
 });
 
 const fetchChat = expressAsyncHandler(async (req, res) => {
    try {
+      // Find all chats where the current user is a participant
       Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
+         // Populate the chat with user details excluding passwords
          .populate("users", "-password")
+         // Populate the chat with group admin details excluding passwords
          .populate("groupAdmin", "-password")
+         // Populate the chat with the latest message details
          .populate("latestMessage")
+         // Sort chats by the latest update timestamp in descending order
          .sort({ updatedAt: -1 })
+         // Once the chats are fetched
          .then(async (results) => {
-            res.status(200).send(
-               await User.populate(results, {
-                  path: "latestMessage.sender",
-                  select: "name pic email",
-               })
-            );
+            // Populate the sender details of the latest message with name, pic, and email
+            const populatedResults = await User.populate(results, {
+               path: "latestMessage.sender",
+               select: "name pic email",
+            });
+            // Send the populated chat data with a successful response
+            res.status(200).send(populatedResults);
          });
    } catch (e) {
-      throw new Error(e.message)
+      // If any error occurs, throw an error with its message
+      throw new ApiError(StatusCodes.BAD_REQUEST, e.message);
    }
 });
 
