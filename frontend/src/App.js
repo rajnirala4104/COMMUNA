@@ -1,4 +1,4 @@
-import { Fragment, Suspense, useState } from "react";
+import { Fragment, Suspense, useEffect, useState } from "react";
 import { RouterProvider } from "react-router-dom";
 import {
    GroupChatPopup,
@@ -11,6 +11,16 @@ import { _ROUTER } from "./router";
 
 function App() {
    const [themeColor, setThemeColor] = useState("orange");
+   
+   useEffect(() => {
+      const localColorTheme = JSON.parse(localStorage.getItem("themeColor"));
+      if(localColorTheme){
+         setThemeColor(localColorTheme)
+      } else {
+         localStorage.setItem("themeColor", JSON.stringify("orange"))
+      }
+   }, [])
+
    const [profilePopupOn, setProfilePopupOn] = useState(false);
 
    const [groupChatPopup, setGroupChatPopup] = useState(false);

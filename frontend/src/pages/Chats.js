@@ -47,7 +47,7 @@ export const Chats = () => {
                      {groupChatPopup && <CreateGroupPopup />}
                      {userProfilePopupOn && <UsersProfilePopup />}
                      <Navbar />
-                     <div className="flex justify-between w-full h-[88%]">
+                     <div className="flex justify-between w-full h-[88vh]">
                         <UsersChatWith />
                         <ChatingSection />
                      </div>

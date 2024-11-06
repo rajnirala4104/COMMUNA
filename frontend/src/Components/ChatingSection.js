@@ -226,7 +226,7 @@ export const ChatingSection = () => {
                               overflowY: "auto",
                               scrollbarWidth: "none",
                            }}
-                           className={`chatingMainSection  h-full items-end  flex w-full ${
+                           className={`chatingMainSection overflow-auto h-full items-end  flex w-full ${
                               themeColor === "green"
                                  ? allThemeColors.green.bg200
                                  : ""
@@ -337,7 +337,7 @@ export const ChatingSection = () => {
                   <div
                      className={` ${
                         selectedChat ? "" : "hidden"
-                     } lg:flex chatingMainSection w-full  h-full justify-center items-center border-l border-black ${
+                     } lg:flex chatingMainSection w-full h-full justify-center items-center border-l border-black ${
                         themeColor === "green" ? allThemeColors.green.bg200 : ""
                      }
       ${themeColor === "blue" ? allThemeColors.blue.bg200 : ""}
