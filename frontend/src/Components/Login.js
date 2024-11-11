@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginHelp } from "../api/servces";
+import { loginHelp } from "../api/services";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext } from "../context";
 
@@ -8,22 +8,21 @@ export const Login = () => {
    const [userLoginEmail, setUserLoginEmail] = useState(null);
    const [userLoginPassword, setUserLoginPassword] = useState(null);
    const [showPassword, setShowPassword] = useState(false);
-   const naviator = useNavigate();
    const { fetchAgain, setFetchAgain } = ChatState();
+   const navigator = useNavigate();
 
    const submitHandler = async () => {
       if (!userLoginEmail || !userLoginPassword) {
-         alert("invailid email and password");
+         alert("invalid email and password");
          return;
       }
       try {
-         const { data } = await loginHelp(userLoginEmail, userLoginPassword);
-         localStorage.setItem("userInfo", JSON.stringify(data));
-         naviator("/chats");
+         const response = await loginHelp(userLoginEmail, userLoginPassword);
+         localStorage.setItem("userInfo", JSON.stringify(response.data));
+         navigator("/chats");
          setFetchAgain(!fetchAgain);
          window.location.reload();
       } catch (e) {
-         // console.log(userLoginEmail, userLoginPassword);
          alert("Oops!! something went wrong..");
       }
    };

@@ -7,7 +7,7 @@ export const GroupSelectedUserBox = (props) => {
 
    return (
       <Fragment>
-         <Suspense fallback="loading..">
+         <Suspense fallback={<span className="font-mono text-2xl">loading..</span>}>
             <div
                className={`cursor-pointer selectedUserBox mx-1 flex justify-between relative border  ${
                   themeColor === "blue" ? "border-blue-600" : ""

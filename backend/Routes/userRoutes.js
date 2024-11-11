@@ -1,9 +1,9 @@
 const express = require("express");
-const { registieredUser, authUser, searchUserController } = require("../controllers/userController");
+const { authUser, searchUserController, userRegistration } = require("../controllers/userController");
 const { protect } = require("../middleware/authUser");
 const router = express.Router();
 
-router.post("/", registieredUser)
+router.post("/", userRegistration);
 router.get("/", protect, searchUserController);
 router.post("/login", authUser);
 

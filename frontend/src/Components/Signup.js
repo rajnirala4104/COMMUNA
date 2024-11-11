@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense, useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { addeTheData } from "../api/servces";
+import { Link, useNavigate } from "react-router-dom";
+import { addTheData } from "../api/services";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ThemeContext } from "../context";
 
@@ -10,8 +10,10 @@ export const Signup = () => {
    const [createPassword, setCreatePassword] = useState();
    const [confirmPassword, setConfirmPassword] = useState();
    const [showCreatePassword, setShowCreatePassword] = useState(false);
-   const [showConfirmPassword, setshowConfirmPassword] = useState(false);
+   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
    const [loading, setLoading] = useState(false);
+
+   const navigator = useNavigate()
 
    const submitHandler = async () => {
 
@@ -27,14 +29,15 @@ export const Signup = () => {
          setLoading(false);
          return;
       }
-
+      
       try {
-         const { data } = await addeTheData(name, email, createPassword);
-
-         localStorage.setItem("userInfo", JSON.stringify(data));
+         const response = await addTheData(name, email, createPassword);
+         console.log(response)
+         localStorage.setItem("userInfo", JSON.stringify(response.data));
          setLoading(false);
+         navigator('/chats')
       } catch (e) {
-         alert("Oops!! something went wrong..");
+         alert("Oops!! something went wrong");
       }
    };
 
@@ -42,7 +45,7 @@ export const Signup = () => {
 
    return (
       <Fragment>
-         <Suspense fallback="loading..">
+         <Suspense fallback={<span className="font-mono text-2xl">loading..</span>}>
             <div
                onKeyDown={(e) => (e.key === "Enter" ? submitHandler() : "")}
                className="cardContent flex my-5 justify-evenly items-start flex-col w-[80%] h-[100%]"
@@ -385,7 +388,7 @@ export const Signup = () => {
                      type="button"
                      data-ripple-light="true"
                      onClick={() =>
-                        setshowConfirmPassword(!showConfirmPassword)
+                        setShowConfirmPassword(!showConfirmPassword)
                      }
                   >
                      {showConfirmPassword ? "Hide" : "Show"}
@@ -458,7 +461,7 @@ export const Signup = () => {
                <div className="submit w-full flex justify-center items-center">
                   <div className="submit w-full flex justify-center items-center">
                      <Link
-                        to="/chats"
+                        to="/"
                         className={`middle none center rounded-lg   ${themeColor === "blue"
                            ? allThemeColors.blue.bg500
                            : ""

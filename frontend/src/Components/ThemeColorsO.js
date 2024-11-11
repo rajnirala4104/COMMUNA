@@ -10,7 +10,7 @@ export const ThemeColorsO = () => {
 
    return (
       <Fragment>
-         <Suspense fallback="loading..">
+         <Suspense fallback={<span className="font-mono text-2xl">loading..</span>}>
             <div className="flex w-44 justify-between my-1">
                <div
                   className="bg-orange-300 w-[1.5rem] h-[1.5rem] rounded-full cursor-pointer border border-gray-500"

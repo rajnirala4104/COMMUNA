@@ -1,7 +1,7 @@
 import { ENDPOINTS } from "../constants";
 import { http } from "../http";
 
-export const addeTheData = (name, email, password) => {
+export const addTheData = (name, email, password) => {
    return http.post(
       ENDPOINTS.user,
       { name, email, password },

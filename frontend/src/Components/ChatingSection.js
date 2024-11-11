@@ -150,7 +150,7 @@ export const ChatingSection = () => {
 
    return (
       <Fragment>
-         <Suspense fallback="loading..">
+         <Suspense fallback={<span className="font-mono text-2xl">loading..</span>}>
             <Fragment>
                {selectedChat ? (
                   <section className=" w-full h-full border-l border-gray-500">

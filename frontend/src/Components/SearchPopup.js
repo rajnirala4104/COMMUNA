@@ -1,7 +1,7 @@
 import React, { Fragment, Suspense, useContext, useState } from "react";
 import { Loading, SearchUserBox } from "../Components";
-import { accessChatApiCall } from "../api/servces";
-import { searchU } from "../api/servces/users";
+import { accessChatApiCall } from "../api/services";
+import { searchU } from "../api/services/users";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, ThemeContext } from "../context";
 import { SearchPopupContext } from "../context/SearchPopupContext";

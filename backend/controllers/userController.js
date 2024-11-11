@@ -5,10 +5,10 @@ const { StatusCodes } = require("http-status-codes");
 const ApiError = require("../utils/apiError");
 const ApiResponse = require("../utils/apiResponse");
 
-const registieredUser = asyncHandler(async (req, res) => {
+const userRegistration = asyncHandler(async (req, res) => {
    // 1. Get the data from req.body
    const { name, email, password, pic } = req.body;
-
+   
    // 2. check if all the fields are mandatory
    if (!name || !email || !password) {
       throw new ApiError(StatusCodes.BAD_REQUEST, "All fields are mandatory");
@@ -60,7 +60,7 @@ const authUser = asyncHandler(async (req, res) => {
 
    // Step 4: check if the password is valid
    const isPasswordTrue = await user.matchPassword(password); // this will return Boolean
-
+  
    if (!isPasswordTrue) {
       throw new ApiError(StatusCodes.BAD_REQUEST, "Invalid Password");
    }
@@ -101,4 +101,4 @@ const searchUserController = asyncHandler(async (req, res) => {
    res.send(users);
 });
 
-module.exports = { registieredUser, authUser, searchUserController };
+module.exports = { userRegistration, authUser, searchUserController };

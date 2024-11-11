@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { Fragment, Suspense, useContext, useState } from "react";
-// import { createGroup } from "../api/servces/groupCalls";
-import { searchU } from "../api/servces/users";
+// import { createGroup } from "../api/services/groupCalls";
+import { searchU } from "../api/services/users";
 import { allThemeColors } from "../constants/ThemeColorsConstants";
 import { ChatState, GroupChatPopup, ThemeContext } from "../context";
 import { GroupSelectedUserBox } from "./GroupSelectedUserBox";
@@ -67,7 +67,7 @@ export const CreateGroupPopup = () => {
    };
    return (
       <Fragment>
-         <Suspense fallback="loading..">
+         <Suspense fallback={<span className="font-mono text-2xl">loading..</span>}>
             <section
                onKeyDown={(e) => (e.key === "Enter" ? "wow" : "")}
                className="z-20 w-full h-full bg-[rgba(128,126,126,0.3)] backdrop-blur-md absolute top-0 flex justify-center items-center"
